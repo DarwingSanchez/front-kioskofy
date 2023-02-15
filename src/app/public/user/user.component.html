@@ -1,0 +1,16 @@
+<section class="flex-row-center">
+    <div class="col-md-6 p-4">
+        <app-user-detail (eventEmitter)="changeFlagViewRightSide($event)"></app-user-detail>
+    </div>
+    <div class="col-md-6">
+        <div class="overflow-hidden">
+            <app-user-banner *ngIf="flag_right_window === 'banners'; else user_options"></app-user-banner>
+        </div>
+    </div>
+</section>
+
+<ng-template #user_options>
+    <div>
+        <app-change-password *ngIf="flag_right_window === 'password'"></app-change-password>
+    </div>
+</ng-template>

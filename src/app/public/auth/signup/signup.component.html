@@ -1,0 +1,56 @@
+<div class="row m-0 p-0">
+    <!-- Banner -->
+    <div class="col-6 banner-signup"></div>
+    <!-- Form -->
+    <div class="col-6 p-4 my-3">
+        <div class="flex-row-between">
+            <h2>Sign up</h2>
+            <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+        <hr>
+        <form [formGroup]="signupForm" (ngSubmit)="signUpUser()" class="d-flex flex-column gap-3">
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="name" class="h5 pb-2">Name</label>
+                    <input type="text" class="form-control h5" formControlName="name" placeholder="Your name"
+                        [ngClass]="{'invalid-input': (signupForm.get('name')?.hasError('required') && signupForm.get('name')?.touched)}">
+                </div>
+                <div class="form-group col-6">
+                    <label for="lastname" class="h5 pb-2">Last name</label>
+                    <input type="text" class="form-control h5" formControlName="last_name" placeholder="Your last name"
+                        [ngClass]="{'invalid-input': (signupForm.get('last_name')?.hasError('required') && signupForm.get('last_name')?.touched)}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastname" class="h5 pb-2">Phone number</label>
+                <input type="text" class="form-control h5" formControlName="phone" placeholder="Your phone number"
+                    ngbTooltip="Must be a 10 digits number" [ngClass]="{'invalid-input': (signupForm.get('phone')?.hasError('required') && signupForm.get('phone')?.touched)
+                    || (signupForm.get('phone')?.hasError('pattern') && signupForm.get('phone')?.touched)}">
+            </div>
+            <div class="form-group">
+                <label for="email" class="h5 pb-2">Email address</label>
+                <input type="email" class="form-control h5" formControlName="email" placeholder="Your email address"
+                    ngbTooltip="Valid email account">
+            </div>
+            <div class="form-group">
+                <label for="password" class="h5 pb-2">Password</label>
+                <input #password type="password" class="form-control h5" formControlName="password"
+                    placeholder="Password"
+                    ngbTooltip="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character."
+                    [ngClass]="{'invalid-input': (signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched)
+                    || (signupForm.get('password')?.hasError('pattern') && signupForm.get('password')?.touched)}">
+                <a class="button-text-link w-100 text-right"
+                    (click)="password.type === 'text' ? password.type = 'password' : password.type = 'text'">Show
+                    password</a>
+            </div>
+            <div class="form-group flex-row-start-center p-1"
+                [ngClass]="{'invalid-input': (signupForm.get('accepted_terms_conditions')?.value === false && signupForm.get('accepted_terms_conditions')?.touched)}">
+                <mat-checkbox formControlName="accepted_terms_conditions"></mat-checkbox>
+                <a class="button-text-link ms-2">Accept terms and conditions</a>
+            </div>
+            <button type="submit" class="button-main mt-2">
+                Sing Up
+            </button>
+        </form>
+    </div>
+</div>

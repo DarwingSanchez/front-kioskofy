@@ -1,0 +1,28 @@
+<section class="wrapper-background">
+    <div class="quick-access__ContainerQuickStyled-wa43lg-0 fndMVb "
+        [ngClass]="[flag_scroll_up === true ? 'container-quick-access-active' : 'container-quick-access-inactive']">
+        <section id="wrapper-sub-nav" class="px-4">
+            <div class="container-max-width-center flex-row-between">
+                <div class="address flex-row-start-center gap-2" (click)="openModalChangeSearchLocation()">
+                    <fa-icon [icon]="icon_map" size="lg"></fa-icon>
+                    <p *ngIf="search_location">
+                        <span class="bold">Search distance: {{transformRadiusToKm()}}/kms</span> -
+                        {{search_location.address}}
+                    </p>
+                </div>
+                <div>
+                    <div ngbDropdown class="d-inline-block">
+                        <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+                            EN 🇬🇧
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem>EN 🇬🇧</button>
+                            <button ngbDropdownItem>ES 🇪🇸</button>
+                            <button ngbDropdownItem>FR 🇫🇷</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>

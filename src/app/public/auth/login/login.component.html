@@ -1,0 +1,30 @@
+<div class="row m-0 p-0">
+    <!-- Banner -->
+    <div class="col-6 banner-login"></div>
+    <!-- Form -->
+    <div class="col-6 p-4 my-4">
+        <div class="flex-row-between">
+            <h2>Login</h2>
+            <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+        <hr>
+        <form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="d-flex flex-column gap-3">
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="h5 pb-2">Email address</label>
+                <input type="email" class="form-control h5" formControlName="email" placeholder="Enter email"
+                    [ngClass]="{'invalid-input': loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched}">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="h5 pb-2">Password</label>
+                <input #password type="password" class="form-control h5" formControlName="password"
+                    placeholder="Password"
+                    [ngClass]="{'invalid-input': loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched}">
+                <a class="d-flex button-text-link w-100 text-right"
+                    (click)="password.type === 'text' ? password.type = 'password' : password.type = 'text'">Show
+                    password</a>
+            </div>
+            <button type="submit" class="button-main mt-3"
+                [ngClass]="{'button-disabled': loginForm.invalid}">Login</button>
+        </form>
+    </div>
+</div>

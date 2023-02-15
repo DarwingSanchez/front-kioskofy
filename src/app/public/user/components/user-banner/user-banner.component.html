@@ -1,0 +1,5 @@
+<section class="flex-row-center h-100">
+    <span *ngFor="let img of images; let i = index" @fadeIn>
+        <img *ngIf="i === current_slide" [src]="img" class="slide" @fadeIn />
+    </span>
+</section>

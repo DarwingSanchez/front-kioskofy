@@ -1,0 +1,2 @@
+1) Swiper angular:  https://swiper6.vercel.app/angular 
+2) Angular with Eslint, Prettier, husky: https://itnext.io/angular-with-eslint-prettier-husky-6581ecd66fbb

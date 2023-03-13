@@ -1,0 +1,22 @@
+#btn_modal {
+    background: #8E6FF7;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    opacity: 1;
+    width: 10rem;
+    font-size: 1.2rem;
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+#icon-modal {
+    max-width: 50%;
+    height: auto;
+}
+
+::ng-deep .modal-content {
+    border-radius: 10px !important;
+}

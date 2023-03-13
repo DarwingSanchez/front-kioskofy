@@ -1,0 +1,24 @@
+<section>
+    <div class="wrapper-background-color-left">
+        <div class="py-2 flex-row-between container-max-width-center">
+            <h1 class="font-weight-bold">Favorites categories</h1>
+            <button class=" button-main">Explore all categories</button>
+        </div>
+    </div>
+    <div class="container-max-width-center position-relative container-categories">
+        <!-- Button left -->
+        <div class=" button-next-prev button-cat-left" (click)="scrollCategories('left')">
+            <i class="icon-arrow-left pointer"> l </i>
+        </div>
+        <!-- Cards -->
+        <div #container_categories class="w-100 container-scroll-x">
+            <div class="container-cards-categories my-3">
+                <app-card-categories *ngFor="let product of products; let i = index"></app-card-categories>
+            </div>
+        </div>
+        <!-- Button right -->
+        <div class="button-next-prev button-cat-right" (click)="scrollCategories('right')">
+            <i class="icon-arrow-right pointer">></i>
+        </div>
+    </div>
+</section>

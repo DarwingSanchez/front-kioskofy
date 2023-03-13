@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-1">
+    </div>
+    <div class="col-10 text-center">
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <img [src]="img_src" alt="Ícono modal" id="icon-modal" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <h3>
+                    {{ title }}
+                </h3>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-12 text-center">
+                <p>
+                    {{ msg }}
+                </p>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <button id="btn_modal" (click)="onClose()">
+                    {{ btn_msg }}
+                </button>
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="col-1">
+    </div>
+</div>

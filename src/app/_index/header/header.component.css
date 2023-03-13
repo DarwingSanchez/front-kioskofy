@@ -1,0 +1,237 @@
+#wrapper-nav {
+    display: flex;
+    justify-content: center;
+    height: 80px;
+    background-color: var(--color-light);
+    box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .2);
+}
+
+#wrapper-sub-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    background-color: var(--color-main-dark);
+}
+
+.navbar {
+    margin: auto;
+    max-width: 1480px;
+}
+
+h3 {
+    color: var(--color-main-dark);
+    font-weight: 500;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.input-search {
+    width: 100%;
+    height: 40px;
+    border-radius: 25px !important;
+    border: 1px solid var(--color-main-dark);
+}
+
+.mat-form-field::ng-deep .mat-form-field-wrapper,
+.mat-form-field::ng-deep .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+    padding: 0 !important;
+    border: 0;
+}
+
+.header-button-text {
+    color: var(--color-light) !important;
+}
+
+.logo-menu {
+    height: 70px;
+    overflow: hidden;
+}
+
+.logo {
+    width: 8.5rem;
+    object-fit: cover;
+    margin: 0px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.redes-sociales {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.nav-item {
+    text-align: left;
+    min-width: fit-content !important;
+    padding: 0;
+}
+
+ul {
+    text-align: center;
+}
+
+li {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.carrito {
+    color: #fff;
+}
+
+.collapse-carrito {
+    display: none;
+}
+
+.redes-socialies {
+    width: 25px;
+}
+
+fa-icon {
+    font-size: 18px;
+}
+
+@media (max-width: 1050px) {
+    .temp-text {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .logo-menu {
+        justify-content: start !important;
+        padding-left: 50px;
+    }
+
+    .collapse-carrito {
+        display: flex;
+        justify-content: flex-end;
+        /* color: #fff; */
+    }
+
+    .temp-text {
+        display: block;
+    }
+
+    .navbar {
+        height: fit-content;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0;
+    }
+
+    .navbar-collapse {
+        padding-bottom: 10px;
+        background-color: #140d4a !important;
+    }
+
+    .navbar button {
+        border: none;
+    }
+
+    .navbar-nav {
+        align-items: flex-start;
+    }
+
+    .navbar-nav li {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .navbar-toggler, .navbar-toggler-icon {
+        padding-right: 25px;
+    }
+
+    .logo-menu {
+        padding-left: 35px;
+    }
+}
+
+@media (max-width: 400px) {
+    .navbar-toggler, .navbar-toggler-icon {
+        padding-right: 20px;
+    }
+
+    .logo-menu {
+        padding-left: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    #top-header {
+        display: none !important;
+    }
+
+    .navbar-collapse {
+        justify-content: end;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+/* Test */
+.fndMVb {
+    transition: all 0.2s ease-out 0s;
+    background: rgb(238, 242, 247) !important;
+}
+
+.container-quick-access-active {
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eef2f7;
+}
+
+.container-quick-access-inactive {
+    background: #eef2f7;
+    -webkit-animation: fade-out-header .3s;
+    animation: fade-out-header .3s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+.container-quick-access-active {
+    -webkit-animation: fade-in-header .5s;
+    animation: fade-in-header .5s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade-out-header {
+    0% {
+        opacity: 1;
+        -webkit-transform: translatex(0);
+        transform: translatex(0);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translatex(-40px);
+        transform: translatex(-40px);
+    }
+}
+
+@keyframes fade-in-header {
+    0% {
+        opacity: 0;
+        -webkit-transform: translatex(-40px);
+        transform: translatex(-40px);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: translatex(0);
+        transform: translatex(0);
+    }
+}

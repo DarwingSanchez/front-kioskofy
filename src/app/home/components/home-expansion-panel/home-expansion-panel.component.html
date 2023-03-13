@@ -1,0 +1,65 @@
+<section>
+    <div class="wrapper-background-color-left">
+        <div class="py-2 flex-row-between container-max-width-center">
+            <h1 class="font-weight-bold">Information Panel</h1>
+            <div class="d-flex flex-row align-content-center">
+                <button class="button-main mx-4" mat-button (click)="accordion.openAll()">Expand All</button>
+                <button class="button-main" mat-button (click)="accordion.closeAll()">Collapse All</button>
+            </div>
+        </div>
+    </div>
+    <div class="container-max-width-center mt-4">
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Personal data
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Type your name and age
+                        <mat-icon>account_circle</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-form-field appearance="fill">
+                    <mat-label>First name</mat-label>
+                    <input matInput />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Age</mat-label>
+                    <input type="number" min="1" matInput />
+                </mat-form-field>
+            </mat-expansion-panel>
+            <mat-expansion-panel disabled>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Destination
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Type the country name
+                        <mat-icon>map</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-form-field appearance="fill">
+                    <mat-label>Country</mat-label>
+                    <input matInput />
+                </mat-form-field>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Day of the trip
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Inform the date you wish to travel
+                        <mat-icon>date_range</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-form-field appearance="fill">
+                    <mat-label>Date</mat-label>
+                    <input [matDatepicker]="picker" (focus)="picker.open()" readonly matInput />
+                </mat-form-field>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</section>

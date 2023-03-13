@@ -1,0 +1,8 @@
+.main-wrapper {
+    width: 100vw !important;
+    display: block;
+}
+
+.router-outlet {
+    min-height: calc(100vh - 120px);
+}

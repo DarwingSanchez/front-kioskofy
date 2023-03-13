@@ -1,1 +1,299 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~swiper/swiper-bundle';
+@import './../node_modules/swiper/swiper-bundle.css';
+/* @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular'; */
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --color-main: #FF1900;
+    --color-main-light: #fff0ed;
+    --color-main-ultra-light: #fff8f6;
+    --color-main-dark: #DB162F;
+    --color-main-2: #0071ed;
+    --color-disabled: #f8f9fa;
+    --color-light: #ffffff;
+    --color-font: #282B28;
+    --color-price: #140d4a;
+    --color-alert: #ff7e7e;
+    --size-window: 1300px;
+}
+
+.background-color-main-light {
+    background-color: var(--color-main-light);
+}
+
+.wrapper-background-color-right {
+    background-image: linear-gradient(75deg, var(--color-light) 0%, var(--color-light) 40%, var(--color-main-light) 40%, var(--color-main-light) 100%);
+}
+
+.wrapper-background-color-left {
+    background-image: linear-gradient(285deg, var(--color-light) 0%, var(--color-light) 40%, var(--color-main-light) 40%, var(--color-main-light) 100%);
+}
+
+.flex-row-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-row-between {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-max-width-center {
+    max-width: var(--size-window);
+    margin: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.container-scroll-x {
+    overflow-y: unset;
+    overflow-x: scroll;
+}
+
+h6 {
+    font-size: 10px;
+    margin: 0 !important;
+}
+
+h5 {
+    font-size: 14px;
+    margin: 0 !important;
+}
+
+h4 {
+    font-size: 18px;
+    margin: 0 !important;
+}
+
+h3 {
+    font-size: 24px;
+    margin: 0 !important;
+}
+
+h2 {
+    font-size: 32px;
+    margin: 0 !important;
+}
+
+h1 {
+    font-size: 44px;
+    margin: 0 !important;
+}
+
+.my-5 {
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+.my-6 {
+    margin-top: 72px;
+    margin-bottom: 72px;
+}
+
+.text-color-main {
+    color: var(--color-main-dark) !important;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.button-main {
+    background-color: var(--color-main-dark);
+    color: var(--color-light);
+    border: 2px solid var(--color-main-dark);
+    padding: 8px 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+}
+
+.button-main:hover {
+    background-color: var(--color-light);
+    border: 2px solid var(--color-main-dark);
+}
+
+.button-main:hover>h3 {
+    color: var(--color-main-dark) !important;
+}
+
+.button-main-light {
+    background-color: var(--color-light);
+    border: 2px solid var(--color-main-dark);
+    padding: 8px 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+}
+
+.button-main-light:hover {
+    background-color: var(--color-main-dark);
+    border: 2px solid var(--color-light);
+}
+
+.border-dark {
+    border: 1px solid var(--color-main-dark) !important;
+}
+
+.button-main-light:hover>h3 {
+    color: var(--color-light) !important;
+}
+
+.button-rounded {
+    border-radius: 60px !important;
+}
+
+.button-round-2 {
+    background-color: var(--color-main-2);
+    color: var(--color-light);
+    padding: 8px 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.button-next-prev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: var(--color-light);
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border-width: 0;
+    -webkit-box-shadow: 0 2px 4px 0 rgb(0 0 0 / 19%);
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 19%);
+    cursor: pointer;
+    height: 64px;
+    outline: 0;
+    width: 64px;
+    z-index: 2;
+}
+
+.button-next-prev:hover {
+    -webkit-box-shadow: 0 4px 8px 0 rgb(0 0 0 / 19%);
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 19%);
+    cursor: pointer;
+    opacity: 100% !important;
+}
+
+.button-disabled {
+    background-color: var(--color-disabled);
+    border: 2px solid var(--color-disabled);
+}
+
+.button-disabled h3 {
+    color: var(--color-font);
+}
+
+.button-disabled:hover {
+    background-color: var(--color-disabled);
+    border: 2px solid var(--color-disabled);
+    cursor: not-allowed;
+}
+
+.button-disabled:hover h3 {
+    color: var(--color-main-light);
+}
+
+.border-transparent {
+    border-color: transparent;
+}
+
+.invalid-input {
+    border: 1px solid var(--color-alert);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.inactive {
+    display: none !important;
+}
+
+.swiper-container .swiper-zoom-container>img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+}
+
+.swiper-pagination-bullet {
+    background-color: var(--color-main-dark);
+    border: 1px solid var(--color-light);
+    width: 1rem;
+    height: 1rem;
+    border-radius: .5rem;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: var(--color-light);
+    border: 1px solid var(--color-main-dark);
+    width: 3rem;
+    height: 1rem;
+    border-radius: .5rem;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--color-light);
+}

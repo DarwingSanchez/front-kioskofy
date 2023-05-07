@@ -1,0 +1,15 @@
+<section>
+    <nav [color]="'warn'" animationDuration="0ms" mat-align-tabs="end" class="container-max-width-center mb-4"
+        mat-tab-nav-bar>
+        <a mat-tab-link [routerLink]="['all/']" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
+            All products
+        </a>
+        <a mat-tab-link [routerLink]="['all/']" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
+            Categories
+        </a>
+        <a mat-tab-link [routerLink]="['create/']" routerLinkActive #rla3="routerLinkActive" [active]="rla3.isActive">
+            Sell
+        </a>
+    </nav>
+    <router-outlet></router-outlet>
+</section>

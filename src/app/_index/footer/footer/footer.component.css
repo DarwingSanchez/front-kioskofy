@@ -4,11 +4,11 @@ footer {
     bottom: 0;
     height: 0px;
     width: 100vw;
-    background: yellow;
+    background: var(--color-main);
 }
 
 #wrapper-top {
-    background-color: var(--color-main-dark);
+    background-color: var(--color-main);
     height: 80px;
 }
 

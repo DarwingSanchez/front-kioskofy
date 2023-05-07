@@ -12,7 +12,7 @@
 
 <section class="sticky-top">
     <div id="wrapper-nav" class="px-4">
-        <nav class="navbar col-12 navbar-expand-lg navbar-light sticky-top m-0 p-0">
+        <nav class="container-max-width-center navbar col-12 navbar-expand-lg navbar-light sticky-top m-0 p-0">
             <div class="logo-menu col-xl-2 col-lg-2 col-md-3 col-sm-8 col-6">
                 <a routerLink="/home">
                     <img src="../../../assets/logos/logo300.png" class="logo" alt="logo" />
@@ -46,26 +46,26 @@
                     <li class="nav-item">
                         <a class="nav-link cursor-pointer" routerLink="products/all" (click)="isMenuCollapsed = true"
                             routerLinkActive="active-link">
-                            <h3>Products</h3>
+                            <h3 class="header-button-text">Products</h3>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link cursor-pointer" routerLink="/services" (click)="isMenuCollapsed = true"
                             routerLinkActive="active-link">
-                            <h3>Services</h3>
+                            <h3 class="header-button-text">Services</h3>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link cursor-pointer" routerLink="/stores" (click)="isMenuCollapsed = true"
                             routerLinkActive="active-link">
-                            <h3>Stores</h3>
+                            <h3 class="header-button-text">Stores</h3>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link cursor-pointer" routerLink="/cuenta" (click)="isMenuCollapsed = true"
+                        <a class="nav-link cursor-pointer" (click)="signUpUser()" (click)="isMenuCollapsed = true"
                             routerLinkActive="active-link">
                             <button class="button-main-light button-rounded" mat-raised-button>
-                                <h3 class="text-color-main">
+                                <h3 class="font-weight-bold">
                                     Sign up
                                 </h3>
                             </button>
@@ -82,11 +82,11 @@
                             <span class="badge-car">{{ productcounter }}</span>
                         </h3>
                     </a> -->
-                        <a class="nav-link cursor-pointer" routerLink="/cuenta" (click)="isMenuCollapsed = true"
+                        <a class="nav-link cursor-pointer" (click)="loginUser()" (click)="isMenuCollapsed = true"
                             routerLinkActive="active-link">
                             <button class="button-main button-rounded" mat-raised-button>
                                 <!-- <fa-icon [icon]="faUser"></fa-icon> -->
-                                <h3 class="header-button-text">
+                                <h3 class="font-weight-bold">
                                     Sign in
                                 </h3>
                             </button>
@@ -100,7 +100,8 @@
 <div class="quick-access__ContainerQuickStyled-wa43lg-0 fndMVb "
     [ngClass]="[flag_scroll_up === true ? 'container-quick-access-active' : 'container-quick-access-inactive']">
     <section id="wrapper-sub-nav" class="px-4">
-        <div>
+        <div class="container-max-width-center flex-row-between">
+            <h3>Select a city</h3>
             <h3>Select a city</h3>
         </div>
     </section>

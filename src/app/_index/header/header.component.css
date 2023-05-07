@@ -2,35 +2,35 @@
     display: flex;
     justify-content: center;
     height: 80px;
-    background-color: var(--color-light);
+    background-color: var(--color-main-2);
     box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .2);
+    border-bottom: 0.5px solid var(--color-light);
 }
 
 #wrapper-sub-nav {
     display: flex;
-    justify-content: center;
     align-items: center;
     height: 40px;
-    background-color: var(--color-main-dark);
+    width: 100%;
+    background-color: var(--color-main-4);
 }
 
-.navbar {
-    margin: auto;
-    max-width: 1480px;
+#wrapper-sub-nav>div {
+    width: 100%;
+    color: var(--color-font);
 }
 
-h3 {
-    color: var(--color-main-dark);
-    font-weight: 500;
-    padding-left: 8px;
-    padding-right: 8px;
-}
+/* header {
+    color: var(--color-main);
+    font-weight: 600;
+} */
 
 .input-search {
     width: 100%;
     height: 40px;
     border-radius: 25px !important;
-    border: 1px solid var(--color-main-dark);
+    border: 2px solid var(--color-main);
+    background: var(--color-light);
 }
 
 .mat-form-field::ng-deep .mat-form-field-wrapper,
@@ -40,6 +40,11 @@ h3 {
 }
 
 .header-button-text {
+    color: var(--color-main) !important;
+    font-weight: 900;
+}
+
+.header-button-text:hover {
     color: var(--color-light) !important;
 }
 
@@ -111,7 +116,6 @@ fa-icon {
     .collapse-carrito {
         display: flex;
         justify-content: flex-end;
-        /* color: #fff; */
     }
 
     .temp-text {
@@ -180,7 +184,7 @@ fa-icon {
 /* Test */
 .fndMVb {
     transition: all 0.2s ease-out 0s;
-    background: rgb(238, 242, 247) !important;
+    background: var(--color-main-background);
 }
 
 .container-quick-access-active {
@@ -190,7 +194,7 @@ fa-icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #eef2f7;
+    background: var(--color-main-background);
 }
 
 .container-quick-access-inactive {

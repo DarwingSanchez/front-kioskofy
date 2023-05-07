@@ -19,17 +19,24 @@ html {
 }
 
 :root {
-    --color-main: #FF1900;
-    --color-main-light: #fff0ed;
+    --color-main: #FFDF02;
+    --color-main-2: #01769C;
+    --color-main-3: #ffdada;
+    --color-main-4: #fff5e7;
+    --color-main-light: #fff9cc;
+    --color-main-light-2: #e6f4ff;
     --color-main-ultra-light: #fff8f6;
-    --color-main-dark: #DB162F;
-    --color-main-2: #0071ed;
+    --color-main-dark: #e4cd05;
+    --color-main-background: #f8f8f8;
     --color-disabled: #f8f9fa;
+    --color-light-grey: #f7f7f7;
     --color-light: #ffffff;
     --color-font: #282B28;
     --color-price: #140d4a;
     --color-alert: #ff7e7e;
-    --size-window: 1300px;
+    --size-window: 1250px;
+    --card-height: 265px;
+    --card-width: 160px;
 }
 
 .background-color-main-light {
@@ -37,11 +44,11 @@ html {
 }
 
 .wrapper-background-color-right {
-    background-image: linear-gradient(75deg, var(--color-light) 0%, var(--color-light) 40%, var(--color-main-light) 40%, var(--color-main-light) 100%);
+    background-image: linear-gradient(75deg, var(--color-main-background) 0%, var(--color-main-background) 40%, var(--color-main-4) 40%, var(--color-main-4) 100%);
 }
 
 .wrapper-background-color-left {
-    background-image: linear-gradient(285deg, var(--color-light) 0%, var(--color-light) 40%, var(--color-main-light) 40%, var(--color-main-light) 100%);
+    background-image: linear-gradient(285deg, var(--color-main-background) 0%, var(--color-main-background) 40%, var(--color-main-4) 40%, var(--color-main-4) 100%);
 }
 
 .flex-row-center {
@@ -51,11 +58,25 @@ html {
     align-items: center;
 }
 
+.flex-row-start-end {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: end;
+}
+
 .flex-column-center {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.flex-column-start-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
 }
 
 .flex-row-between {
@@ -68,8 +89,6 @@ html {
 .container-max-width-center {
     max-width: var(--size-window);
     margin: auto;
-    padding-left: 24px;
-    padding-right: 24px;
 }
 
 .container-scroll-x {
@@ -77,34 +96,38 @@ html {
     overflow-x: scroll;
 }
 
-h6 {
+.h6, h6 {
     font-size: 10px;
     margin: 0 !important;
 }
 
-h5 {
+.h5, h5 {
     font-size: 14px;
     margin: 0 !important;
 }
 
-h4 {
+.h4, h4 {
     font-size: 18px;
     margin: 0 !important;
 }
 
-h3 {
+.h3, h3 {
     font-size: 24px;
     margin: 0 !important;
 }
 
-h2 {
+.h2, h2 {
     font-size: 32px;
     margin: 0 !important;
 }
 
-h1 {
+.h1, h1 {
     font-size: 44px;
     margin: 0 !important;
+}
+
+.font-weight-bold {
+    font-weight: 700 !important;
 }
 
 .my-5 {
@@ -118,7 +141,7 @@ h1 {
 }
 
 .text-color-main {
-    color: var(--color-main-dark) !important;
+    color: var(--color-main) !important;
 }
 
 .text-justify {
@@ -126,9 +149,9 @@ h1 {
 }
 
 .button-main {
-    background-color: var(--color-main-dark);
-    color: var(--color-light);
-    border: 2px solid var(--color-main-dark);
+    background-color: var(--color-main);
+    color: var(--color-font);
+    border: 2px solid var(--color-main);
     padding: 8px 16px;
     font-weight: 600;
     border-radius: 4px;
@@ -142,16 +165,11 @@ h1 {
 
 .button-main:hover {
     background-color: var(--color-light);
-    border: 2px solid var(--color-main-dark);
-}
-
-.button-main:hover>h3 {
-    color: var(--color-main-dark) !important;
 }
 
 .button-main-light {
     background-color: var(--color-light);
-    border: 2px solid var(--color-main-dark);
+    border: 2px solid var(--color-main);
     padding: 8px 16px;
     font-weight: 600;
     border-radius: 4px;
@@ -163,17 +181,22 @@ h1 {
     cursor: pointer;
 }
 
-.button-main-light:hover {
-    background-color: var(--color-main-dark);
-    border: 2px solid var(--color-light);
+.button-main-light:hover, .button-main-light:hover {
+    background-color: var(--color-main);
+}
+
+.button-text {
+    text-decoration: none;
+    color: var(--color-main-2);
+    font-weight: 600;
+}
+
+.button-text:hover {
+    color: var(--color-main-dark);
 }
 
 .border-dark {
     border: 1px solid var(--color-main-dark) !important;
-}
-
-.button-main-light:hover>h3 {
-    color: var(--color-light) !important;
 }
 
 .button-rounded {
@@ -263,6 +286,10 @@ body {
 
 .overflow-hidden {
     overflow: hidden;
+}
+
+.overflow-y-visible {
+    overflow-y: visible !important;
 }
 
 .inactive {

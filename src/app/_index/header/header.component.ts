@@ -2,7 +2,10 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 // import { faShoppingCart, faBars, faUser, faBarsProgress } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from '@angular/forms';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { map, startWith } from 'rxjs';
+import { LoginComponent } from 'src/app/modal/login/login.component';
+import { SignupComponent } from 'src/app/modal/signup/signup.component';
 
 @Component({
   selector: 'app-header',
@@ -10,11 +13,13 @@ import { map, startWith } from 'rxjs';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  /** Iconos FontAwesome para usar en el template */
-  // faShoppingCart = faShoppingCart;
-  // faUser = faUser;
-  // faBars = faBarsProgress;
-
+  //Evita que al hacer click por fuera se cierre el modal
+  private ngbModalOptions: NgbModalOptions = {
+    backdrop: 'static',
+    centered: true,
+    keyboard: false,
+    size: 'lg',
+  };
   productcounter = 0;
 
   // Guardamos dinamicamente los valores de autocompletado
@@ -25,28 +30,39 @@ productos_filtrados: any;
 
   public currentPosition = window.pageYOffset;
 
-  constructor(@Inject(DOCUMENT) private _document: Document) {
-  this._document.addEventListener('scroll', this.onContentScrolled);
-}
-onContentScrolled = (e: any) => {
-  let scroll = window.pageYOffset;
-  console.log('scroll', scroll, 'this.currentPosition', this.currentPosition, 'this.flag_scroll_up', this.flag_scroll_up);
-  
-  if (scroll > this.currentPosition && this.flag_scroll_up) {
-    console.log('scrollDown');
-    this.flag_scroll_up = false;
-  } else if(scroll < this.currentPosition && !this.flag_scroll_up){
-    console.log('scrollUp');
-    this.flag_scroll_up = true;
+  constructor(@Inject(DOCUMENT) private _document: Document, private modalService: NgbModal) {
+    this._document.addEventListener('scroll', this.onContentScrolled);
   }
-  this.currentPosition = scroll;
-}
-flag_scroll_up = true;
+
+  public signUpUser(): void {
+    const modalRef = this.modalService.open(SignupComponent, this.ngbModalOptions);
+    modalRef.componentInstance.close_callback = () => {};
+  }
+
+  public loginUser(): void {
+    const modalRef = this.modalService.open(LoginComponent, this.ngbModalOptions);
+    modalRef.componentInstance.close_callback = () => {};
+  }
+
+  onContentScrolled = (e: any) => {
+    let scroll = window.pageYOffset;
+    // console.log('scroll', scroll, 'this.currentPosition', this.currentPosition, 'this.flag_scroll_up', this.flag_scroll_up);
+    
+    if (scroll > this.currentPosition && this.flag_scroll_up) {
+      // console.log('scrollDown');
+      this.flag_scroll_up = false;
+    } else if(scroll < this.currentPosition && !this.flag_scroll_up){
+      // console.log('scrollUp');
+      this.flag_scroll_up = true;
+    }
+    this.currentPosition = scroll;
+  }
+  flag_scroll_up = true;
 
   public isMenuCollapsed = true;
 
   ngOnInit(): void {
-    console.log('works');
+    // console.log('works');
   }
 
  /**
@@ -61,7 +77,7 @@ flag_scroll_up = true;
   }
 
   displayFn(user: any) {
-    console.log(user ? user.value : '');
+    // console.log(user ? user.value : '');
     return user ? user.nombre : undefined;
   }
 

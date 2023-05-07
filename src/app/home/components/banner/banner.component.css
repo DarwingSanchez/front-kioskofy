@@ -1,0 +1,5 @@
+.img-banners, .swiper {
+    border-radius: 8px;
+    aspect-ratio: 5/1;
+    object-fit: cover;
+}

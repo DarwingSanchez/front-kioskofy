@@ -17,7 +17,7 @@ export class BannerComponent implements OnInit {
   // Swiper configuration for principal banneR
   public my_swipe: SwiperOptions = {
     slidesPerView: 1,
-    spaceBetween: 50,
+    spaceBetween: 16,
     pagination: {
       clickable: true,
       type: 'bullets',
@@ -31,15 +31,6 @@ export class BannerComponent implements OnInit {
     centeredSlides: true,
     centeredSlidesBounds: true
   };
-  public my_swipe2: SwiperOptions = {
-      slidesPerView: 4,
-    spaceBetween: 50,
-   pagination: {
-      el: '.swiper-pagination',
-       clickable: true,
-       dynamicBullets: true
-    }
-};
 
   constructor() { }
   

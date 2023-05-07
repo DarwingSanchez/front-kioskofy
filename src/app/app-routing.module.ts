@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home/home.component';
-import { ProductCreateComponent } from './products/product-create/product-create.component';
-import { ProductDetailComponent } from './products/product-detail/product-detail.component';
-import { ProductParentRouterComponent } from './products/product-parent-router/product-parent-router.component';
-import { ProductsComponent } from './products/products/products.component';
+import { HomeComponent } from './home/home.component';
+import { ProductCreateComponent } from './portfolio/components/products/product-create/product-create.component';
+import { ProductDetailComponent } from './portfolio/components/products/product-detail/product-detail.component';
+// import { ProductParentRouterComponent } from './products/portfolio/product-parent-router.component';
+// import { ProductsComponent } from './products/products/products.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { PortfolioAllComponent } from './portfolio/components/portfolio-all/portfolio-all.component';
 
 
 const routes: Routes = [
@@ -22,19 +24,23 @@ const routes: Routes = [
     { path: "products", redirectTo: "products/all" },
     {
     path: 'products',
-    component: ProductParentRouterComponent,
+    component: PortfolioComponent,
+    data: { breadcrumb: {alias: 'products'} },
     children: [
       {
         path: 'all',
-        component: ProductsComponent,
+        component: PortfolioAllComponent,
+        data: { breadcrumb: {alias: 'all'} },
       },
       {
         path: 'create',
         component: ProductCreateComponent,
+        data: { breadcrumb: {alias: 'create'} },
       },
       {
         path: 'detail',
         component: ProductDetailComponent,
+        data: { breadcrumb: {alias: 'detail'} },
       },
     ],
   },

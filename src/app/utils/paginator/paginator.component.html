@@ -1,0 +1,38 @@
+<div class="paginator gap-3">
+    <!-- Previous -->
+    <button class="before-next" *ngIf="current_page > 1"
+        [ngClass]="current_page <= 1 ? 'button-disabled' : 'before-next'" [disabled]="current_page <= 1"
+        (click)="goToPreviousPage()">
+        <p class="h5">Prev</p>
+    </button>
+    <!-- Jump to first page -->
+    <div class="number cursor-pointer" *ngIf="current_page > 2" (click)="goToPage(1)">
+        <p class="h5">1</p>
+    </div>
+    <div class="number-no-border cursor-pointer" *ngIf="current_page > 2" (click)="goToPage(current_page - 2)">
+        ...
+    </div>
+    <!-- Paginator -->
+    <div class="number cursor-pointer" (click)="goToPage(current_page - 1)" *ngIf="current_page === 1">
+        <p class="h5">{{current_page - 1 === 0 ? '-' : current_page - 1}}</p>
+    </div>
+    <div class="number number-active">
+        <p class="h5">{{current_page}}</p>
+    </div>
+    <div class="number cursor-pointer" (click)="goToPage(current_page + 1)" *ngIf="current_page < total_pages">
+        <p class="h5">{{current_page >= total_pages ? '-' : current_page + 1}}</p>
+    </div>
+    <!-- Jump to last page -->
+    <button class="number-no-border cursor-pointer" *ngIf="total_pages - current_page >=  2"
+        (click)="goToPage(current_page + 2)">
+        <p class="h5">...</p>
+    </button>
+    <div class="number cursor-pointer" *ngIf="total_pages - current_page >=  2" (click)="goToPage(total_pages)">
+        <p class="h5">{{total_pages}}</p>
+    </div>
+    <!-- Next -->
+    <button class="before-next" *ngIf="current_page < total_pages" [disabled]="current_page >= total_pages"
+        [ngClass]="current_page >= total_pages ? 'button-disabled' : 'before-next' " (click)="goToNextPage()">
+        <p class="h5">Next</p>
+    </button>
+</div>

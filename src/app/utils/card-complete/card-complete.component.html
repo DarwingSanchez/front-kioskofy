@@ -1,0 +1,53 @@
+<mat-card class="example-card">
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content class="d-flex flex-column align-items-center justify-content-between m-0 w-100 py-2 px-2">
+        <!-- Name -->
+        <div class="w-100">
+            <h4 class="ellipsis">
+                The Shiba Inu is the Oh od Hola
+            </h4>
+        </div>
+        <!-- Price -->
+        <div class="d-flex w-100 flex-row justify-content-start align-items-center">
+            <h2>{{ 5000 | currency: 'CAD':'symbol':'1.0-0' }}</h2>
+            <sub>/25 kg</sub>
+        </div>
+        <!-- City -->
+        <div class="w-100">
+            <p class="text-start ellipsis">
+                Vancouver
+            </p>
+        </div>
+        <div class="d-flex w-100 flex-row justify-content-between align-items-center">
+            <!-- Category -->
+            <div class="w-100">
+                <p class="text-start ellipsis">
+                    Tecnología
+                </p>
+            </div>
+            <!-- Flag -->
+            <div class="d-flex w-100 flex-row justify-content-end align-items-center gap-2">
+                <img src="https://flagsapi.com/BE/flat/16.png" width="25" height="25">
+            </div>
+        </div>
+
+        <div class="d-flex w-100 flex-row justify-content-between align-items-center">
+            <!-- Type of seller -->
+            <div class="d-flex flex-row gap-1">
+                <img src="../../../assets/icons/non-profit.png" width="25" height="25" alt="heart outline">
+                <img src="../../../assets/icons/Startup.png" width="25" height="25" alt="heart outline">
+                <img src="../../../assets/icons/recommended.png" width="25" height="25" alt="heart outline">
+            </div>
+            <!-- Buy! -->
+            <div>
+                <img src="../../../assets/icons/buy.png" width="25" height="25" alt="heart outline">
+            </div>
+        </div>
+    </mat-card-content>
+    <div class="heart-container cursor-pointer" (click)="likedCard()">
+        <img *ngIf="!is_liked_by_user" src="../../../assets/icons/heart-full.png" width="30" height="30"
+            alt="heart filled">
+        <img *ngIf="is_liked_by_user" src="../../../assets/icons/heart-outline.png" width="30" height="30"
+            alt="heart outline">
+    </div>
+</mat-card>

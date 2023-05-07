@@ -1,0 +1,92 @@
+<section class="d-flex flex-column gap-3">
+    <!-- Countries -->
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Countries:</h3>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <section class="flex-column-start-center" [formGroup]="form_sort_by">
+            <mat-radio-group class="flex-column-start-center gap-1" formControlName="sort_by">
+                <mat-radio-button [value]="item.slug" *ngFor="let item of sort_list">{{item.name}}</mat-radio-button>
+            </mat-radio-group>
+        </section>
+    </mat-expansion-panel>
+    <!-- Categories -->
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Categories:</h3>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <section class="flex-column-start-center" [formGroup]="form_sort_by">
+            <mat-radio-group class="flex-column-start-center gap-1" formControlName="sort_by">
+                <mat-radio-button [value]="item.slug" *ngFor="let item of sort_list">{{item.name}}</mat-radio-button>
+            </mat-radio-group>
+        </section>
+    </mat-expansion-panel>
+    <!-- Price -->
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Price:</h3>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <section class="flex-column-start-center gap-2" [formGroup]="form_price">
+            <mat-radio-group class="flex-column-start-center gap-1" formControlName="price">
+                <mat-radio-button [value]="item.slug" *ngFor="let item of price_list">{{item.name}}</mat-radio-button>
+            </mat-radio-group>
+            <div class="d-flex flex-row w-100 gap-2">
+                <mat-form-field class="w-50">
+                    <mat-label>Min. price</mat-label>
+                    <input matInput placeholder="0" [value]="form_price.value.price">
+                </mat-form-field>
+                <mat-form-field class="w-50">
+                    <mat-label>Max. price</mat-label>
+                    <input matInput placeholder="-" [value]="form_price.value.price">
+                </mat-form-field>
+            </div>
+        </section>
+    </mat-expansion-panel>
+    <!-- Condition -->
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Condition:</h3>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <section class="flex-column-start-center" [formGroup]="form_conditions">
+            <mat-checkbox *ngFor="let condition of condition_list" [formControlName]="condition.slug">
+                {{condition.name}}
+            </mat-checkbox>
+        </section>
+    </mat-expansion-panel>
+    <!-- Sort by -->
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Sort by:</h3>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <section class="flex-column-start-center" [formGroup]="form_sort_by">
+            <mat-radio-group class="flex-column-start-center gap-1" formControlName="sort_by">
+                <mat-radio-button [value]="item.slug" *ngFor="let item of sort_list">{{item.name}}</mat-radio-button>
+            </mat-radio-group>
+        </section>
+    </mat-expansion-panel>
+    <!-- <section class="example-section" [formGroup]="form_conditions">
+        <h4>You chose:</h4>
+        {{form_conditions.value | json}}
+    </section>
+    <section class="example-section" [formGroup]="form_sort_by">
+        <h4>You chose:</h4>
+        {{form_sort_by.value | json}}
+    </section> -->
+    <div class="flex-row-center">
+        <button class="button-main button-rounded" mat-raised-button>
+            <p class="font-weight-bold h5">
+                Clean Filters
+            </p>
+        </button>
+    </div>
+</section>

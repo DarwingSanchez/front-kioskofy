@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { ProductCreateComponent } from './portfolio/components/products/product-create/product-create.component';
-import { ProductDetailComponent } from './portfolio/components/products/product-detail/product-detail.component';
+import { HomeComponent } from './public/home/home.component';
+import { ProductCreateComponent } from './public/portfolio/components/products/product-create/product-create.component';
+import { ProductDetailComponent } from './public/portfolio/components/products/product-detail/product-detail.component';
 // import { ProductParentRouterComponent } from './products/portfolio/product-parent-router.component';
 // import { ProductsComponent } from './products/products/products.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
-import { PortfolioAllComponent } from './portfolio/components/portfolio-all/portfolio-all.component';
+import { PortfolioComponent } from './public/portfolio/portfolio.component';
+import { PortfolioAllComponent } from './public/portfolio/components/portfolio-all/portfolio-all.component';
 
 
 const routes: Routes = [

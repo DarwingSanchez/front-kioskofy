@@ -26,7 +26,7 @@
             <div [ngbCollapse]="isMenuCollapsed"
                 class="col-xl-5 col-lg-6 col-md-4 collapse navbar-collapse d-flex justify-content-center ">
                 <form class="example-form col-12">
-                    <mat-form-field class="w-100">
+                    <mat-form-field class="w-75">
                         <input #escogido type="text" placeholder="Buscar por nombre del producto"
                             aria-label="Buscar distribuidor" [formControl]="mySearch" [matAutocomplete]="auto"
                             class="input-search rounded px-3 border-transparent border-left" matInput />
@@ -97,12 +97,4 @@
         </nav>
     </div>
 </section>
-<div class="quick-access__ContainerQuickStyled-wa43lg-0 fndMVb "
-    [ngClass]="[flag_scroll_up === true ? 'container-quick-access-active' : 'container-quick-access-inactive']">
-    <section id="wrapper-sub-nav" class="px-4">
-        <div class="container-max-width-center flex-row-between">
-            <h3>Select a city</h3>
-            <h3>Select a city</h3>
-        </div>
-    </section>
-</div>
+<app-sub-header></app-sub-header>

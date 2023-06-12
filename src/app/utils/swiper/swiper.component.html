@@ -1,5 +1,5 @@
 <swiper [config]="my_swipe" class="swiper">
-    <ng-template swiperSlide *ngFor="let banner of banners">
-        <img class="w-100 img-banners" [src]="banner.url" alt="Main banners" [ngStyle]="{'aspect-ratio': aspect_ratio}">
+    <ng-template swiperSlide *ngFor="let img of imgs">
+        <img class="w-100 img-imgs" [src]="img" alt="Main banners" [ngStyle]="{'aspect-ratio': aspect_ratio}">
     </ng-template>
 </swiper>

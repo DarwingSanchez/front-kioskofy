@@ -7,7 +7,7 @@ import SwiperCore, {
   Autoplay,
 } from 'swiper';
 SwiperCore.use([Navigation, Pagination, Autoplay]); // install Swiper modules
-import { Banner } from 'src/app/interfaces/banner.interface';
+import { Banner } from 'src/app/core/interfaces/banner.interface';
 
 @Component({
   selector: 'app-swiper',
@@ -15,21 +15,16 @@ import { Banner } from 'src/app/interfaces/banner.interface';
   styleUrls: ['./swiper.component.css']
 })
 export class SwiperComponent {
-  // Data from parent
   @Input() aspect_ratio: string = '5 / 1';
-  @Input() banners: Banner[] = [];
+  @Input() imgs: string[] = [];
   @Input() swiper_navigation: boolean = false;
+
   // Swiper configuration for principal banneR
   public my_swipe: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 16,
-    pagination: {
-      clickable: true,
-      type: 'bullets',
-    },
-    autoplay: {
-      delay: 3000,
-    },
+    pagination: { clickable: true, type: 'bullets' },
+    autoplay: { delay: 3000 },
     navigation: this.swiper_navigation,
     loop: true,
     speed: 1000,

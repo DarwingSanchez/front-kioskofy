@@ -14,7 +14,7 @@
         <!-- Price -->
         <div class="d-flex w-100 flex-row justify-content-start align-items-center h4 price py-1">
             <p>{{ price | currency: 'CAD':'symbol':'1.0-0' }}</p>
-            <sub>/{{portfolio.quantity}} {{portfolio.measure}}</sub>
+            <sub>/{{portfolio ? portfolio.quantity : '3'}} {{portfolio ? portfolio.measure : 'un'}}</sub>
         </div>
         <div class="price-category d-flex w-100 flex-row justify-content-between align-items-end pb-2">
             <div class="d-flex w-50 flex-column justify-content-between align-items-center">

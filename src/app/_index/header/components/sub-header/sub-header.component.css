@@ -21,6 +21,7 @@ p {
 
 .address {
     color: var(--color-main-2);
+    cursor: pointer;
 }
 
 .fndMVb {

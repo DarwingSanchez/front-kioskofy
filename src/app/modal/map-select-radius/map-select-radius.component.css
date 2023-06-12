@@ -1,0 +1,52 @@
+section {
+    overflow: hidden;
+    position: relative;
+}
+
+.search {
+    height: 50px;
+    position: relative;
+}
+
+.search>button {
+    position: absolute;
+    right: 5px;
+    top: 25px;
+    border-radius: 4px;
+    padding: 2px 8px;
+}
+
+.search>input {
+    border: 1px solid var(--color-light-grey);
+    border-radius: 4px;
+}
+
+.map {
+    height: 200px;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+agm-map {
+    height: 100% !important;
+    width: 100% !important;
+    overflow: hidden;
+}
+
+.data {
+    height: 100px;
+}
+
+mat-slider {
+    height: 25px;
+    width: 100%;
+}
+
+.button-close {
+    top: 10px !important;
+    right: 10px !important;
+}
+
+.slider {
+    background: var(--color-main);
+}

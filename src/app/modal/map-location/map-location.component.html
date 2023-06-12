@@ -1,0 +1,11 @@
+<section class="d-flex flex-column w-100 p-3">
+    <fa-icon class="flex-row-center button-close" [icon]="faTimes" size="lg" (click)="closeModal()"></fa-icon>
+    <mat-slide-toggle [formControl]="toogle">Main location</mat-slide-toggle>
+    <agm-map #AgmMapNat fit="true" [mapDraggable]="false" [zoom]="15" [latitude]="lat" [longitude]="lng">
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+    <div class="flex-row-between gap-2">
+        <p class="h5"><span class="bold">Address: </span> {{address}}</p>
+        <fa-icon class="button-trash h4" [icon]="faTrash" (click)="deleteLocation()"></fa-icon>
+    </div>
+</section>

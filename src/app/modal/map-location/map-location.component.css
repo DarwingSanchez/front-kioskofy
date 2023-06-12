@@ -1,0 +1,29 @@
+section {
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+section>div {
+    height: 100px;
+}
+
+agm-map {
+    height: 300px;
+    overflow: hidden;
+}
+
+mat-slide-toggle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: white;
+    z-index: 100;
+    border-radius: 50px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px;
+    border: 2px solid var(--color-main);
+}

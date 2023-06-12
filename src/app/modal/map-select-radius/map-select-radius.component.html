@@ -1,0 +1,38 @@
+<section class="d-flex flex-column w-100 p-4 gap-3">
+    <fa-icon class="flex-row-center button-close" [icon]="icon_close" size="lg" (click)="closeModal()"></fa-icon>
+    <div class="search d-flex flex-column-center col-12 gap-2 h5">
+        <label class="h5 bold">Search by city, neighborhood or zip code: </label>
+        <input class="w-100 p-2" type="text" (keyup.enter)="getLatLongByAddress()"
+            [(ngModel)]="search_location.address">
+        <button (click)="getLatLongByAddress()" class="button-main h5">
+            <fa-icon [icon]="icon_magnifying_glass" size="sm"></fa-icon> &nbsp;&nbsp; Search location
+        </button>
+    </div>
+    <div class="map">
+        <agm-map #AgmMapNat fit="true" [zoom]="map_zoom" [latitude]="search_location.lat"
+            [longitude]="search_location.lng" (mapClick)="changeLocation($event.coords.lat, $event.coords.lng)">
+            <agm-marker [latitude]="search_location.lat" [longitude]="search_location.lng"></agm-marker>
+            <agm-circle *ngIf="search_location.lat && search_location.lng" fillColor="#ffd43bb5" strokeColor="#183153"
+                [circleDraggable]="true" [clickable]="true" [editable]="true" [strokeWeight]="1"
+                [latitude]="search_location.lat" [longitude]="search_location.lng" [radius]="search_location.radius"
+                (radiusChange)="changeRadius($event)" (dragEnd)="changeLocation($event.coords.lat, $event.coords.lng)">
+            </agm-circle>
+        </agm-map>
+    </div>
+    <div class="flex-column-center gap-2 data">
+        <span class="flex-column-center col-12 gap-2 h5">
+            <sub class="col-12 text-center h5">Only show me listing within this distance: <span
+                    class="bold">{{transformRadiusToKm()}}km</span></sub>
+            <div class="flex-row-between col-md-6 gap-2 pb-3">
+                <input class="w-100 mt-2 slider" type="range" [max]="MAP_MAX_CIRCLE_RADIOUS" [min]="0" [step]="1"
+                    (input)="readInputSlider($event)" [(ngModel)]="map_diameter_km">
+            </div>
+        </span>
+        <span class="flex-row-center col-12">
+            <button mat-raised-button color="primary" type="submit" class="button-main col-md-6 h5 bold"
+                (click)="saveFilterLocation()">
+                Save filter
+            </button>
+        </span>
+    </div>
+</section>

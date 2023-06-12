@@ -1,0 +1,5 @@
+<swiper [config]="my_swipe" class="swiper">
+    <ng-template swiperSlide *ngFor="let banner of banners">
+        <img class="w-100 img-banners" [src]="banner.url" alt="Main banners">
+    </ng-template>
+</swiper>

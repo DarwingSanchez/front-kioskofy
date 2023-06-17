@@ -82,6 +82,7 @@ export class HeaderComponent implements OnInit {
 productos_filtrados: any;
 
 
+  
   public isMenuCollapsed = true;
 
  /**

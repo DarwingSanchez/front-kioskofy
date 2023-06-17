@@ -24,6 +24,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { SwiperModule } from 'swiper/angular';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FooterComponent } from './_index/footer/footer/footer.component';
 import { HeaderSearchBarComponent } from './_index/header/components/header-search-bar/header-search-bar.component';
 import { SubHeaderComponent } from './_index/header/components/header-sub-header/sub-header.component';

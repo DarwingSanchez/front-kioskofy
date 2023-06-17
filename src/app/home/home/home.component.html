@@ -1,0 +1,122 @@
+<section id="wrapper-home">
+    <!-- Main banner -->
+    <div class="container-max-width-center">
+        <app-banner class="container-max-width-center w-100"></app-banner>
+    </div>
+    <hr class="container-max-width-center" style="color: var(--color-main-dark)">
+    <!-- General Information -->
+    <div class="d-flex flex-row container-max-width-center">
+        <div class="flex-column-center mb-4 col-4">
+            <div>
+                <img width="100" height="100"
+                    src="http://live-southcharlottefamilycounseling.pantheon.io/wp-content/uploads/2015/10/cropped-logo-dummy.png"
+                    alt="Photo of a Shiba Inu">
+                <i class="bi bi-bag-x-fill"></i>
+                <i class="bi bi-shop"></i>
+            </div>
+            <div class="my-3">
+                <h2>Buy</h2>
+            </div>
+            <span class="text-center">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, enim nesciunt magni
+                cumque aspernatur unde fugiat ratione consequuntur ab modi necessitatibus neque expedita nulla error
+                dignissimos officia ut quidem et.
+            </span>
+        </div>
+        <div class="flex-column-center mb-4 col-4">
+            <div>
+                <img width="100" height="100"
+                    src="http://live-southcharlottefamilycounseling.pantheon.io/wp-content/uploads/2015/10/cropped-logo-dummy.png"
+                    alt="Photo of a Shiba Inu">
+            </div>
+            <div class="my-3">
+                <h2>Sell</h2>
+            </div>
+            <span class="text-center">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, enim nesciunt magni
+                cumque aspernatur unde fugiat ratione consequuntur ab modi necessitatibus neque expedita nulla error
+                dignissimos officia ut quidem et.
+            </span>
+        </div>
+        <div class="flex-column-center mb-4 col-4">
+            <div>
+                <img width="100" height="100"
+                    src="http://live-southcharlottefamilycounseling.pantheon.io/wp-content/uploads/2015/10/cropped-logo-dummy.png"
+                    alt="Photo of a Shiba Inu">
+            </div>
+            <div class="my-3">
+                <h2>Promote</h2>
+            </div>
+            <span class="text-center">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, enim nesciunt magni
+                cumque aspernatur unde fugiat ratione consequuntur ab modi necessitatibus neque expedita nulla error
+                dignissimos officia ut quidem et.
+            </span>
+        </div>
+    </div>
+    <hr class="container-max-width-center" style="color: var(--color-main-dark)">
+    <!-- Cards - Products -->
+    <div>
+        <div class="wrapper-background-color-right">
+            <div class="d-flex flex-row container-max-width-center">
+                <div #container_products class="w-75 container-scroll-x clip-path-products my-4">
+                    <div class="container-cards my-3">
+                        <app-card-mini *ngFor="let product of products; let i = index"></app-card-mini>
+                    </div>
+                </div>
+                <div class="w-25 flex-column-center ps-4">
+                    <h1 class="font-weight-bold">Products:</h1>
+                    <h4 class="my-4 text-justify">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias porro culpa eligendi
+                        similique. Distinctio, velit sed beatae sapiente pariatur aut minus rem, libero nihil repellat
+                        delectus officiis deleniti saepe eaque.
+                    </h4>
+                    <div class="button-main">See all products</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right mt-sm">
+        <i class="icon-arrow-right pointer" (click)="scrollProducts(150)">:::RIGHT::::</i>
+    </div>
+    <div class="pull-left mt-sm">
+        <i class="icon-arrow-left pointer" (click)="scrollProducts(-150)">:::LEFT::::</i>
+    </div>
+    <!-- Four banners -->
+    <div class="w-100">
+        <app-home-four-banners></app-home-four-banners>
+    </div>
+    <!-- Cards - Services -->
+    <div>
+        <div class="wrapper-background-color-left">
+            <div class="d-flex flex-row container-max-width-center">
+                <div class="w-25 flex-column-center pe-4">
+                    <h1 class="font-weight-bold">Services:</h1>
+                    <h4 class="my-4 text-justify">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias porro culpa eligendi
+                        similique. Distinctio, velit sed beatae sapiente pariatur aut minus rem, libero nihil repellat
+                        delectus officiis deleniti saepe eaque.
+                    </h4>
+                    <div class="button-main">See all services</div>
+                </div>
+                <div class="w-75 container-scroll-x clip-path-services my-4">
+                    <div class="container-cards my-3">
+                        <app-card-mini *ngFor="let product of products; let i = index"></app-card-mini>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cards - Categories -->
+    <div>
+        <app-home-categories></app-home-categories>
+    </div>
+    <!-- Middel banners -->
+    <div class="container-max-width-center">
+        <app-home-two-banners></app-home-two-banners>
+    </div>
+    <!-- Information panel -->
+    <div class="w-100">
+        <app-home-expansion-panel></app-home-expansion-panel>
+    </div>
+</section>

@@ -1,0 +1,143 @@
+<section>
+    <div class="d-flex flex-column">
+        <!-- Title -->
+        <div class="mb-4 py-4 wrapper-background-color-left">
+            <div class="container-max-width-center">
+                <h1 class="font-weight-bold">
+                    Create your product
+                </h1>
+            </div>
+        </div>
+        <!-- Banner -->
+        <div class="col-12 container-max-width-center">
+            <div class="overflow-hidden">
+                <div class="img-scroll">
+                    <img src="../../../assets/banner-agregar-producto.png" class="banner-img mw-100"
+                        alt="instructions to add a product" />
+                </div>
+                <h4>
+                    This are instructions about how to add a product...
+                </h4>
+            </div>
+        </div>
+        <div class="col-12 row g-3 container-max-width-center">
+            <div class="col-md-6">
+                <!-- Create product -->
+                <form class="row g-3" [formGroup]="product_form">
+                    <div class="col-12">
+                        <label for="input_name" class="form-label">Name</label>
+                        <input formControlName="name" type="text" class="form-control form-control-sm py-2"
+                            id="input_name" placeholder="Name of my product" [ngClass]="{'invalid-input': ( product_form.get('name')?.hasError('required') &&
+                        product_form.get('name')?.touched )}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="input_brand" class="form-label">Brand</label>
+                        <input formControlName="brand" type="text" class="form-control form-control-sm py-2"
+                            id="input_brand" placeholder="e.g. Colombina" [ngClass]="{'invalid-input': ( product_form.get('brand')?.hasError('required') &&
+                        product_form.get('brand')?.touched )}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="input_country" class="form-label">Country</label>
+                        <select class="form-control-sm py-2" formControlName="country" id="input_country"
+                            class="form-select" [ngClass]="{'invalid-input': ( product_form.get('country')?.hasError('required') &&
+                        product_form.get('country')?.touched )}">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="input_category" class="form-label">Category</label>
+                        <select class="form-control-sm py-2" formControlName="category" id="input_category"
+                            class="form-select" [ngClass]="{'invalid-input': ( product_form.get('category')?.hasError('required') &&
+                        product_form.get('category')?.touched )}">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="input_sub_category" class="form-label">Sub-category</label>
+                        <select class="form-control-sm py-2" formControlName="sub_category" id="input_sub_category"
+                            class="form-select" [ngClass]="{'invalid-input': ( product_form.get('sub_category')?.hasError('required') &&
+                        product_form.get('sub_category')?.touched )}">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="input_description" class="form-label">Description</label>
+                        <input formControlName="description" type="text" class="form-control form-control-sm py-2"
+                            id="input_description" placeholder="This is the description..." [ngClass]="{'invalid-input': ( product_form.get('description')?.hasError('required') &&
+                        product_form.get('description')?.touched )}">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="input_price" class="form-label">Price</label>
+                        <input formControlName="price" type="text" class="form-control form-control-sm py-2"
+                            id="input_price" (keydown)="validateNumber($event)" (blur)="transformAmount($event.target)"
+                            (focus)="transformCurrency($event.target)" [ngClass]="{'invalid-input': ( product_form.get('price')?.hasError('required') &&
+                        product_form.get('price')?.touched )}">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="input_measurement" class="form-label">Measurement</label>
+                        <select class="form-control-sm py-2" formControlName="measure" id="input_measurement"
+                            class="form-select" [ngClass]="{'invalid-input': ( product_form.get('measure')?.hasError('required') &&
+                        product_form.get('measure')?.touched )}">
+                            <option selected disabled>Choose...</option>
+                            <option>Unit</option>
+                            <option>Kgr</option>
+                            <option>gr</option>
+                            <option>Pound</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="input_quantity" class="form-label">Quantity</label>
+                        <input formControlName="quantity" type="text" class="form-control form-control-sm py-2"
+                            id="input_quantity" [ngClass]="{'invalid-input': ( product_form.get('quantity')?.hasError('required') &&
+                        product_form.get('quantity')?.touched )}">
+                    </div>
+                </form>
+                <!-- Images -->
+                <div class="col-12 mt-4">
+                    <div class="my-4">
+                        <input type="file" class="inactive" (change)="handleFileInput($event)" #fileUpload
+                            id="formFileMultiple" multiple />
+                        <button class="button-main-light" (click)="fileUpload.click()"
+                            [disabled]="imgs_path.length >= 3" [ngClass]="{'button-disabled': imgs_path.length >= 3}">
+                            <h3 class="text-color-main">+ Add image</h3>
+                        </button>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-4" *ngFor="let path of imgs_path; index as i">
+                            <h5 class="text-danger text-end font-weight-bold cursor-pointer" (click)="deleteImage(i)"
+                                (click)="fileUpload.value = ''">Delete</h5>
+                            <img class="img_prod w-100" [src]="path" alt="">
+                        </div>
+                    </div>
+                    <div class="w-100 my-2">
+                        <p *ngIf="img_format_error" class="text-danger">
+                            Only files type "image" are supported, such as .png or .jpg
+                        </p>
+                        <p *ngIf="imgs_path.length === 0 && product_form.get('product_quantity')?.touched"
+                            class="text-danger">
+                            At least one image is required
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex flex-column justify-content-between">
+                <!-- Save -->
+                <div class="h-25 flex-column-center justify-content-start">
+                    <button class="button-main mt-4" (click)="saveProduct()"
+                        [ngClass]="{'button-disabled': imgs_path.length < 1 || product_form.invalid}">
+                        <h3>Save product</h3>
+                    </button>
+                </div>
+                <!-- Previsualization -->
+                <div class="h-75 flex-column-center justify-content-start">
+                    <app-mini-card-product-create></app-mini-card-product-create>
+                    <h3>¡This is how your product will look like!</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

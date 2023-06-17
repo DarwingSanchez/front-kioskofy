@@ -6,7 +6,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ResorcesService {
-  // URL Api
   private URL_API = `${environment.HOST}/api`
   // Auth validation
   // private token: any = this.tokenService.onGetItem('token');

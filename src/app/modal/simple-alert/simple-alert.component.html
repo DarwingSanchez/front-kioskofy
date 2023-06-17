@@ -1,40 +1,19 @@
-<div class="row">
-    <div class="col-1">
+<div class="flex-column-center text-center p-4 gap-4">
+    <div class="col-12">
+        <img [src]="getImage()" height="170" alt="Ícono modal" />
     </div>
-    <div class="col-10 text-center">
-        <br />
-        <div class="row">
-            <div class="col-12">
-                <img [src]="img_src" alt="Ícono modal" id="icon-modal" />
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-12">
-                <h3>
-                    {{ title }}
-                </h3>
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-12 text-center">
-                <p>
-                    {{ msg }}
-                </p>
-            </div>
-        </div>
-        <br />
-        <br />
-        <div class="row">
-            <div class="col-12">
-                <button id="btn_modal" (click)="onClose()">
-                    {{ btn_msg }}
-                </button>
-            </div>
-        </div>
-        <br />
+    <div class="col-12">
+        <p class="h3">{{ title }}</p>
     </div>
-    <div class="col-1">
+    <div class="col-12">
+        <p class="h4">{{ msg }}</p>
+    </div>
+    <div class="col-12" *ngIf="msg_alert !== ''">
+        <p class="h5">{{ msg_alert }}</p>
+    </div>
+    <div class="col-12 mt-1">
+        <button class="button-main m-auto col-6" (click)="closeModal()">
+            <span class="h4">{{ btn_msg }}</span>
+        </button>
     </div>
 </div>

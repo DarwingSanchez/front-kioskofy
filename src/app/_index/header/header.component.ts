@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { faBars, faUser } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { map, startWith } from 'rxjs';
-import { LoginComponent } from 'src/app/modal/login/login.component';
-import { SignupComponent } from 'src/app/modal/signup/signup.component';
+import { lastValueFrom, map, startWith } from 'rxjs';
+import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
+import { UsersService } from 'src/app/core/services/users/users.service';
+import { LoginComponent } from 'src/app/public/auth/login/login.component';
+import { SignupComponent } from 'src/app/public/auth/signup/signup.component';
+import { UserComponent } from 'src/app/public/user/user.component';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +15,9 @@ import { SignupComponent } from 'src/app/modal/signup/signup.component';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  public icon_user = faUser;
+  public icon_bars = faBars;
+  public user_logged!: any;
   private ng_modal_options: NgbModalOptions = {
     backdrop: 'static',
     centered: true,
@@ -18,14 +25,38 @@ export class HeaderComponent implements OnInit {
     size: 'lg',
   };
 
-  // Guardamos dinamicamente los valores de autocompletado
-  public filteredOptions: any;
-  public mySearch = new FormControl();
-  public searchTerm = '';
-productos_filtrados: any;
+  constructor(
+    private modalService: NgbModal,
+    private localStorageService: LocalStorageService,
+    private usersService: UsersService,
+    ) {}
 
+  async ngOnInit() {
+    try {
+      await this.getUserID();
+    } catch (error) {}
+  }
 
-  constructor(private modalService: NgbModal) {}
+  // Get the user ID from LS
+  private getUserID(): any {
+    this.localStorageService.getItem('user')
+      .then((resp: any) => { 
+        if(resp._id && resp._id !== null) this.getUserByID(resp._id);
+      }).catch((error) => {
+        throw error;
+      })
+  }
+
+ // Get the data for the user based on its ID
+  public getUserByID(id: string) {
+    lastValueFrom(this.usersService.getUserById(id))
+      .then((resp: any) => {
+        if(resp.success && resp.data && resp.data !== null) this.user_logged = resp.data;
+      })
+      .catch((error: Error) => {
+        throw error;
+      });
+  }
 
   // Open modal to sign up an user
   public signUpUser(): void {
@@ -39,13 +70,19 @@ productos_filtrados: any;
     modalRef.componentInstance.close_callback = () => {};
   }
 
-
-  
-  public isMenuCollapsed = true;
-
-  ngOnInit(): void {
-    // console.log('works');
+  // Open modal to see the logged user's details
+  public seeUserData(): void {
+    const modalRef = this.modalService.open(UserComponent, this.ng_modal_options);
+    modalRef.componentInstance.close_callback = () => {};
   }
+  // Guardamos dinamicamente los valores de autocompletado
+  public filteredOptions: any;
+  public mySearch = new FormControl();
+  public searchTerm = '';
+productos_filtrados: any;
+
+
+  public isMenuCollapsed = true;
 
  /**
    * Este metodo tiene como objetoautocompletar la busqueda del usuario

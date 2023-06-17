@@ -36,6 +36,7 @@ html {
     --color-main-3: #ff7e7e;
     --color-main-4: #fff5e7;
     --color-main-light: #fff9cc;
+    --color-main-light-transparent: #fff9cc7c;
     --color-main-light-2: #e6f4ff;
     --color-main-ultra-light: #fff8f6;
     --color-main-dark: #e4cd05;
@@ -101,6 +102,13 @@ html {
 .flex-row-between {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-column-between {
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
@@ -209,9 +217,10 @@ html {
 }
 
 .button-text {
-    text-decoration: none;
+    text-decoration: underline;
     color: var(--color-main-2);
     font-weight: 600;
+    cursor: pointer;
 }
 
 .button-text:hover {
@@ -305,6 +314,16 @@ html {
     height: 30px;
     width: 30px;
     cursor: pointer;
+}
+
+.button-text-link {
+    color: var(--color-main-2);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.button-text-link:hover {
+    color: var(--color-main);
 }
 
 .border-transparent {
@@ -420,4 +439,17 @@ input[type=range]::-webkit-slider-runnable-track {
     box-shadow: none;
     border: none;
     background: transparent;
+}
+
+.border-input {
+    border: 1px solid var(--color-main-2);
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
+.card-container {
+    background-color: var(--color-light);
+    border-radius: 0.375rem;
+    padding: 23px;
+    border: none;
 }

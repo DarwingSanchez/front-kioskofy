@@ -1,5 +1,5 @@
 <section class="d-flex flex-column w-100 p-4 gap-3">
-    <fa-icon class="flex-row-center button-close" [icon]="icon_close" size="lg" (click)="closeModal()"></fa-icon>
+    <!-- <fa-icon class="flex-row-center button-close" [icon]="icon_close" size="lg" (click)="closeModal()"></fa-icon> -->
     <div class="search d-flex flex-column-center col-12 gap-2 h5">
         <label class="h5 bold">Search by city, neighborhood or zip code: </label>
         <input class="w-100 p-2" type="text" (keyup.enter)="getLatLongByAddress()"
@@ -24,7 +24,7 @@
             <sub class="col-12 text-center h5">Only show me listing within this distance: <span
                     class="bold">{{transformRadiusToKm()}}km</span></sub>
             <div class="flex-row-between col-md-6 gap-2 pb-3">
-                <input class="w-100 mt-2 slider" type="range" [max]="MAP_MAX_CIRCLE_RADIOUS" [min]="0" [step]="1"
+                <input class="w-100 mt-2 slider" type="range" [max]="MAP_MAX_CIRCLE_RADIOUS" [min]="1" [step]="1"
                     (input)="readInputSlider($event)" [(ngModel)]="map_diameter_km">
             </div>
         </span>

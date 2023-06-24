@@ -17,10 +17,16 @@ export class ResorcesService {
    * Get countries list for products or services to be offered
    * @returns | Will return a promise with an success in true or false depending on backend answer
    */
-  public loadImgPortfolio(files: Blob[]) {
-    const gallery = new FormData();
-    for (const iterator of files) gallery.append('', iterator)
-    console.log('gallery', gallery.getAll('')), this.headers;
-    return this.http.post(`${this.URL_API}/aws_s3/portfolio`, gallery, { headers: this.headers });
-  }  
+  public loadImgPortfolio(files: File[]) {
+    console.log(files);
+
+    const dto = new FormData();
+    for (const iterator of files) {
+      dto.append('images', iterator)
+    }
+
+    return this.http.post(`${this.URL_API}/aws_s3/portfolio`, dto, { headers: {
+      "Content-Type": "multipart/form-data"
+    }});
+  }
 }

@@ -74,7 +74,7 @@ html {
 .flex-row-start-end {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: end;
 }
 
@@ -88,7 +88,7 @@ html {
 .flex-row-start-center {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -96,7 +96,7 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .flex-row-between {

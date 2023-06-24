@@ -1,5 +1,3 @@
-import { ObjectId } from "mongoose";
-
 export interface Category {
     title: String,
     description: String,
@@ -9,5 +7,5 @@ export interface Category {
     createdAt: Date,
     deleted: Date,
     lastUpdated: Date,
-    _id: ObjectId,
+    _id: string,
 }

@@ -1,5 +1,3 @@
-import { ObjectId } from "mongoose";
-
 export interface Country {
     url: string,
     name: String,
@@ -10,5 +8,5 @@ export interface Country {
     createdAt: Date,
     deleted: Date,
     lastUpdated: Date,
-    _id: ObjectId,
+    _id: any,
 }

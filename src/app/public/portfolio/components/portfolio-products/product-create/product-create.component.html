@@ -141,22 +141,22 @@
                     <div class="d-flex flex-column gap-2">
                         <div>
                             <input type="file" class="inactive" (change)="handleFileInput($event)" #fileUpload
-                                id="formFileMultiple" multiple />
-                            <a class="button-text bold" (click)="fileUpload.click()" [disabled]="imgs_path.length >= 4"
-                                [ngClass]="{'button-disabled': imgs_path.length >= 4}">
+                                id="formFileMultiple" multiple accept="image/*"/>
+                            <a class="button-text bold" (click)="fileUpload.click()" [disabled]="imagesList.length >= 4"
+                                [ngClass]="{'button-disabled': imagesList.length >= 4}">
                                 + Add images
                             </a>
                         </div>
                         <div class="contianer-images gap-2">
-                            <div class="border-input" *ngFor="let img of imgs_path; let i = index">
+                            <div class="border-input" *ngFor="let img of imagesList; let i = index">
                                 <span class="flex-row-center h-100">
                                     <fa-icon [icon]="icon_trash" class="icon-trash flex-row-center cursor-pointer"
                                         (click)="deleteImage(i)" (click)="fileUpload.value = ''"></fa-icon>
-                                    <img class="img_prod" [src]="img" alt="image loaded">
+                                    <img class="img_prod" [src]="img.image64" alt="image loaded">
                                 </span>
                             </div>
-                            <div class="border-input cursor-pointer" *ngIf="imgs_path.length < 4"
-                                (click)="fileUpload.click()" [disabled]="imgs_path.length >= 4">
+                            <div class="border-input cursor-pointer" *ngIf="imagesList.length < 4"
+                                (click)="fileUpload.click()" [disabled]="imagesList.length >= 4">
                                 <span class="flex-row-center h-100 w-100">
                                     <fa-icon class="icon-upload-img" [icon]="icon_image"></fa-icon>
                                 </span>
@@ -165,7 +165,7 @@
                         <p *ngIf="img_format_error" class="text-danger">
                             Only files type "image" are supported, such as .png or .jpg
                         </p>
-                        <p *ngIf="imgs_path.length === 0 && product_form.get('product_quantity')?.touched"
+                        <p *ngIf="imagesList.length === 0 && product_form.get('product_quantity')?.touched"
                             class="text-danger">
                             At least one image is required
                         </p>
@@ -175,17 +175,17 @@
                         <div>
                             <input type="file" class="inactive" (change)="handleFileInput($event)" #fileUpload
                                 id="formFileMultiple" />
-                            <a class="button-text bold" (click)="fileUpload.click()" [disabled]="imgs_path.length >= 3"
-                                [ngClass]="{'button-disabled': imgs_path.length >= 3}">
+                            <a class="button-text bold" (click)="fileUpload.click()" [disabled]="imagesList.length >= 3"
+                                [ngClass]="{'button-disabled': imagesList.length >= 3}">
                                 + Add video
                             </a>
-                        </div>
+                        </div>imagesList
                         <div class="contianer-images gap-2">
                             <div class="border-input">
-                                <span class="flex-row-center" *ngIf="imgs_path[5]; else video_placeholder">
+                                <span class="flex-row-center" *ngIf="imagesList[5]; else video_placeholder">
                                     <fa-icon [icon]="icon_trash" class="icon-trash flex-row-center cursor-pointer"
                                         (click)="deleteImage(0)" (click)="fileUpload.value = ''"></fa-icon>
-                                    <img class="img_prod" [src]="imgs_path[0]" alt="video loaded">
+                                    <img class="img_prod" [src]="imagesList[0]" alt="video loaded">
                                 </span>
                             </div>
                         </div>
@@ -199,8 +199,7 @@
                                 [category]="category_selected"
                                 [show_swiper]="product_form.value.images && product_form.value.images.length > 1 ? true : false"></app-card-complete>
                         </div>
-                        <button mat-raised-button color="primary" type="submit" class="button-main col-md-6 h4 bold"
-                            (click)="saveProduct()">
+                        <button (click)="saveProduct()" mat-raised-button color="primary" type="button" class="button-main col-md-6 h4 bold">
                             Save product
                         </button>
                     </div>

@@ -1,5 +1,3 @@
-import { ObjectId } from "mongoose";
-
 export interface Product {
     name: String,
     brand: String,
@@ -11,9 +9,9 @@ export interface Product {
     measure:  "Un" | "Kg" | "gr" | "Lb" | "Other",
     quantity: Number,
     condition: "Not specified" | "New" | "Used",
-    seller: ObjectId,
-    category: ObjectId,
-    country: ObjectId,
+    seller: string,
+    category: string,
+    country: string,
     recommended: Boolean,
     start_up: Boolean,
     non_profit: Boolean,

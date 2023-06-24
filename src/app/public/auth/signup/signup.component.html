@@ -39,9 +39,9 @@
                     ngbTooltip="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character."
                     [ngClass]="{'invalid-input': (signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched)
                     || (signupForm.get('password')?.hasError('pattern') && signupForm.get('password')?.touched)}">
-                <a class="button-text-link w-100 text-right"
+                <p class="button-text-link w-100 text-right p-2"
                     (click)="password.type === 'text' ? password.type = 'password' : password.type = 'text'">Show
-                    password</a>
+                    password</p>
             </div>
             <div class="form-group flex-row-start-center p-1"
                 [ngClass]="{'invalid-input': (signupForm.get('accepted_terms_conditions')?.value === false && signupForm.get('accepted_terms_conditions')?.touched)}">

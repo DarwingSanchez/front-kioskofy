@@ -20,7 +20,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { SwiperModule } from 'swiper/angular';
@@ -73,6 +72,7 @@ import { PortfolioDetailDescriptionComponent } from './utils/portfolio-detail/co
 import { PortfolioDetailQuestionsAnswerComponent } from './utils/portfolio-detail/components/portfolio-detail-questions-answer/portfolio-detail-questions-answer.component';
 import { PortfolioDetailRatingsComponent } from './utils/portfolio-detail/components/portfolio-detail-ratings/portfolio-detail-ratings.component';
 import { PortfolioDetailGallerySwiperComponent } from './utils/portfolio-detail/components/portfolio-detail-gallery-swiper/portfolio-detail-gallery-swiper.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [

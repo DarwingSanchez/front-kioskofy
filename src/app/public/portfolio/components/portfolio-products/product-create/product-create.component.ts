@@ -17,8 +17,7 @@ import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.co
 
 interface ImageItem {
   file: File | Blob;
-  imageChangedEvent: any;
-  croppedImage: any;
+  image64: string | ArrayBuffer
 }
 
 @Component({
@@ -48,10 +47,8 @@ export class ProductCreateComponent implements OnInit {
   public pickup_locations: any[] = []
   public main_loc_marker = './assets/icons/map_marker_main_location.png'
   // Variables para el manejo de las fotos y sus miniaturas
-  public imgs: Blob[] = [];
-  public imgs_path: SafeUrl[] = [];
-  public file_fotos: (File | undefined)[] = [];
-  public fotos: (SafeUrl | string)[] = [];
+  public imagesList: ImageItem[] = [];
+
   public img_format_error = false;
   public error_formato_img = false;
   public error_max_imgs = false;
@@ -66,7 +63,7 @@ export class ProductCreateComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private countriesService: CountriesService,
     private categoriesService: CategoriesService,
-    
+
   ) {
     this.product_form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern(/^.{1,50}$/)]],
@@ -142,9 +139,17 @@ export class ProductCreateComponent implements OnInit {
 
   // Save product into database
   public async saveProduct() {
-    this.saveMapLocationsIntoForm();
-    if (!this.isValidForm()) return;
-    this.parsePriceToNumber();
+    /* if (!this.isValidForm()) return; */
+    /* this.saveMapLocationsIntoForm();
+    this.parsePriceToNumber(); */
+
+    let images = await this.onUploadImages();
+
+    console.log(images);
+
+    return
+
+
     const PRODUCT: Product = this.product_form.value;
     await lastValueFrom(this.productsService.createProduct(PRODUCT))
     .then((resp: any) => {
@@ -237,92 +242,11 @@ export class ProductCreateComponent implements OnInit {
   //Find an object from an array based on property _id
   public findObjectById(flag: string, array: any[], _id: string) {
     let result = array.find(obj => { return obj._id === _id })
-    if (flag === 'country') this.country_selected = result; 
+    if (flag === 'country') this.country_selected = result;
     else if (flag === 'category') this.category_selected = result;
     return result;
   }
 
-  /**********************************************************************+
-   * BORRARRRRRRRRR ||| CORREGIRRRRRRRR
-   *********************************************************************+/
-  /**
-   * Guarda las imagenes cargadas por el usuario al producto
-   */
-  savePictures(_id: string, cod_ft: string) {
- 
-//     /** Gestiona las imagenes del producto **/
-//     const upload_form: FormData = new FormData();
-//     let i = 1;
-//     let images: Blob[] = [];
-
-// for (const iterator of this.selectedImages) {
-//   images.push(iterator);
-// }
-    /** Guarda las imagenes en AWS */
-    // for (const img_aux of this.imgs) {
-    //   console.log(img_aux, i);
-    //   upload_form.append('', img_aux);
-    //   console.log('****', upload_form, upload_form.get(''));
-    //   i++;
-    // }
-        const dto = new FormData();
-    for (const iterator of  this.imgs) {
-      dto.append('', iterator)
-      console.log(iterator);
-      
-      console.log('dto', dto);
-    }
-    console.log(dto, this.imgs, dto.getAll(''));
-    
-    // /** Guarda las fotos */
-    // this.resorcesService
-    //   .loadImgPortfolio(this.imgs)
-    //   .toPromise()
-    //   .then((resp: any) => {
-    //     console.log(resp);
-        
-    //     // const nuevas_url: string[] = [];
-    //     // let i = 0;
-    //     // for (const str_path of this.fotos) {
-    //     //   if (this.file_fotos[i] == undefined && typeof str_path === 'string') {
-    //     //     nuevas_url.push(str_path);
-    //     //   }
-    //     //   i++;
-    //     // }
-    //     // for (const str_path of resp.logos) {
-    //     //   nuevas_url.push(str_path);
-    //     // }
-    //     // this.producto!.fotos = nuevas_url;
-    //     // /** Guarda objeto producto nuevo */
-    //     // this.rest
-    //     //   .putJWT('producto/' + _id, this.producto)
-    //     //   .toPromise()
-    //     //   .then((resp: any) => {
-    //     //     this.openModal?.close();
-    //     //     const modalRef = this.modalService.open(SimpleComponent, ngbModalOptions);
-    //     //     modalRef.componentInstance.img_src = '../../../assets/img/icon-check-verde.png';
-    //     //     modalRef.componentInstance.title = '¡Genial!';
-    //     //     modalRef.componentInstance.msg = '¡Tu producto ha sido creado con éxito!';
-    //     //     modalRef.componentInstance.btn_msg = 'Listo';
-    //     //     modalRef.componentInstance.close_callback = () => {
-    //     //       this.router.navigate(['/portafolio']);
-    //     //     };
-    //     //   });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     // this.openModal?.close();
-    //     // const modalRef = this.modalService.open(SimpleComponent, ngbModalOptions);
-    //     // modalRef.componentInstance.img_src = '../../../assets/img/icon-warning-amarillo.png';
-    //     // modalRef.componentInstance.title = '¡Oh oh!';
-    //     // modalRef.componentInstance.msg =
-    //     //   'Ocurrió un error cargando las nuevas fotos, sin embargo, tu producto fue creado sin estas, favor ve al detalle de este y agrega las imagenes correspondientes.';
-    //     // modalRef.componentInstance.btn_msg = 'Volver';
-    //     // modalRef.componentInstance.close_callback = () => {};
-    //   });
-  }
-
-  /***************************************** Maneja las imagenes ****************************************/
   /**
    * Recibe un archivo del usuario y lo guarda
    * en el arreglo de imágenes del producto. Si
@@ -330,25 +254,33 @@ export class ProductCreateComponent implements OnInit {
    * se guarda y se muestra de error
    * @param event El evento generado al subir el archivo
    */
-  handleFileInput(event: any) {
+  async handleFileInput(event: any) {
+    const numberImages = 4
     this.img_format_error = false;
-    const file: File = event.target.files[0];
-    if (file != null) {
-      const file_split: string[] = file.name.split('.');
-      const file_end: string = file_split[file_split.length - 1].trim().toLowerCase();
-      if (this.supported_imgs.includes(file_end)) {
-        //Se está intentando subir un archivo de imagen
-        this.imgs.push(file);
-        this.imgs_path.push(
-          this.sanitizer.sanitize(
-            SecurityContext.NONE,
-            this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.imgs[this.imgs.length - 1]))
-          ) || ''
-        );
-      } else {
-        this.img_format_error = true;
-      }
+    let list = await event.target.files;
+    if (!event || !list) return
+
+    if ((list.length + this.imagesList.length) > numberImages) {
+      const manyLeft = numberImages - this.imagesList.length;
+      list = list.splice(0, manyLeft)
     }
+
+    for (const iterator of list) {
+      if (!iterator) continue
+      let reader = new FileReader();
+      reader.onload = (event) => {
+        if (event && event.target) {
+          const imageBase64  = event.target.result || '';
+          const imageItem: ImageItem = {
+            file: iterator,
+            image64: imageBase64,
+          };
+          this.imagesList.push(imageItem);
+        };
+      };
+      reader.readAsDataURL(iterator)
+    }
+
   }
 
   /**
@@ -358,43 +290,9 @@ export class ProductCreateComponent implements OnInit {
    * a eliminar
    */
   deleteImage(index: number) {
-    this.imgs.splice(index, 1);
-    this.imgs_path.splice(index, 1);
+    this.imagesList.splice(index, 1)
   }
 
-  // /**
-  //  * Transforma el dinero minimo de compra de número a moneda y viceversa
-  //  * a moneda se utilizará para reemplazar el input y dar mejor UX al usuario
-  //  * y a número plano para guardar el dato correctamente en la base de datos
-  //  * ademas de poder editar mejor el valor en el input
-  //  */
-  // public transformCurrency(event: any) {
-  //     this.product_form.patchValue({
-  //       price: event.value.replace(/[^\d,-]/g, ''),
-  //     });
-  // }
-  // public transformAmount(event: any) {
-  //     this.product_form.patchValue({
-  //       price: this.currencyPipe.transform(event.value, 'CAD', 'symbol', '1.0-0'),
-  //     });
-  // }
-  // /**
-  //  * Este metodo evita que en los inputs number se ingrese texto
-  //  */
-  // validateNumber(evento: any) {
-  //   const keyCode = evento.keyCode;
-  //   const excludedKeys = [8, 37, 3];
-  //   if (
-  //     !(
-  //       keyCode == 190 ||
-  //       (keyCode >= 48 && keyCode <= 57) ||
-  //       (keyCode >= 96 && keyCode <= 105) ||
-  //       excludedKeys.includes(keyCode)
-  //     )
-  //   ) {
-  //     evento.preventDefault();
-  //   }
-  // }
   /**
    * Alerta si el formulario esta incompleto o un input es invalido
    */
@@ -408,54 +306,24 @@ export class ProductCreateComponent implements OnInit {
     modalRef.componentInstance.btn_msg = 'Volver';
     modalRef.componentInstance.close_callback = () => {};
   }
-toppings = new FormControl('');
+
+  toppings = new FormControl('');
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
   /** Saves the current uploaded picture to modify the aspect ratio */
   public selectedImages: ImageItem[] = [];
 
-  onFileSelected(event: any) {
-    let list =  Array.from((event.target as HTMLInputElement).files || []);
-    if (!event || !list) return
-
-    // // If the amount of pictures selected + the ones uploaded already is higher than 10, will be get only what if left to get 10 pictures
-    // if ((list.length + this.productInfo.images.length) > 10) {
-    //   const manyLeft = 10 - this.productInfo.images.length;
-    //   list = list.splice(0, manyLeft);
-    // }
-    for (const iterator of list) {
-      if (!iterator) continue
-      let reader = new FileReader();
-      reader.onload = (event) => {
-        if (event && event.target) {
-          const imageBase64  = event.target.result
-          const imageItem: ImageItem = {
-            file: iterator,
-            imageChangedEvent: imageBase64,
-            croppedImage: null
-          };
-          this.selectedImages.push(imageItem);
-        };
-      };
-      reader.readAsDataURL(iterator)
-    }
-    console.log('this.selectedImages', this.selectedImages);
-    
-let temp: Blob[] = [];
-    for (const iterator of this.selectedImages) {
-          temp.push(iterator.file)
-        }
-    this.onCreateGallery(temp);
-    // this.cropperModal = true;
-    // this.removeFileList();
-  }
-
-    /**
+  /**
    * Creates a Gallery from a Blob array
    * @param files | Blob Files
    * @returns
    */
-  onCreateGallery(files: Blob[]): Promise<any> {
+  onUploadImages(): Promise<any> {
+    let files: File[] = [];
+    for (const iterator of this.imagesList) {
+      if (iterator.file instanceof File) files.push(iterator.file)
+    }
+
     return new Promise((resolve, reject) => {
       this.resorcesService.loadImgPortfolio(files).subscribe({
         next: (data: any) => {
@@ -471,7 +339,7 @@ let temp: Blob[] = [];
   }
 
 
-  img_dummys = [
+  public img_dummys = [
     'https://madeincolombia.com.co/wp-content/uploads/2017/11/Harina-Pan-Blanca-100-Grs-300x300.jpg',
     'https://www.elnuevosiglo.com.co/sites/default/files/styles/noticia_interna/public/2022-08/productos%20varios%20.jpeg',
     'https://cloudfront-us-east-1.images.arcpublishing.com/semana/TFMTFWLIJBDZVFE7PHB6P6QXVU.jpg',

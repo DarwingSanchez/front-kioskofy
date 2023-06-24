@@ -1,0 +1,17 @@
+<section>
+    <p class="regular-text" *ngIf="is_card">Imágenes del producto</p>
+    <span class="gallery-container">
+        <div class="gallery" [ngClass]="is_card ? 'gallery-row' : 'gallery-column'">
+            <img [src]="img" alt="imagen producto" class="image" width="60" height="60" *ngFor="let img of images"
+                (click)="selectImage(img, 'img')" [ngClass]="image_selected === img ? 'image-active' : ''">
+        </div>
+    </span>
+    <span class="video-container image" *ngIf="video && video !== ''" (click)="selectImage(video, 'video')"
+        [ngClass]="image_selected === video ? 'image-active' : ''">
+        <img src="../../../../../../assets/imgs/play_video_placeholder.png" alt="logo play video"
+            class="img-video-play">
+        <video preload="metadata">
+            <source [src]="video" type="video/mp4">
+        </video>
+    </span>
+</section>

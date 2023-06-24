@@ -1,0 +1,20 @@
+#main-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    margin: auto;
+    max-width: var(--size-window);
+    width: 100%;
+    row-gap: 10px;
+    column-gap: 20px;
+    grid-auto-columns: 1fr 55%;
+    grid-template-areas:
+        'gallery data'
+        'description data';
+}
+
+.galeria {
+    grid-area: galeria;
+    display: flex;
+    flex-direction: row;
+    gap: 19px;
+}

@@ -1,0 +1,14 @@
+<section id="main-container">
+    <div class="gallery flex-row-between gap-3">
+        <app-portfolio-detail-thumbnails (changeImage)="changeImage($event)" class="h-100" [images]="portfolio.images"
+            [image_selected]="image_selected"></app-portfolio-detail-thumbnails>
+        <app-portfolio-detail-gallery class="w-100" [image_selected]="image_selected"
+            [portfolio]="portfolio"></app-portfolio-detail-gallery>
+    </div>
+    <div class="data card-container">
+        <!-- <app-portfolio-detail-data></app-portfolio-detail-data> -->
+    </div>
+    <div class="description card-container">
+        <app-portfolio-detail-description></app-portfolio-detail-description>
+    </div>
+</section>

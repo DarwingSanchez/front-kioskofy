@@ -1,0 +1,14 @@
+<section class="h-100">
+    <fa-icon class="flex-row-center button-close" [icon]="icon_close" size="lg" (click)="closeModal()"></fa-icon>
+    <div class="flex-column-between h-100 blur p-3">
+        <div class="image-selected flex-row-center h-100 p-2">
+            <img [src]="image_selected" alt="image seleceted gallery">
+        </div>
+        <div class="flex-row-center gap-2">
+            <div class="thumbnail flex-row-center" *ngFor="let img of portfolio.images" (click)="image_selected = img">
+                <img [src]="img" alt="imagen producto" class="image"
+                    [ngClass]="image_selected === img ? 'image-active' : ''">
+            </div>
+        </div>
+    </div>
+</section>

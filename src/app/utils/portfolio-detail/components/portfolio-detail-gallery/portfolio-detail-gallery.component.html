@@ -1,0 +1,11 @@
+<section class="flex-row-center">
+    <a class="flex-row-center cursor-pointer card-container" (click)="showGallerySwiper()">
+        <img [src]="image_selected" alt="imagen producto" *ngIf="!is_video; else mostrar_video">
+    </a>
+</section>
+{{show_gallery_swiper}}
+<ng-template #mostrar_video>
+    <video preload="metadata" controls autoplay>
+        <source [src]="image_selected" type="video/mp4">
+    </video>
+</ng-template>

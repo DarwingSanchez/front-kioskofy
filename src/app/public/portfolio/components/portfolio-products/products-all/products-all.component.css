@@ -1,0 +1,14 @@
+.container-all {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+app-card-complete {
+    width: calc(25% - calc(52px / 4));
+}
+
+
+app-card-complete::ng-deep .mat-card {
+    width: 100%;
+    height: 100%;
+}

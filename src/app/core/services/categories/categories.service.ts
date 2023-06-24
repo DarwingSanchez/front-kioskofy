@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -6,26 +6,23 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CategoriesService {
-  // URL Api
   private URL_API = `${environment.HOST}/api`
-  // Auth validation
-  // private token: any = this.tokenService.onGetItem('token');
-  // private headers = new HttpHeaders({ Authorization: this.token });
 
-  constructor(
-    // private tokenService: TokenService,
-    private http : HttpClient,
-  ) {/** */}
+  constructor(private http : HttpClient) {}
 
-  /**
-   * Get countries list for products or services to be offered
-   * @returns | Will return a promise with an success in true or false depending on backend answer
-   */
-
-  /**
-   * 
-   */
-  getCategoriesByStatus(status: string) {
+  public getCategoriesByStatus(status: string) {
     return this.http.get(`${this.URL_API}/categories_all/${status}`);
   }  
+
+  getCategoriesByFilters(filters: any) {
+    let query_params = new HttpParams()
+      .set('title', filters.title)
+      .set('type', filters.type)
+      .set('status', filters.status)
+      .set('limit', filters.limit)
+      .set('page', filters.page)
+      .set('sort', filters.sort)
+      .set('sort_order', filters.sort_order);
+    return this.http.get(`${this.URL_API}/categories`, { params: query_params });
+  }
 }

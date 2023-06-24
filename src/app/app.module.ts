@@ -24,7 +24,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { SwiperModule } from 'swiper/angular';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FooterComponent } from './_index/footer/footer/footer.component';
 import { HeaderSearchBarComponent } from './_index/header/components/header-search-bar/header-search-bar.component';
 import { SubHeaderComponent } from './_index/header/components/header-sub-header/sub-header.component';
@@ -51,8 +50,6 @@ import { HomeTwoBannersComponent } from './public/home/components/home-two-banne
 import { MiddelBannerComponent } from './public/home/components/middel-banner/middel-banner.component';
 import { WhatToDoComponent } from './public/home/components/what-to-do/what-to-do.component';
 import { HomeComponent } from './public/home/home.component';
-import { ProductsComponent } from './public/portfolio/components/portfolio-products/portfolio-all/components/products/products/products.component';
-import { PortfolioAllComponent } from './public/portfolio/components/portfolio-products/portfolio-all/portfolio-all.component';
 import { ProductCreateComponent } from './public/portfolio/components/portfolio-products/product-create/product-create.component';
 import { ProductDetailComponent } from './public/portfolio/components/portfolio-products/product-detail/product-detail.component';
 import { PortfolioComponent } from './public/portfolio/portfolio.component';
@@ -66,8 +63,16 @@ import { CardCompleteComponent } from './utils/card-complete/card-complete.compo
 import { CardMiniComponent } from './utils/card-mini/card-mini.component';
 import { CarouselComponent } from './utils/carousel/carousel.component';
 import { PaginatorComponent } from './utils/paginator/paginator.component';
-import { PortfolioFiltersComponent } from './utils/portfolio-filters/portfolio-filters.component';
+import { PortfolioFiltersComponent } from './utils/filters/portfolio-filters.component';
 import { SwiperComponent } from './utils/swiper/swiper.component';
+import { ProductsAllComponent } from './public/portfolio/components/portfolio-products/products-all/products-all.component';
+import { PortfolioDetailComponent } from './utils/portfolio-detail/portfolio-detail.component';
+import { PortfolioDetailThumbnailsComponent } from './utils/portfolio-detail/components/portfolio-detail-thumbnails/portfolio-detail-thumbnails.component';
+import { PortfolioDetailGalleryComponent } from './utils/portfolio-detail/components/portfolio-detail-gallery/portfolio-detail-gallery.component';
+import { PortfolioDetailDescriptionComponent } from './utils/portfolio-detail/components/portfolio-detail-description/portfolio-detail-description.component';
+import { PortfolioDetailQuestionsAnswerComponent } from './utils/portfolio-detail/components/portfolio-detail-questions-answer/portfolio-detail-questions-answer.component';
+import { PortfolioDetailRatingsComponent } from './utils/portfolio-detail/components/portfolio-detail-ratings/portfolio-detail-ratings.component';
+import { PortfolioDetailGallerySwiperComponent } from './utils/portfolio-detail/components/portfolio-detail-gallery-swiper/portfolio-detail-gallery-swiper.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +91,6 @@ import { SwiperComponent } from './utils/swiper/swiper.component';
     ProductCreateComponent,
     ProductDetailComponent,
     HomeServicesComponent,
-    ProductsComponent,
     LoadingComponent,
     SimpleAlertComponent,
     HomeStoresComponent,
@@ -96,7 +100,6 @@ import { SwiperComponent } from './utils/swiper/swiper.component';
     CarouselComponent,
     PortfolioFiltersComponent,
     PortfolioComponent,
-    PortfolioAllComponent,
     BreadcumberComponent,
     SwiperComponent,
     PaginatorComponent,
@@ -113,6 +116,14 @@ import { SwiperComponent } from './utils/swiper/swiper.component';
     UserBannerComponent,
     HeaderUserAuthComponent,
     HeaderSearchBarComponent,
+    ProductsAllComponent,
+    PortfolioDetailComponent,
+    PortfolioDetailThumbnailsComponent,
+    PortfolioDetailGalleryComponent,
+    PortfolioDetailDescriptionComponent,
+    PortfolioDetailQuestionsAnswerComponent,
+    PortfolioDetailRatingsComponent,
+    PortfolioDetailGallerySwiperComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({

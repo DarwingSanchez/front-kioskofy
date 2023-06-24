@@ -12,7 +12,7 @@
             <!-- CONTAINER #1 -->
             <div class=" d-flex flex-column gap-2 col-md-7">
                 <!-- Create product -->
-                <form class="card-container row g-3" [formGroup]="product_form" (ngSubmit)="saveProduct()">
+                <form class="card-container row g-3" [formGroup]="product_form">
                     <!-- Instructions to create name -->
                     <div class="col-12 container-max-width-center">
                         <div class="overflow-hidden">
@@ -199,8 +199,8 @@
                                 [category]="category_selected"
                                 [show_swiper]="product_form.value.images && product_form.value.images.length > 1 ? true : false"></app-card-complete>
                         </div>
-                        <button mat-raised-button color="primary" type="submit" class="button-main col-md-6 h4 bold">
-                            <!-- [disabled]="product_form.valid"> -->
+                        <button mat-raised-button color="primary" type="submit" class="button-main col-md-6 h4 bold"
+                            (click)="saveProduct()">
                             Save product
                         </button>
                     </div>
@@ -213,7 +213,8 @@
                     <div class="col-12 overflow-hidden">
                         <label for="input_description" class="h5 form-label bold">Select the delivery locations</label>
                         <agm-map #AgmMapArea fit="true" [zoom]="12" [latitude]="49.246292" [longitude]="-123.116226"
-                            (mapClick)="addLocation($event)">
+                            (mapClick)="addLocation($event)"
+                            [ngClass]="{'invalid-input': ( product_form.get('pickup_locations')?.hasError('required') && product_form.get('pickup_locations')?.touched )}">
                             <agm-marker [latitude]="loc.lat" [longitude]="loc.lng"
                                 [iconUrl]="i === 0 ? main_loc_marker : ''" (markerClick)="showLocationDetail($event, i)"
                                 *ngFor="let loc of pickup_locations; index as i"></agm-marker>

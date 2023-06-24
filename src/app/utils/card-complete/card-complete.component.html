@@ -1,62 +1,68 @@
-<mat-card>
-    <span *ngIf="!show_swiper; else imgs_carousel">
-        <img mat-card-image
-            [src]="portfolio && portfolio.images && portfolio.images.length > 0 ? portfolio.images[0] : 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
-            alt="Photo of a Shiba Inu">
-    </span>
-    <mat-card-content class="d-flex flex-column align-items-center justify-content-between m-0 w-100 py-2 px-2">
-        <!-- Name -->
-        <div class="w-100">
-            <p class="h5 name ellipsis">
-                {{portfolio && portfolio.name ? portfolio.name : 'Name or your product'}}
-            </p>
-        </div>
-        <!-- Price -->
-        <div class="d-flex w-100 flex-row justify-content-start align-items-center h4 price py-1">
-            <p>{{ price | currency: 'CAD':'symbol':'1.0-0' }}</p>
-            <sub>/{{portfolio ? portfolio.quantity : '3'}} {{portfolio ? portfolio.measure : 'un'}}</sub>
-        </div>
-        <div class="price-category d-flex w-100 flex-row justify-content-between align-items-end pb-2">
-            <div class="d-flex w-50 flex-column justify-content-between align-items-center">
-                <!-- City -->
+<section>
+    <a [routerLink]="'/products/detail/' + 'producto-prueba-142'" target="_blank">
+        <mat-card>
+            <span *ngIf="!show_swiper; else imgs_carousel">
+                <img mat-card-image
+                    [src]="portfolio && portfolio.images && portfolio.images.length > 0 ? portfolio.images[0] : 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+                    alt="Photo of a Shiba Inu">
+            </span>
+            <mat-card-content class="d-flex flex-column align-items-center justify-content-between m-0 w-100 py-2 px-2">
+                <!-- Name -->
                 <div class="w-100">
-                    <p class="text-start ellipsis">
-                        Vancouver
+                    <p class="h5 name ellipsis">
+                        {{portfolio && portfolio.name ? portfolio.name : 'Name or your product'}}
                     </p>
                 </div>
-                <!-- Category -->
-                <div class="w-100">
-                    <p class="text-start ellipsis">
-                        {{ category ? category.title : 'Tecnología '}}
-                    </p>
+                <!-- Price -->
+                <div class="d-flex w-100 flex-row justify-content-start align-items-center h4 price py-1">
+                    <p>{{ price | currency: 'CAD':'symbol':'1.0-0' }}</p>
+                    <sub>/{{portfolio ? portfolio.quantity : '3'}} {{portfolio ? portfolio.measure : 'un'}}</sub>
                 </div>
+                <div class="price-category d-flex w-100 flex-row justify-content-between align-items-end pb-2">
+                    <div class="d-flex w-50 flex-column justify-content-between align-items-center">
+                        <!-- City -->
+                        <div class="w-100">
+                            <p class="text-start ellipsis">
+                                Vancouver
+                            </p>
+                        </div>
+                        <!-- Category -->
+                        <div class="w-100">
+                            <p class="text-start ellipsis">
+                                {{ category ? category.title : 'Tecnología '}}
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Flag -->
+                    <div class="d-flex w-50 flex-row justify-content-end align-items-center gap-2">
+                        <span class="h3">{{country? country.flag : '🇨🇴'}}</span>
+                    </div>
+                </div>
+                <div class="d-flex w-100 flex-row justify-content-between align-items-center">
+                    <!-- Type of seller -->
+                    <div class="d-flex flex-row gap-1">
+                        <img *ngIf="portfolio ? portfolio.non_profit : true" src="./assets/icons/non-profit.png"
+                            width="25" height="25" alt="non profit icon">
+                        <img *ngIf="portfolio ? portfolio.start_up : true" src="./assets/icons/Startup.png" width="25"
+                            height="25" alt="startup icon">
+                        <img *ngIf="portfolio ? portfolio.recommended : true" src="./assets/icons/recommended.png"
+                            width="25" height="25" alt="recommended icon">
+                    </div>
+                    <!-- Buy! -->
+                    <div>
+                        <img src="./assets/icons/buy.png" width="25" height="25" alt="heart icon">
+                    </div>
+                </div>
+            </mat-card-content>
+            <div class="heart-container cursor-pointer" (click)="likedCard()">
+                <img *ngIf="!is_liked_by_user" src="./assets/icons/heart-full.png" width="30" height="30"
+                    alt="heart filled">
+                <img *ngIf="is_liked_by_user" src="./assets/icons/heart-outline.png" width="30" height="30"
+                    alt="heart outline">
             </div>
-            <!-- Flag -->
-            <div class="d-flex w-50 flex-row justify-content-end align-items-center gap-2">
-                <span class="h3">{{country? country.flag : '🇨🇴'}}</span>
-            </div>
-        </div>
-        <div class="d-flex w-100 flex-row justify-content-between align-items-center">
-            <!-- Type of seller -->
-            <div class="d-flex flex-row gap-1">
-                <img *ngIf="portfolio ? portfolio.non_profit : true" src="./assets/icons/non-profit.png" width="25"
-                    height="25" alt="non profit icon">
-                <img *ngIf="portfolio ? portfolio.start_up : true" src="./assets/icons/Startup.png" width="25"
-                    height="25" alt="startup icon">
-                <img *ngIf="portfolio ? portfolio.recommended : true" src="./assets/icons/recommended.png" width="25"
-                    height="25" alt="recommended icon">
-            </div>
-            <!-- Buy! -->
-            <div>
-                <img src="./assets/icons/buy.png" width="25" height="25" alt="heart icon">
-            </div>
-        </div>
-    </mat-card-content>
-    <div class="heart-container cursor-pointer" (click)="likedCard()">
-        <img *ngIf="!is_liked_by_user" src="./assets/icons/heart-full.png" width="30" height="30" alt="heart filled">
-        <img *ngIf="is_liked_by_user" src="./assets/icons/heart-outline.png" width="30" height="30" alt="heart outline">
-    </div>
-</mat-card>
+        </mat-card>
+    </a>
+</section>
 
 <!-- Carousel of images -->
 <ng-template #imgs_carousel>

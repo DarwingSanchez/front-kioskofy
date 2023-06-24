@@ -47,7 +47,6 @@ export class ProductCreateComponent implements OnInit {
   public MAX_PICKUP_LOCS = 20;
   public pickup_locations: any[] = []
   public main_loc_marker = './assets/icons/map_marker_main_location.png'
-
   // Variables para el manejo de las fotos y sus miniaturas
   public imgs: Blob[] = [];
   public imgs_path: SafeUrl[] = [];
@@ -143,11 +142,10 @@ export class ProductCreateComponent implements OnInit {
 
   // Save product into database
   public async saveProduct() {
-    if (!this.isValidForm()) return;
     this.saveMapLocationsIntoForm();
+    if (!this.isValidForm()) return;
     this.parsePriceToNumber();
     const PRODUCT: Product = this.product_form.value;
-    console.log(PRODUCT);
     await lastValueFrom(this.productsService.createProduct(PRODUCT))
     .then((resp: any) => {
       console.log(resp);

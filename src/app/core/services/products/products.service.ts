@@ -22,6 +22,10 @@ export class ProductsService {
   getProducts() {
     return this.http.get(`${this.URL_API}/products/get/all`)
   }
+  
+  public getProductBySlugOrID(slug_id: string) {
+    return this.http.get(`${this.URL_API}/product/slug_id/${slug_id}`)
+  }
   /**
    * Creates a comment
    * @param body | Body necessary to create comment, body taken from comment model in the back

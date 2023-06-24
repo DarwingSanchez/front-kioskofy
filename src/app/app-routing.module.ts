@@ -4,7 +4,7 @@ import { HomeComponent } from './public/home/home.component';
 import { ProductCreateComponent } from './public/portfolio/components/portfolio-products/product-create/product-create.component';
 import { ProductDetailComponent } from './public/portfolio/components/portfolio-products/product-detail/product-detail.component';
 import { PortfolioComponent } from './public/portfolio/portfolio.component';
-import { PortfolioAllComponent } from './public/portfolio/components/portfolio-products/portfolio-all/portfolio-all.component';
+import { ProductsAllComponent } from './public/portfolio/components/portfolio-products/products-all/products-all.component';
 
 
 const routes: Routes = [
@@ -17,8 +17,14 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     // canActivate: [HomeGuard],
-  },
-
+    children: [
+        {
+          path: 'product/detail/:slug_id',
+          component: ProductDetailComponent,
+          data: { breadcrumb: {alias: 'detail'} },
+        },
+      ],
+    },
     { path: "products", redirectTo: "products/all" },
     {
     path: 'products',
@@ -27,7 +33,7 @@ const routes: Routes = [
     children: [
       {
         path: 'all',
-        component: PortfolioAllComponent,
+        component: ProductsAllComponent,
         data: { breadcrumb: {alias: 'all'} },
       },
       {
@@ -36,7 +42,7 @@ const routes: Routes = [
         data: { breadcrumb: {alias: 'create'} },
       },
       {
-        path: 'detail',
+        path: 'detail/:slug_id',
         component: ProductDetailComponent,
         data: { breadcrumb: {alias: 'detail'} },
       },

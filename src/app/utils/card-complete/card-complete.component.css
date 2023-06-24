@@ -3,6 +3,12 @@ mat-card {
     height: var(--card-height);
     padding: 0;
     position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none !important;
 }
 
 .mat-card-image {

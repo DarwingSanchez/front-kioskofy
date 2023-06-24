@@ -1,0 +1,7 @@
+section {
+    display: grid;
+    grid-template-columns: 1.7fr 2fr;
+    margin: auto;
+    max-width: var(--size-window);
+    width: 100%;
+}

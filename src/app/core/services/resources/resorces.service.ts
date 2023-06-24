@@ -18,9 +18,12 @@ export class ResorcesService {
    * @returns | Will return a promise with an success in true or false depending on backend answer
    */
   public loadImgPortfolio(files: File[]) {
-    console.log(files);
-
-    const dto = new FormData();
+    let reader = new FileReader();
+    for (const iterator of files) {
+      reader.readAsArrayBuffer(iterator);
+      reader.abort();
+    }
+    let dto = new FormData()
     for (const iterator of files) {
       dto.append('images', iterator)
     }

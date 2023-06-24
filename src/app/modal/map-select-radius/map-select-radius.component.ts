@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, SimpleChanges } from '@angular/core';
 import { faMagnifyingGlass, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { lastValueFrom } from 'rxjs';
@@ -81,7 +81,7 @@ export class MapSelectRadiusComponent implements OnInit {
 
   // Get zoom in order to make sure the circle fits the map
   public getMapZoom(): void {
-    let map_length: number = 640000; // Inicia con este valor en metros en el mapa, +1 zoom divide el length entre 2
+    let map_length: number = 640000; // Inicia con este valor en metros en el mapa, +1zoom divide el length entre 2
     for (let index = 5; index < 14; index++) {
       if(((this.search_location.radius * 2) - 600) >= map_length) return
       else map_length = map_length/2;

@@ -13,10 +13,7 @@ export class ResorcesService {
 
   constructor(private http : HttpClient) {}
 
-  /**
-   * Get countries list for products or services to be offered
-   * @returns | Will return a promise with an success in true or false depending on backend answer
-   */
+  // Get countries list for products or services to be offered
   public loadImgPortfolio(files: File[]) {
     let reader = new FileReader();
     for (const iterator of files) {
@@ -24,12 +21,9 @@ export class ResorcesService {
       reader.abort();
     }
     let dto = new FormData()
-    for (const iterator of files) {
+    for (const iterator of files)
       dto.append('images', iterator)
-    }
-
-    return this.http.post(`${this.URL_API}/aws_s3/portfolio`, dto, { headers: {
-      "Content-Type": "multipart/form-data"
-    }});
+    return this.http.post(`${this.URL_API}/aws_s3/portfolio`, dto
+    );
   }
 }

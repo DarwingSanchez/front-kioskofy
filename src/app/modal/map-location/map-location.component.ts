@@ -35,10 +35,7 @@ export class MapLocationComponent implements OnInit {
   }
 
   // Get the address based on a lat. lng. using the google api
-  public getAddress() {
-    console.log(this.lat,
-this.lng);
-    
+  public getAddress() {    
     let latlng: string = this.lat.toString() + ',' + this.lng.toString();
     lastValueFrom(this.mapService.getAddreesByLatLong(latlng))
       .then((resp: any) => {

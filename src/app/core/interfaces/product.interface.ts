@@ -6,7 +6,7 @@ export interface Product {
     status:  "pending" | "accepted" | "suspended" | "denied" | "deleted" | "blocked",
     images: string[],
     price: Number,
-    measure:  "Un" | "Kg" | "gr" | "Lb" | "Other",
+    measure:  'Un' | 'Kg' | 'gr' | 'Lb' | 'Pound' | 'Other',
     quantity: Number,
     condition: "Not specified" | "New" | "Used",
     seller: string,
@@ -16,4 +16,7 @@ export interface Product {
     start_up: Boolean,
     non_profit: Boolean,
     pickup_locations: object[],
+    pickup_main_location: string,
+    pickup_country: string,
+    pickup_administrative_area_level_1: string,
 }

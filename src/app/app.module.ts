@@ -20,7 +20,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { SwiperModule } from 'swiper/angular';
 import { FooterComponent } from './_index/footer/footer/footer.component';
@@ -126,9 +126,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PortfolioDetailGallerySwiperComponent,
   ],
   imports: [
-    AgmCoreModule.forRoot({
-      apiKey: environment.gmaps_key,
-    }),
+    AgmCoreModule.forRoot({ apiKey: environment.gmaps_key, language: 'en' }),
     BrowserModule,
     AppRoutingModule,
     NgbModule,
@@ -136,8 +134,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FontAwesomeModule,
     HttpClientModule,
     SwiperModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatCardModule,
     MatInputModule,
     MatSelectModule,
@@ -153,7 +151,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatFormFieldModule,
     MatNativeDateModule
   ],
-  providers: [CurrencyPipe],
+  providers: [CurrencyPipe, NgbActiveModal],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })

@@ -284,6 +284,8 @@ html {
 .button-disabled {
     background-color: var(--color-disabled);
     border: 2px solid var(--color-disabled);
+    pointer-events: none;
+    cursor: not-allowed;
 }
 
 .button-disabled h3 {

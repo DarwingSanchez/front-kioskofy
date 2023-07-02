@@ -3,23 +3,26 @@
     <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <h3>Countries:</h3>
+                <p class="h5 bold">Made in:</p>
             </mat-panel-title>
         </mat-expansion-panel-header>
         <section class="flex-column-start-center">
             <mat-radio-group class="flex-column-start-center gap-1" [formGroup]="form_filter_countries">
+                <mat-checkbox #countries_all (change)="form_filter_countries.reset()">
+                    All countries 🌎
+                </mat-checkbox>
                 <mat-checkbox [checked]="item.filter" *ngFor="let item of countries" [formControlName]="item.isoCode"
-                    (change)="item.filter = !item.filter">
+                    (change)="item.filter = !item.filter; countries_all.checked">
                     {{item.name}} {{item.flag}}
                 </mat-checkbox>
             </mat-radio-group>
         </section>
     </mat-expansion-panel>
     <!-- Categories -->
-    <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel [expanded]="false">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <h3>Categories:</h3>
+                <p class="h5 bold">Categories:</p>
             </mat-panel-title>
         </mat-expansion-panel-header>
         <section class="flex-column-start-center">
@@ -32,10 +35,10 @@
         </section>
     </mat-expansion-panel>
     <!-- Price -->
-    <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel [expanded]="false">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <h3>Price:</h3>
+                <p class="h5 bold">Price:</p>
             </mat-panel-title>
         </mat-expansion-panel-header>
         <section class="flex-column-start-center gap-2" [formGroup]="form_filter_price">
@@ -55,10 +58,10 @@
         </section>
     </mat-expansion-panel>
     <!-- Condition -->
-    <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel [expanded]="false">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <h3>Condition:</h3>
+                <p class="h5 bold">Condition:</p>
             </mat-panel-title>
         </mat-expansion-panel-header>
         <section class="flex-column-start-center" [formGroup]="form_conditions">
@@ -68,10 +71,10 @@
         </section>
     </mat-expansion-panel>
     <!-- Sort by -->
-    <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel [expanded]="false">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <h3>Sort by:</h3>
+                <p class="h5 bold">Sort by:</p>
             </mat-panel-title>
         </mat-expansion-panel-header>
         <section class="flex-column-start-center" [formGroup]="form_filter_sort_by">
@@ -81,7 +84,7 @@
         </section>
     </mat-expansion-panel>
     <!-- Clear filters -->
-    <div class="flex-row-center">
+    <div class="flex-row-center pt-3 pb-2">
         <button class="button-main button-rounded" mat-raised-button (click)="clearFilters()">
             <p class="font-weight-bold h5">
                 Clean Filters

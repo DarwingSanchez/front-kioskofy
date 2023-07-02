@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.component';
@@ -10,14 +11,15 @@ import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.co
 })
 export class ProductsAllComponent implements OnInit {
   // Paginator
-  public page_limit: number = 24;
+  public page_limit: number = 12;
   public page_current: number = 1;
   public page_total: number = 1;
+  public input_form: FormGroup = this.formBuilder.group({ search_text: [''] });
   // Banners
   public banners_imgs: string[] = [];
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
 
-  constructor(private modalService: NgbModal, private router: Router) {}
+  constructor(private modalService: NgbModal, private router: Router, private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     try {
@@ -66,5 +68,5 @@ export class ProductsAllComponent implements OnInit {
     };
   }
   // Store the portfolio to print on each card
-  public portfolio = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 ];
+  public portfolio = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11, 12, 13, 14, 15, 16];
 }

@@ -24,18 +24,15 @@
                         </div>
                     </div>
                     <!-- Name -->
-                    <div class="col-md-6">
+                    <div class="col-12">
                         <label for="input_name" class="h5 form-label bold">Name</label>
-                        <input formControlName="name" type="text" class="form-control form-control-sm py-2"
-                            id="input_name" placeholder="Name of the product"
+                        <input #name_product formControlName="name" type="text" ngModel maxlength="100"
+                            class="form-control form-control-sm py-2" id="input_name" placeholder="Name of the product"
                             [ngClass]="{'invalid-input': ( product_form.get('name')?.hasError('required') && product_form.get('name')?.touched )}">
-                    </div>
-                    <!-- Stock -->
-                    <div class="col-md-6">
-                        <label for="input_stock" class="h5 form-label bold">Stock available</label>
-                        <input formControlName="stock" type="number" class="form-control form-control-sm py-2"
-                            id="input_stock"
-                            [ngClass]="{'invalid-input': ( product_form.get('stock')?.hasError('required') && product_form.get('stock')?.touched )}">
+                        <sub class="d-flex justify-content-end mt-1"
+                            [ngClass]="{ 'text-danger': name_product.value.length > 90 }">
+                            Total characters: {{name_product.value.length || 0}}/100
+                        </sub>
                     </div>
                     <!-- Condition -->
                     <div class="col-md-6">
@@ -47,16 +44,16 @@
                             <option *ngFor="let condition of conditions" [value]="condition">{{condition}}</option>
                         </select>
                     </div>
-                    <!-- Price -->
+                    <!-- Stock -->
                     <div class="col-md-6">
-                        <label for="input_price" class="h5 form-label bold">Price</label>
-                        <input formControlName="price" appCurrencyFormat inputmode="numeric" type="text"
-                            class="form-control form-control-sm py-2" id="input_price"
-                            [ngClass]="{'invalid-input': ( product_form.get('price')?.hasError('required') && product_form.get('price')?.touched )}">
+                        <label for="input_stock" class="h5 form-label bold">Stock available</label>
+                        <input formControlName="stock" type="number" class="form-control form-control-sm py-2"
+                            id="input_stock"
+                            [ngClass]="{'invalid-input': ( product_form.get('stock')?.hasError('required') && product_form.get('stock')?.touched )}">
                     </div>
                     <!-- Country -->
                     <div class="col-md-6">
-                        <label for="input_country" class="h5 form-label bold">Country</label>
+                        <label for="input_country" class="h5 form-label bold">Made in</label>
                         <select class="form-control-sm py-2" formControlName="country" id="input_country"
                             (change)="findObjectById('country', countries, product_form.value.country)"
                             class="form-select"
@@ -67,46 +64,50 @@
                             </option>
                         </select>
                     </div>
+                    <!-- Price -->
+                    <div class="col-md-6">
+                        <label for="input_price" class="h5 form-label bold">Price</label>
+                        <input formControlName="price" appCurrencyFormat inputmode="numeric" type="text"
+                            class="form-control form-control-sm py-2 bold h5" id="input_price"
+                            [ngClass]="{'invalid-input': ( product_form.get('price')?.hasError('required') && product_form.get('price')?.touched )}">
+                    </div>
                     <!-- Category -->
                     <div class="col-md-6">
                         <label for="input_category" class="h5 form-label bold">Category</label>
-                        <select class="form-control-sm py-2" formControlName="category" id="input_category"
+                        <select #category class="form-control-sm py-2" formControlName="category" id="input_category"
                             class="form-select"
-                            (change)="findObjectById('category', categories, product_form.value.category)" [ngClass]="{'invalid-input': ( product_form.get('category')?.hasError('required') &&
-                            product_form.get('category')?.touched )}">
-                            <option selected default disabled>Choose...</option>
+                            (change)="findObjectById('category', categories, product_form.value.category) && getSubCategories(category.value)"
+                            [ngClass]="{'invalid-input': ( product_form.get('category')?.hasError('required') && product_form.get('category')?.touched )}">
                             <option *ngFor="let category of categories; index as i" [value]="category._id">
                                 {{category.title}}
                             </option>
                         </select>
                     </div>
-                    <!-- Measurement -->
+                    <!-- Sub category -->
                     <div class="col-md-6">
-                        <label for="input_measurement" class="h5 form-label bold">Measurement</label>
-                        <select class="form-control-sm py-2" formControlName="measure" id="input_measurement"
+                        <label for="input_sub_category" class="h5 form-label bold">Sub category</label>
+                        <select class="form-control-sm py-2" formControlName="sub_category" id="input_sub_category"
                             class="form-select"
-                            [ngClass]="{'invalid-input': ( product_form.get('measure')?.hasError('required') && product_form.get('measure')?.touched )}">
-                            <option selected disabled>Choose...</option>
-                            <option *ngFor="let measure of measures; index as i" [value]="measure">
-                                {{measure}}
+                            (change)="findObjectById('sub_category', categories, product_form.value.sub_category)"
+                            [ngClass]="{'invalid-input': ( product_form.get('sub_category')?.hasError('required') &&
+                            product_form.get('sub_category')?.touched )}">
+                            <option *ngFor="let sub_category of subcategories; index as i" [value]="sub_category._id">
+                                {{sub_category.title}}
                             </option>
                         </select>
-                    </div>
-                    <!-- Quantity -->
-                    <div class="col-md-6">
-                        <label for="input_quantity" class="h5 form-label bold">Quantity per sale</label>
-                        <input formControlName="quantity" type="number" class="form-control form-control-sm py-2"
-                            id="input_quantity"
-                            [ngClass]="{'invalid-input': ( product_form.get('quantity')?.hasError('required') && product_form.get('quantity')?.touched )}">
                     </div>
                     <!-- Description -->
                     <div class="col-12">
                         <label for="input_description" class="h5 form-label bold">Description</label>
-                        <textarea name="" id="" rows="3" formControlName="description"
+                        <textarea #description_product name="" id="" rows="3" formControlName="description"
                             class="form-control form-control-sm py-2" id="input_description"
-                            placeholder="This is the description..."
+                            placeholder="This is the description..." ngModel maxlength="500"
                             [ngClass]="{'invalid-input': ( product_form.get('description')?.hasError('required') && product_form.get('description')?.touched )}">
                         </textarea>
+                        <sub class="d-flex justify-content-end mt-1"
+                            [ngClass]="{ 'text-danger': name_product.value.length > 480 }">
+                            Total characters: {{description_product.value.length || 0}}/500
+                        </sub>
                     </div>
                     <!-- Non-profit -->
                     <div class="col-md-6">

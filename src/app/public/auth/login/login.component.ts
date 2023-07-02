@@ -31,7 +31,7 @@ export class LoginComponent {
       if(response.success) {
         this.usersService.setUserAndTokenInLocalStorage(response.data, response.token);
         this.loginForm.reset();
-        this.alertUser('success', `¡Welcome! ${response.data.name}`, 'Enjoy Kiskofy, ¡tu tienda latina!');
+        this.alertUser('success', `¡Welcome ${response.data.name}!`, 'Enjoy Kiskofy, ¡tu tienda latina!');
       }
     } catch (error) {
       this.alertUser('warning', '¡Oh oh!', 'Sorry, we are experiencing some problems, try again later');

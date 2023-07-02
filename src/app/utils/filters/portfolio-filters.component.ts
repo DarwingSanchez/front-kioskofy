@@ -19,6 +19,7 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
   @Input() type_filter!: 'products' | 'services' | 'stores';
   @Input() page_current!: any;
   @Input() page_limit!: number;
+  @Input() search_text!: string;
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
   public categories: any[] = [];
   public countries: any[] = [];
@@ -27,7 +28,7 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
   public form_conditions = this._formBuilder.group({ new: false, used: false, unknown: false });
   public form_filter_sort_by = this._formBuilder.group({ sort_by: '' });
   public form_filter_price = this._formBuilder.group({ price: '' });
-  public filters_applied: any = { page: this.page_current, limit: this.page_limit, countries: [], categories: [], condition: [], price: '', sort_by: '' }
+  public filters_applied: any = { page: this.page_current, limit: this.page_limit, search_text: this.search_text, countries: [], categories: [], condition: [], price: '', sort_by: '' }
   public sort_list = GlobalVariables.sort_list;
   public condition_list = GlobalVariables.condition_list;
   public price_list = GlobalVariables.price_list;
@@ -176,7 +177,7 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
 
   // Read all forms and gather the applied filters in one object to construct the URL params
   private getFilters(): void {
-    this.filters_applied = { page: this.page_current, limit: this.page_limit, countries: [], categories: [], condition: [], price: '', sort_by: '' };
+    this.filters_applied = { page: this.page_current, limit: this.page_limit, search_text: this.search_text, countries: [], categories: [], condition: [], price: '', sort_by: '' };
     for (const KEY in this.form_conditions.value)
       if (this.form_conditions.value[KEY]) this.filters_applied.condition.push(KEY);
     for (const KEY in this.form_filter_sort_by.value)

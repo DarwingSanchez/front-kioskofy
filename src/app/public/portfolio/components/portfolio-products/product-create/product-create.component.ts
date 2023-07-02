@@ -7,12 +7,14 @@ import { lastValueFrom } from 'rxjs';
 import { Category } from 'src/app/core/interfaces/category.interface';
 import { Country } from 'src/app/core/interfaces/country.interface';
 import { Product } from 'src/app/core/interfaces/product.interface';
+import { SubCategory } from 'src/app/core/interfaces/subcategory.interface';
 import { CategoriesService } from 'src/app/core/services/categories/categories.service';
 import { CountriesService } from 'src/app/core/services/countries/countries.service';
 import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
 import { MapService } from 'src/app/core/services/map/map.service';
 import { ProductsService } from 'src/app/core/services/products/products.service';
 import { ResorcesService } from 'src/app/core/services/resources/resorces.service';
+import { SubCategoriesService } from 'src/app/core/services/sub-categories/subcategories.service';
 import { LoadingComponent } from 'src/app/modal/loading/loading.component';
 import { MapLocationComponent } from 'src/app/modal/map-location/map-location.component';
 import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.component';
@@ -37,6 +39,7 @@ export class ProductCreateComponent implements OnInit {
   public country_selected!: Country;
   // Categories
   public categories: Category[] = [];
+  public subcategories: SubCategory[] = [];
   public category_selected!: Category;
   // Formularios reactivos
   public product_form: FormGroup;
@@ -62,6 +65,7 @@ export class ProductCreateComponent implements OnInit {
     private mapService: MapService,
     private countriesService: CountriesService,
     private categoriesService: CategoriesService,
+    private subCategoriesService: SubCategoriesService,
     public activeModal: NgbActiveModal,
   ) {
     this.product_form = this.formBuilder.group({
@@ -70,11 +74,10 @@ export class ProductCreateComponent implements OnInit {
       status: ['accepted', Validators.required],
       seller: ['', Validators.required],
       price: [null, Validators.required],
-      measure: ['Unit', Validators.required],
-      quantity: [null, Validators.required],
       condition: ['', Validators.required],
       stock: [null, Validators.required],
       category: ['', Validators.required],
+      sub_category: ['', Validators.required],
       country: ['', Validators.required],
       start_up: [false, Validators.required],
       non_profit: [false, Validators.required],
@@ -87,11 +90,12 @@ export class ProductCreateComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     try {
       this.getLoggedUserID();
       this.getCountries();
-      this.getCategories();
+      await this.getCategories();
+      this.getSubCategories(this.categories[0]._id);
     } catch (error) {
       this.alertUser('warning', '¡Oh oh!', 'Sorry, we are experiencing some problems.');
     }
@@ -125,10 +129,21 @@ export class ProductCreateComponent implements OnInit {
   }
 
   // Get all active categories
-  public getCategories(): void {
-    lastValueFrom(this.categoriesService.getCategoriesByStatus('active'))
+  public async getCategories() {
+    await lastValueFrom(this.categoriesService.getCategoriesByStatus('active'))
       .then((resp: any) => {
         if(resp.success && resp.data) this.categories = resp.data
+      })
+      .catch((error: Error) => {
+        throw error;
+      });
+  }
+
+  // Get all active categories
+  public getSubCategories(category: any): void {
+    lastValueFrom(this.subCategoriesService.getSubCatsByStatusAndCategory('active', category))
+      .then((resp: any) => {
+        if(resp.success && resp.data) this.subcategories = resp.data
       })
       .catch((error: Error) => {
         throw error;
@@ -151,6 +166,7 @@ export class ProductCreateComponent implements OnInit {
         if(resp.success && resp.data) {
           this.alertUser('success', '¡Great!', 'Your product has been created');
           this.product_form.reset();
+          this.images_list = [];
         };
       })
     } catch (error) {

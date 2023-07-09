@@ -1,7 +1,6 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { SwiperOptions } from 'swiper';
 
 @Component({
   selector: 'app-portfolio-detail-gallery-swiper',
@@ -10,11 +9,14 @@ import { SwiperOptions } from 'swiper';
 })
 export class PortfolioDetailGallerySwiperComponent  {
   public icon_close = faClose;
-  // Parent-Child communication
   @Input() portfolio!: any;
-  @Input() image_selected: any = 0;
+  @Input() image_selected: string = '';
 
   constructor(private activeModal: NgbActiveModal) {}
+
+  changeImage(img: string) {
+    this.image_selected = img;
+  }
 
   closeModal() {
     this.activeModal.close(this.image_selected);

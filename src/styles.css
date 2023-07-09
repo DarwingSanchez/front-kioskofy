@@ -39,14 +39,16 @@ html {
     --color-main-light-transparent: #fff9cc7c;
     --color-main-light-2: #e6f4ff;
     --color-main-ultra-light: #fff8f6;
-    --color-main-dark: #e4cd05;
+    --color-main-dark: #0a121e;
     --color-main-background: #f8f8f8;
     --color-disabled: #f8f9fa;
     --color-light-grey: #d8d8d8;
     --color-light: #ffffff;
     --color-font: #282B28;
     --color-price: #140d4a;
-    --color-alert: #ff7e7e;
+    --color-alert: #ff3860;
+    --color-warning: #ffd43b;
+    --color-success: #23d160;
     --size-window: 1200px;
     --card-height: 270px;
     --card-width: 180px;
@@ -178,6 +180,10 @@ html {
     color: var(--color-main) !important;
 }
 
+.text-color-main-2 {
+    color: var(--color-main-2) !important;
+}
+
 .text-justify {
     text-align: justify;
 }
@@ -197,8 +203,27 @@ html {
     cursor: pointer;
 }
 
+.button-main-2 {
+    background-color: var(--color-main-2);
+    color: var(--color-main);
+    border: 2px solid var(--color-main-2);
+    padding: 8px 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+}
+
 .button-main:hover {
     background-color: var(--color-light);
+}
+
+.button-main-2:hover {
+    background-color: var(--color-main-dark);
 }
 
 .button-main-light {

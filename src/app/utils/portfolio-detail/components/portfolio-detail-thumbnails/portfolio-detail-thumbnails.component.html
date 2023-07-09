@@ -2,7 +2,7 @@
     <p class="regular-text" *ngIf="is_card">Imágenes del producto</p>
     <span class="gallery-container">
         <div class="gallery" [ngClass]="is_card ? 'gallery-row' : 'gallery-column'">
-            <img [src]="img" alt="imagen producto" class="image" width="60" height="60" *ngFor="let img of images"
+            <img [src]="img" alt="imagen producto" class="image" width="70" height="70" *ngFor="let img of images"
                 (click)="selectImage(img, 'img')" [ngClass]="image_selected === img ? 'image-active' : ''">
         </div>
     </span>

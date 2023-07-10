@@ -1,0 +1,44 @@
+p {
+    margin: 0 !important;
+}
+
+.test {
+    position: absolute;
+    right: -10px;
+    top: 0px;
+}
+
+section {
+    position: relative;
+}
+
+.rightArrow {
+    position: relative;
+    background: var(--color-main-2);
+    display: inline-block;
+    padding: 15px;
+    color: var(--color-main) !important;
+    border-radius: 6px;
+}
+
+span:hover.rightArrow {
+    background: #000;
+}
+
+span.rightArrow:after {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -11px;
+    content: ' ';
+    width: 0;
+    height: 0;
+    border-left: 10px solid var(--color-main-2);
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-top: 10px solid transparent;
+}
+
+span:hover.rightArrow:after {
+    border-left-color: #000;
+}

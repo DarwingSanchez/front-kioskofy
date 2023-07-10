@@ -1,0 +1,72 @@
+<section class="card">
+    <div class="d-flex flex-row px-4 pt-4">
+        <!-- Item image -->
+        <div class="image-container flex-row-center col-sm-3">
+            <img [src]="order.item_id.images[0]" alt="item main image">
+            <button class="button-main-gray flex-row-center gap-1 px-2 py-1" (click)="showGallerySwiper()">
+                <fa-icon class="icon_img" size="sm" [icon]="icon_img"></fa-icon>
+                <p class="h6">See all</p>
+            </button>
+        </div>
+        <!-- Item Data -->
+        <div class="d-flex flex-column justify-content-between gap-1 px-sm-4 col-sm-4">
+            <p class="h4 bold">
+                {{ order.item_id.name }}
+            </p>
+            <p class="h4 bold">
+                <span *ngIf="order.item_id.price_discount && order.item_id.price_discount > 0; else real_price">
+                    <span class="text-decoration-line-through text-danger h5">
+                        {{ order.item_id.price | currency: 'CAD':'symbol':'1.0-2' }}</span>
+                    {{ order.item_id.price_discount | currency: 'CAD':'symbol':'1.0-2' }}
+                </span>
+                <ng-template #real_price>
+                    {{ order.item_id.price | currency: 'CAD':'symbol':'1.0-2' }}
+                </ng-template>
+            </p>
+            <p class="h5">
+                Date: {{order.createdAt | date:'MMM d, y'}}
+            </p>
+            <p class="h5">
+                Condition: {{ order.item_id.condition }}
+            </p>
+            <p class="h5">
+                Status: {{ order.status }}
+            </p>
+        </div>
+        <div class="d-flex flex-column align-items-start justify-content-between col-sm-5">
+            <!-- Seller data -->
+            <div class="d-flex flex-row align-items-center gap-2 col-12">
+                <span>
+                    <app-profile-picture [profile_picture]="order.seller.profile_picture"
+                        [size]="50"></app-profile-picture>
+                </span>
+                <span>
+                    <p class="h5">
+                        Seller: <span class="bold">
+                            {{ order.seller.name }} {{ order.seller.last_name }}
+                        </span>
+                    </p>
+                    <p class="h5">
+                        Order: {{ order.order_id }}
+                    </p>
+                </span>
+            </div>
+            <!-- Action buttons -->
+            <div class="col-12">
+                <button class="button-main-2 col-12" *ngIf="order.status === 'pending'; else button_purchase">
+                    ¡Buy!
+                </button>
+                <ng-template #button_purchase>
+                    <button class="button-main-2 col-12">
+                        Confirm completion
+                    </button>
+                    <button class="button-main-2 col-12">
+                        Cancel
+                    </button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <app-chat class="p-4" [user_id]="user_id" [chat]="chat" [order]="order"></app-chat>
+</section>

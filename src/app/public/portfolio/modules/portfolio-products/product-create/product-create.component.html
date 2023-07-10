@@ -1,0 +1,241 @@
+<section>
+    <div class="d-flex flex-column">
+        <!-- Title -->
+        <div class="mb-4 py-4 wrapper-background-color-left">
+            <div class="container-max-width-center">
+                <h1 class="font-weight-bold">
+                    Create your product
+                </h1>
+            </div>
+        </div>
+        <div class="col-12 row g-3 container-max-width-center">
+            <!-- CONTAINER #1 -->
+            <div class=" d-flex flex-column gap-2 col-md-7">
+                <!-- Create product -->
+                <form class="card-container row g-3" [formGroup]="product_form">
+                    <!-- Instructions to create name -->
+                    <div class="col-12 container-max-width-center">
+                        <div class="overflow-hidden">
+                            <div class="img-scroll">
+                                <img src="../../../assets/banner-agregar-producto.png" class="banner-img mw-100"
+                                    alt="instructions to add a product" />
+                            </div>
+                            <h4>Follow this instructions to create your product name</h4>
+                        </div>
+                    </div>
+                    <!-- Name -->
+                    <div class="col-12">
+                        <label for="input_name" class="h5 form-label bold">Name</label>
+                        <input #name_product formControlName="name" type="text" ngModel maxlength="100"
+                            class="form-control form-control-sm py-2" id="input_name" placeholder="Name of the product"
+                            [ngClass]="{'invalid-input': ( product_form.get('name')?.hasError('required') && product_form.get('name')?.touched )}">
+                        <sub class="d-flex justify-content-end mt-1"
+                            [ngClass]="{ 'text-danger': name_product.value.length > 90 }">
+                            Total characters: {{name_product.value.length || 0}}/100
+                        </sub>
+                    </div>
+                    <!-- Condition -->
+                    <div class="col-md-6">
+                        <label for="input_condition" class="h5 form-label bold">Condition</label>
+                        <select class="form-control-sm py-2" formControlName="condition" id="input_condition"
+                            class="form-select"
+                            [ngClass]="{'invalid-input': ( product_form.get('condition')?.hasError('required') && product_form.get('condition')?.touched )}">
+                            <option selected default disabled>Choose..</option>
+                            <option *ngFor="let condition of conditions" [value]="condition">{{condition}}</option>
+                        </select>
+                    </div>
+                    <!-- Stock -->
+                    <div class="col-md-6">
+                        <label for="input_stock" class="h5 form-label bold">Stock available</label>
+                        <input formControlName="stock" type="number" class="form-control form-control-sm py-2"
+                            id="input_stock"
+                            [ngClass]="{'invalid-input': ( product_form.get('stock')?.hasError('required') && product_form.get('stock')?.touched )}">
+                    </div>
+                    <!-- Country -->
+                    <div class="col-md-6">
+                        <label for="input_country" class="h5 form-label bold">Made in</label>
+                        <select class="form-control-sm py-2" formControlName="country" id="input_country"
+                            (change)="findObjectById('country', countries, product_form.value.country)"
+                            class="form-select"
+                            [ngClass]="{'invalid-input': ( product_form.get('country')?.hasError('required') && product_form.get('country')?.touched )}">
+                            <option selected default disabled>Choose...</option>
+                            <option *ngFor="let country of countries; index as i" [value]="country._id">
+                                {{country.name}} {{country.flag}}
+                            </option>
+                        </select>
+                    </div>
+                    <!-- Price -->
+                    <div class="col-md-6">
+                        <label for="input_price" class="h5 form-label bold">Price</label>
+                        <input formControlName="price" appCurrencyFormat inputmode="numeric" type="text"
+                            class="form-control form-control-sm py-2 bold h5" id="input_price"
+                            [ngClass]="{'invalid-input': ( product_form.get('price')?.hasError('required') && product_form.get('price')?.touched )}">
+                    </div>
+                    <!-- Category -->
+                    <div class="col-md-6">
+                        <label for="input_category" class="h5 form-label bold">Category</label>
+                        <select #category class="form-control-sm py-2" formControlName="category" id="input_category"
+                            class="form-select"
+                            (change)="findObjectById('category', categories, product_form.value.category) && getSubCategories(category.value)"
+                            [ngClass]="{'invalid-input': ( product_form.get('category')?.hasError('required') && product_form.get('category')?.touched )}">
+                            <option *ngFor="let category of categories; index as i" [value]="category._id">
+                                {{category.title}}
+                            </option>
+                        </select>
+                    </div>
+                    <!-- Sub category -->
+                    <div class="col-md-6">
+                        <label for="input_sub_category" class="h5 form-label bold">Sub category</label>
+                        <select class="form-control-sm py-2" formControlName="sub_category" id="input_sub_category"
+                            class="form-select"
+                            (change)="findObjectById('sub_category', categories, product_form.value.sub_category)"
+                            [ngClass]="{'invalid-input': ( product_form.get('sub_category')?.hasError('required') &&
+                            product_form.get('sub_category')?.touched )}">
+                            <option *ngFor="let sub_category of subcategories; index as i" [value]="sub_category._id">
+                                {{sub_category.title}}
+                            </option>
+                        </select>
+                    </div>
+                    <!-- Description -->
+                    <div class="col-12">
+                        <label for="input_description" class="h5 form-label bold">Description</label>
+                        <textarea #description_product name="" id="" rows="3" formControlName="description"
+                            class="form-control form-control-sm py-2" id="input_description"
+                            placeholder="This is the description..." ngModel maxlength="500"
+                            [ngClass]="{'invalid-input': ( product_form.get('description')?.hasError('required') && product_form.get('description')?.touched )}">
+                        </textarea>
+                        <sub class="d-flex justify-content-end mt-1"
+                            [ngClass]="{ 'text-danger': name_product.value.length > 480 }">
+                            Total characters: {{description_product.value.length || 0}}/500
+                        </sub>
+                    </div>
+                    <!-- Non-profit -->
+                    <div class="col-md-6">
+                        <label for="input_non_profit" class="h5 form-label bold d-flex flex-column">
+                            ¿Are you a non-profit organization?</label>
+                        <mat-radio-group formControlName="non_profit" class="d-flex flex-row-start-center gap-3"
+                            [ngClass]="{'invalid-input': ( product_form.get('non_profit')?.hasError('required') && product_form.get('non_profit')?.touched )}">
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <!-- Start-up -->
+                    <div class="col-md-6">
+                        <label for="input_quantity" class="h5 form-label bold d-flex flex-column">
+                            ¿Are you an start-up?
+                        </label>
+                        <mat-radio-group formControlName="start_up" class="d-flex flex-row-start-center gap-3"
+                            [ngClass]="{'invalid-input': ( product_form.get('start_up')?.hasError('required') && product_form.get('start_up')?.touched )}">
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </form>
+            </div>
+            <!-- CONTAINER #2 -->
+            <div class=" d-flex flex-column gap-2 col-md-5 m-0">
+                <div class="d-flex flex-column card-container gap-3"
+                    [ngClass]="{'invalid-input': ( this.images_list.length === 0 && product_form.get('images')?.touched )}">
+                    <div>
+                        <p class="h5 bold">Add multimedia</p>
+                    </div>
+                    <!-- Images -->
+                    <div class="d-flex flex-column gap-2">
+                        <div>
+                            <input type="file" class="inactive" (change)="handleFileInput($event)" #fileUpload
+                                id="formFileMultiple" multiple accept="image/*" />
+                            <a class="button-text bold" (click)="fileUpload.click()"
+                                [disabled]="images_list.length >= 4"
+                                [ngClass]="{'button-disabled': images_list.length >= 4}">
+                                + Add images
+                            </a>
+                        </div>
+                        <div class="contianer-images gap-2">
+                            <div class="border-input" *ngFor="let img of images_list; let i = index">
+                                <span class="flex-row-center h-100">
+                                    <fa-icon [icon]="icon_trash" class="icon-trash flex-row-center cursor-pointer"
+                                        (click)="deleteImage(i)" (click)="fileUpload.value = ''"></fa-icon>
+                                    <img class="img_prod" [src]="img.image64" alt="image loaded">
+                                </span>
+                            </div>
+                            <div class="border-input cursor-pointer" *ngIf="images_list.length < 4"
+                                (click)="fileUpload.click()" [disabled]="images_list.length >= 4">
+                                <span class="flex-row-center h-100 w-100">
+                                    <fa-icon class="icon-upload-img" [icon]="icon_image"></fa-icon>
+                                </span>
+                            </div>
+                        </div>
+                        <sub *ngIf="img_format_error" class="text-danger">
+                            Only files type "image" are supported, such as .png or .jpg
+                        </sub>
+                    </div>
+                    <!-- Videos -->
+                    <div class="d-flex flex-column gap-2">
+                        <div>
+                            <input type="file" class="inactive" (change)="handleFileInput($event)" #fileUpload
+                                id="formFileMultiple" />
+                            <a class="button-text bold" (click)="fileUpload.click()"
+                                [disabled]="images_list.length >= 3"
+                                [ngClass]="{'button-disabled': images_list.length >= 3}">
+                                + Add video
+                            </a>
+                        </div>
+                        <div class="contianer-images gap-2">
+                            <div class="border-input">
+                                <span class="flex-row-center" *ngIf="images_list[5]; else video_placeholder">
+                                    <fa-icon [icon]="icon_trash" class="icon-trash flex-row-center cursor-pointer"
+                                        (click)="deleteImage(0)" (click)="fileUpload.value = ''"></fa-icon>
+                                    <img class="img_prod" [src]="images_list[0]" alt="video loaded">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Save -->
+                <div class="card-container h-100">
+                    <div class="d-flex flex-column-center justify-content-start gap-3">
+                        <div class="d-flex flex-column justify-content-center align-items-center w-100 gap-3">
+                            <app-card-complete [portfolio]="product_form.value" [country]="country_selected"
+                                [category]="category_selected"
+                                [show_swiper]="product_form.value.images && product_form.value.images.length > 1 ? true : false"></app-card-complete>
+                        </div>
+                        <button #submitButton (click)="saveProduct(); submitButton.disabled = true" mat-raised-button
+                            color="primary" type="button" class="button-main col-md-6 h4 bold">
+                            Save product
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- CONTAINER #3 -->
+            <div class=" d-flex flex-column gap-2 col-12 p-0">
+                <!-- Google maps -->
+                <div class="card-container">
+                    <div class="col-12 overflow-hidden">
+                        <label for="input_description" class="h5 form-label bold">Select the delivery locations</label>
+                        <agm-map #AgmMapArea fit="true" [zoom]="12" [latitude]="49.246292" [longitude]="-123.116226"
+                            (mapClick)="addLocation($event)"
+                            [ngClass]="{'invalid-input': ( product_form.get('pickup_locations')?.hasError('required') && product_form.get('pickup_locations')?.touched )}">
+                            <agm-marker [latitude]="loc.lat" [longitude]="loc.lng"
+                                [iconUrl]="i === 0 ? main_loc_marker : ''" (markerClick)="showLocationDetail($event, i)"
+                                *ngFor="let loc of pickup_locations; index as i"></agm-marker>
+                        </agm-map>
+                        <p class="w-100 text-end bold h5"
+                            [ngClass]="{'text-danger': pickup_locations.length >= MAX_PICKUP_LOCS}">
+                            {{ pickup_locations.length > MAX_PICKUP_LOCS ?
+                            '¡Maximum pick up locations reached! '
+                            : 'Total locations selected ' }}
+                            {{pickup_locations.length || 0}}/{{MAX_PICKUP_LOCS}} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #image_placeholder>
+</ng-template>
+<ng-template #video_placeholder>
+    <span class="flex-row-center h-100 w-100">
+        <fa-icon class="icon-upload-img" [icon]="icon_film"></fa-icon>
+    </span>
+</ng-template>

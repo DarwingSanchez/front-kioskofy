@@ -1,0 +1,21 @@
+<section class="flex-column-start-center gap-1">
+    <p class="col-6 h3 bold">{{ portfolio.name }}</p>
+    <p class="h5 bold">{{ portfolio.stock > 0 ? 'In stock' : 'Out of stock' }}</p>
+    <p>Listed in {{ portfolio.pickup_administrative_area_level_1 }}</p>
+    <p class="d-flex flex-row align-items-center">
+        Made in: {{ portfolio.country.name }} <span class="h4">&nbsp;&nbsp;{{ portfolio.country.flag }}</span>
+    </p>
+    <p>Condition: {{ portfolio.condition }}</p>
+    <span class="d-flex flex-row">
+        <a class="button-text-link">{{portfolio.category.title }}</a>
+        <span *ngIf="portfolio.sub_category && portfolio.sub_category.title">
+            &nbsp;&nbsp;-&nbsp;
+            <a class="button-text-link">{{ portfolio.sub_category.title }}</a>
+        </span>
+    </span>
+    <span class="d-flex flex-row test">
+        <span href="#" class="rightArrow bold px-5">
+            <p class="h4 bold ">{{ portfolio.price | currency: 'CAD':'symbol':'1.0-2' }}</p>
+        </span>
+    </span>
+</section>

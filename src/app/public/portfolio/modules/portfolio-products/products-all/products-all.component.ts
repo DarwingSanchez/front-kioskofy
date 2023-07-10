@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.component';
@@ -14,12 +14,12 @@ export class ProductsAllComponent implements OnInit {
   public page_limit: number = 12;
   public page_current: number = 1;
   public page_total: number = 1;
-  public input_form: FormGroup = this.formBuilder.group({ search_text: [''] });
+  public input_form: UntypedFormGroup = this.formBuilder.group({ search_text: [''] });
   // Banners
   public banners_imgs: string[] = [];
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
 
-  constructor(private modalService: NgbModal, private router: Router, private formBuilder: FormBuilder) {}
+  constructor(private modalService: NgbModal, private router: Router, private formBuilder: UntypedFormBuilder) {}
 
   ngOnInit(): void {
     try {

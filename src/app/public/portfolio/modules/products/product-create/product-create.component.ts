@@ -1,5 +1,5 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { faFilm, faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -37,7 +37,7 @@ export class ProductCreateComponent implements OnInit {
   public categories: Category[] = [];
   public category_selected!: Category;
   // Formularios reactivos
-  public product_form: FormGroup;
+  public product_form: UntypedFormGroup;
   // Modal configuration
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
   // Options for the Form
@@ -55,7 +55,7 @@ export class ProductCreateComponent implements OnInit {
   public supported_imgs: string[] = ['apng', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'svg', 'webp'];
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private modalService: NgbModal,
     private productsService: ProductsService,
     private resorcesService: ResorcesService,
@@ -302,7 +302,7 @@ export class ProductCreateComponent implements OnInit {
     modalRef.componentInstance.close_callback = () => {};
   }
 
-  toppings = new FormControl('');
+  toppings = new UntypedFormControl('');
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
   /** Saves the current uploaded picture to modify the aspect ratio */

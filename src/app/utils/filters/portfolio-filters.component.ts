@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, lastValueFrom } from 'rxjs';
@@ -23,8 +23,8 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
   public categories: any[] = [];
   public countries: any[] = [];
-  public form_filter_categories: FormGroup = new FormGroup({});
-  public form_filter_countries: FormGroup = new FormGroup({});
+  public form_filter_categories: UntypedFormGroup = new UntypedFormGroup({});
+  public form_filter_countries: UntypedFormGroup = new UntypedFormGroup({});
   public form_conditions = this._formBuilder.group({ new: false, used: false, unknown: false });
   public form_filter_sort_by = this._formBuilder.group({ sort_by: '' });
   public form_filter_price = this._formBuilder.group({ price: '' });
@@ -34,7 +34,7 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
   public price_list = GlobalVariables.price_list;
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private router: Router,
     private activateRoute: ActivatedRoute,
     private categoriesService: CategoriesService,
@@ -141,10 +141,10 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
       iterator.filter = false;
       switch (flag) {
         case 'category':
-          this.form_filter_categories.addControl(iterator.slug, new FormControl(false));
+          this.form_filter_categories.addControl(iterator.slug, new UntypedFormControl(false));
           break;
         case 'country':
-          this.form_filter_countries.addControl(iterator.isoCode, new FormControl(false));
+          this.form_filter_countries.addControl(iterator.isoCode, new UntypedFormControl(false));
           break;
         default:
           break;

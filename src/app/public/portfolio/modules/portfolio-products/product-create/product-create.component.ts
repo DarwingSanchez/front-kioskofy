@@ -1,5 +1,5 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { faFilm, faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -42,7 +42,7 @@ export class ProductCreateComponent implements OnInit {
   public subcategories: SubCategory[] = [];
   public category_selected!: Category;
   // Formularios reactivos
-  public product_form: FormGroup;
+  public product_form: UntypedFormGroup;
   // Modal configuration
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
   // Options for the Form
@@ -57,7 +57,7 @@ export class ProductCreateComponent implements OnInit {
   public supported_imgs: string[] = ['apng', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'svg', 'webp'];
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private modalService: NgbModal,
     private productsService: ProductsService,
     private resorcesService: ResorcesService,

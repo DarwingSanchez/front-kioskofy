@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { faBars, faUser } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { lastValueFrom, map, startWith } from 'rxjs';
@@ -77,7 +77,7 @@ export class HeaderComponent implements OnInit {
   }
   // Guardamos dinamicamente los valores de autocompletado
   public filteredOptions: any;
-  public mySearch = new FormControl();
+  public mySearch = new UntypedFormControl();
   public searchTerm = '';
 productos_filtrados: any;
 

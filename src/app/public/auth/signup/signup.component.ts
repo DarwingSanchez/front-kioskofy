@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { lastValueFrom } from 'rxjs';
 import { UsersService } from 'src/app/core/services/users/users.service';
@@ -12,7 +12,7 @@ import { SimpleAlertComponent } from '../../../modal/simple-alert/simple-alert.c
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  public signupForm: FormGroup;
+  public signupForm: UntypedFormGroup;
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
   private is_browser!: boolean;
 
@@ -22,15 +22,15 @@ export class SignupComponent {
     private usersService: UsersService,
     private modalService: NgbModal
     ) {
-    this.signupForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      last_name: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]),
-      type: new FormControl('regular', [Validators.required]),
-      status: new FormControl('active', [Validators.required]),
-      accepted_terms_conditions: new FormControl(false, [Validators.requiredTrue])
+    this.signupForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', [Validators.required]),
+      last_name: new UntypedFormControl('', [Validators.required]),
+      phone: new UntypedFormControl('', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]),
+      type: new UntypedFormControl('regular', [Validators.required]),
+      status: new UntypedFormControl('active', [Validators.required]),
+      accepted_terms_conditions: new UntypedFormControl(false, [Validators.requiredTrue])
     });
     // Validates if the project is running on the server or the user in order to use browser functions
     this.is_browser = isPlatformBrowser(this.platformId);

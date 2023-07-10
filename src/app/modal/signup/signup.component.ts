@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -8,15 +8,15 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  public signupForm: FormGroup;
+  public signupForm: UntypedFormGroup;
 
   constructor(public activeModal: NgbActiveModal) {
-    this.signupForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      last_name: new FormControl('', [Validators.required]),
-      cellphone: new FormControl('', [Validators.required, Validators.pattern("[0-9 ]{11}")]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required])
+    this.signupForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', [Validators.required]),
+      last_name: new UntypedFormControl('', [Validators.required]),
+      cellphone: new UntypedFormControl('', [Validators.required, Validators.pattern("[0-9 ]{11}")]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [Validators.required])
     });
   }
 

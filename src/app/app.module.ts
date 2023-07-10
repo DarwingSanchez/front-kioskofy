@@ -81,6 +81,7 @@ import { OrdersComponent } from './public/orders/orders.component';
 import { OrdersHistoryComponent } from './public/orders/components/orders-history/orders-history.component';
 import { ChatComponent } from './public/orders/components/order-chat/chat.component';
 import { OrderDetailComponent } from './public/orders/components/order-detail/order-detail.component';
+import { ProfilePictureComponent } from './utils/profile-picture/profile-picture.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +139,7 @@ import { OrderDetailComponent } from './public/orders/components/order-detail/or
     OrdersHistoryComponent,
     ChatComponent,
     OrderDetailComponent,
+    ProfilePictureComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({ apiKey: environment.gmaps_key, language: 'en' }),

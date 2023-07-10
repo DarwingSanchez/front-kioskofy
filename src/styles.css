@@ -240,6 +240,17 @@ html {
     cursor: pointer;
 }
 
+.button-main-gray {
+    background-color: var(--color-main-light-2);
+    color: var(--color-font);
+    border: 2px solid var(--color-main-light-2);
+    padding: 4px 8px;
+    font-weight: 600;
+    border-radius: 4px;
+    box-shadow: none;
+    cursor: pointer;
+}
+
 .button-main-light:hover, .button-main-light:hover {
     background-color: var(--color-main);
 }

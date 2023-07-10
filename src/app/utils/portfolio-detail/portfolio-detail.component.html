@@ -15,7 +15,7 @@
                     [description]="portfolio.description"></app-portfolio-detail-description>
             </div>
             <div class="card-container d-flex flex-row justify-content-between" *ngIf="portfolio.pickup_locations">
-                <span class="d-flex flex-row col-md-5 gap-2">
+                <span class="d-flex flex-row col-md-4 gap-2">
                     <span class="user-picture">
                         <ng-container *ngIf="!portfolio.seller.image; else seller_picture">
                             <fa-icon [icon]="icon_user" size="xl"></fa-icon>
@@ -32,8 +32,16 @@
                         </span>
                     </span>
                 </span>
-                <button class="col-md-7 button-main-2 flex-row-center gap-2" (click)="createOrder()">
-                    <p class="bold m-0 h5">Message</p>
+                <span class="col-md-3">
+                    <!-- <label for="h5 bold qty"></label>
+                    <input type="number" name="qty" id="qty" class="quantity-input"> -->
+                    <mat-form-field class="quantity-i+nput">
+                        <mat-label class="h5">Quantity:</mat-label>
+                        <input matInput type="text">
+                    </mat-form-field>
+                </span>
+                <button class="col-md-5 button-main-2 flex-row-center gap-2" (click)="createOrder()">
+                    <p class="bold m-0 h5">¡I want it!</p>
                     <fa-icon class="icon-upload-img" size="xl" [icon]="icon_message"></fa-icon>
                 </button>
             </div>

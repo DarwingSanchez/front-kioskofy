@@ -314,10 +314,10 @@ html {
 }
 
 .button-disabled {
-    background-color: var(--color-disabled);
-    border: 2px solid var(--color-disabled);
-    pointer-events: none;
-    cursor: not-allowed;
+    background-color: var(--color-disabled) !important;
+    border: 2px solid var(--color-disabled) !important;
+    pointer-events: none !important;
+    cursor: not-allowed !important;
 }
 
 .button-disabled h3 {

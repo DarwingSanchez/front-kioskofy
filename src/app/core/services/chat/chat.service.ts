@@ -14,4 +14,12 @@ export class ChatService {
     return this.http.get(`${this.URL_API}/conversation/${query}/${value}`);
   }
 
+  public updateConversation(room: string, data: any) {
+    return this.http.put(`${this.URL_API}/conversation/${room}`, data);
+  }
+
+  public sendMessage(id: string, data: any) {
+    return this.http.post(`${this.URL_API}/conversation/sent-message/id/${id}`, data);
+  }
+
 }

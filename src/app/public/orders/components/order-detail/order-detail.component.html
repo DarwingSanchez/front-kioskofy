@@ -1,4 +1,4 @@
-<section class="card">
+<section class="card" *ngIf="order">
     <div class="d-flex flex-row px-4 pt-4">
         <!-- Item image -->
         <div class="image-container flex-row-center col-sm-3">
@@ -68,5 +68,6 @@
         </div>
     </div>
     <hr>
-    <app-chat class="p-4" [user_id]="user_id" [chat]="chat" [order]="order"></app-chat>
+    <app-chat class="p-4 pt-0" [user_id]="user_id" [chat]="chat" [seller]="chat.seller" [buyer]="chat.buyer"
+        [order]="order"></app-chat>
 </section>

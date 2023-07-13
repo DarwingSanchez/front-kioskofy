@@ -53,7 +53,7 @@ export class OrdersComponent implements OnInit {
 
   private async getOrderType() {
     this.route.queryParams
-      .subscribe(params => { this.orders_type = params['type'] });
+      .subscribe((params: any) => { this.orders_type = params['type'] });
     // If no order type is found on the url, it will change it
     if (!this.orders_type) this.changeOrdersType('buy');
   }

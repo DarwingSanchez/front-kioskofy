@@ -18,11 +18,11 @@ export class ProductsService {
     // private tokenService: TokenService,
     private http : HttpClient
   ) { }
-  
+
   getProducts() {
     return this.http.get(`${this.URL_API}/products/get/all`)
   }
-  
+
   public getProductBySlugOrID(slug_id: string) {
     return this.http.get(`${this.URL_API}/product/slug_id/${slug_id}`)
   }
@@ -33,5 +33,9 @@ export class ProductsService {
    */
   createProduct(body:any) {
     return this.http.post(`${this.URL_API}/products/create`, body)
+  }
+
+  onSearchProductsBar(searchText: string):Observable<any> {
+    return this.http.get(`${this.URL_API}/products/bar_search/${searchText}`)
   }
 }

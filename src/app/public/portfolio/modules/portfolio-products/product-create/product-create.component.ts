@@ -46,7 +46,7 @@ export class ProductCreateComponent implements OnInit {
   // Modal configuration
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
   // Options for the Form
-  public conditions = ['New', 'Used', 'Not specified'];
+  public conditions = ['new', 'used', 'not_specified'];
   public measures = ['Un', 'Kg', 'gr', 'Lb', 'Pound', 'Other'];
   public MAX_PICKUP_LOCS = 20;
   public pickup_locations: any[] = []
@@ -81,7 +81,10 @@ export class ProductCreateComponent implements OnInit {
       country: ['', Validators.required],
       start_up: [false, Validators.required],
       non_profit: [false, Validators.required],
+      hand_craft: [false, Validators.required],
       recommended: [false, Validators.required],
+      best_seller: [false, Validators.required],
+      trending: [false, Validators.required],
       description: ['', [Validators.required, Validators.pattern(/^.{1,300}$/)]],
       pickup_locations: [null, Validators.required],
       pickup_main_location: [null, Validators.required],
@@ -159,7 +162,7 @@ export class ProductCreateComponent implements OnInit {
       this.parsePriceToNumber();
       if (!this.isValidForm()) return;
 
-      const PRODUCT: Product = this.product_form.value;
+      const PRODUCT: Product = this.product_form.value;      
       await lastValueFrom(this.productsService.createProduct(PRODUCT))
       .then((resp: any) => {
         modal_loading.close();
@@ -167,6 +170,7 @@ export class ProductCreateComponent implements OnInit {
           this.alertUser('success', '¡Great!', 'Your product has been created');
           this.product_form.reset();
           this.images_list = [];
+          window.location.reload();
         };
       })
     } catch (error) {

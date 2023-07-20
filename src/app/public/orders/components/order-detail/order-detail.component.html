@@ -2,7 +2,7 @@
     <div class="d-flex flex-row px-4 pt-4">
         <!-- Item image -->
         <div class="image-container flex-row-center col-sm-3">
-            <img [src]="order.item_id.images[0]" alt="item main image">
+            <img [src]="order.item.images[0]" alt="item main image">
             <button class="button-main-gray flex-row-center gap-1 px-2 py-1" (click)="showGallerySwiper()">
                 <fa-icon class="icon_img" size="sm" [icon]="icon_img"></fa-icon>
                 <p class="h6">See all</p>
@@ -11,23 +11,23 @@
         <!-- Item Data -->
         <div class="d-flex flex-column justify-content-between gap-1 px-sm-4 col-sm-4">
             <p class="h4 bold">
-                {{ order.item_id.name }}
+                {{ order.item.name }}
             </p>
             <p class="h4 bold">
-                <span *ngIf="order.item_id.price_discount && order.item_id.price_discount > 0; else real_price">
+                <span *ngIf="order.item.price_discount && order.item.price_discount > 0; else real_price">
                     <span class="text-decoration-line-through text-danger h5">
-                        {{ order.item_id.price | currency: 'CAD':'symbol':'1.0-2' }}</span>
-                    {{ order.item_id.price_discount | currency: 'CAD':'symbol':'1.0-2' }}
+                        {{ order.item.price | currency: 'CAD':'symbol':'1.0-2' }}</span>
+                    {{ order.item.price_discount | currency: 'CAD':'symbol':'1.0-2' }}
                 </span>
                 <ng-template #real_price>
-                    {{ order.item_id.price | currency: 'CAD':'symbol':'1.0-2' }}
+                    {{ order.item.price | currency: 'CAD':'symbol':'1.0-2' }}
                 </ng-template>
             </p>
             <p class="h5">
                 Date: {{order.createdAt | date:'MMM d, y'}}
             </p>
             <p class="h5">
-                Condition: {{ order.item_id.condition }}
+                Condition: {{ order.item.condition }}
             </p>
             <p class="h5">
                 Status: {{ order.status }}
@@ -53,9 +53,19 @@
             </div>
             <!-- Action buttons -->
             <div class="col-12">
-                <button class="button-main-2 col-12" *ngIf="order.status === 'pending'; else button_purchase">
-                    ¡Buy!
-                </button>
+                <ng-container class="col-12" *ngIf="order.status === 'pending'; else button_purchase">
+                    <span class="flex-row-center col-12" [formGroup]="qty_form">
+                        <mat-form-field class="col-5 pe-3" appearance="outline">
+                            <mat-label class="h5">Quantity:</mat-label>
+                            <input formControlName="qty" matInput type="number">
+                        </mat-form-field>
+                        <button class="button-main-2 col-7 h-100"
+                            [ngClass]="qty_form.invalid && qty_form.get('qty')?.touched ? 'button-disabled' : ''"
+                            (click)="qty_form.valid ? qty_form.markAllAsTouched() : qty_form.markAllAsTouched()">
+                            ¡Buy!
+                        </button>
+                    </span>
+                </ng-container>
                 <ng-template #button_purchase>
                     <button class="button-main-2 col-12">
                         Confirm completion
@@ -68,6 +78,6 @@
         </div>
     </div>
     <hr>
-    <app-chat class="p-4 pt-0" [user_id]="user_id" [chat]="chat" [seller]="chat.seller" [buyer]="chat.buyer"
-        [order]="order"></app-chat>
+    <app-chat *ngIf="chat" class="p-4 pt-0" [user_id]="user_id" [chat]="chat" [seller]="chat.seller"
+        [buyer]="chat.buyer" [order]="order"></app-chat>
 </section>

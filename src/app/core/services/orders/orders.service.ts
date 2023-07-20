@@ -20,7 +20,7 @@ export class OrdersService {
       .set('page', filters.page)
       .set('seller', filters.seller)
       .set('buyer', filters.buyer)
-      .set('item_id', filters.item_id)
+      .set('item', filters.item)
       .set('item_type', filters.item_type)
       .set('status', filters.status)
       .set('sort', filters.sort)

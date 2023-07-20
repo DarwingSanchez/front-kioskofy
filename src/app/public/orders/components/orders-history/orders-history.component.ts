@@ -15,7 +15,7 @@ export class OrdersHistoryComponent {
   constructor(private router: Router) {}
 
   goToOrder(order_id: number) {
-    this.router.navigate(['orders'], { queryParams: { order_id: order_id } }).then(() => {
+    this.router.navigate([], { queryParams: { order_id: order_id } }).then(() => {
       window.location.reload();
     });
   }

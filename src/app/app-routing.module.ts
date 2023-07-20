@@ -4,7 +4,7 @@ import { HomeComponent } from './public/home/home.component';
 import { ProductCreateComponent } from './public/portfolio/modules/portfolio-products/product-create/product-create.component'; 
 import { ProductDetailComponent } from './public/portfolio/modules/portfolio-products/product-detail/product-detail.component'; 
 import { PortfolioComponent } from './public/portfolio/portfolio.component';
-import { ProductsAllComponent } from './public/portfolio/modules/portfolio-products/products-all/products-all.component';
+import { ProductsAllComponent } from './public/portfolio/modules/portfolio-products/products-home/products-all.component';
 import { OrdersComponent } from './public/orders/orders.component';
 
 const routes: Routes = [

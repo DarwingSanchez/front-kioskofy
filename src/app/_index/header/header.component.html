@@ -85,9 +85,10 @@
 <ng-template #user_info>
     <li class="nav-item" *ngIf="user_logged">
         <a class="nav-link cursor-pointer" (click)="isMenuCollapsed = true" routerLinkActive="active-link">
-            <button class="button-main-light button-rounded" mat-raised-button>
+            <button class="button-main-light button-rounded button-cart" mat-raised-button routerLink="/orders/buy"
+                ngbTooltip="Orders">
                 <p class="h5 bold">
-                    Orders
+                    <fa-icon [icon]="icon_cart"></fa-icon>
                 </p>
             </button>
         </a>

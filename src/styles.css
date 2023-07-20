@@ -42,7 +42,7 @@ html {
     --color-main-dark: #0a121e;
     --color-main-background: #f8f8f8;
     --color-disabled: #f8f9fa;
-    --color-light-grey: #d8d8d8;
+    --color-light-grey: #f8f8f8e2;
     --color-light: #ffffff;
     --color-font: #282B28;
     --color-price: #140d4a;
@@ -50,8 +50,6 @@ html {
     --color-warning: #ffd43b;
     --color-success: #23d160;
     --size-window: 1200px;
-    --card-height: 270px;
-    --card-width: 180px;
 }
 
 .background-color-main-light {
@@ -497,4 +495,29 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .decoration-none {
     text-decoration: none;
+}
+
+/* Border */
+.mat-form-field-appearance-outline .mat-form-field-outline,
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: var(--color-main-2);
+}
+
+/* Font color */
+.mat-form-field-label {
+    color: var(--color-main-dark) !important;
+}
+
+input.mat-input-element {
+    color: var(--color-main-dark);
+}
+
+mat-form-field {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.mat-form-field-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
 }

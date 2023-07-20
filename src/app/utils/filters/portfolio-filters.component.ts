@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -7,6 +7,10 @@ import { CategoriesService } from 'src/app/core/services/categories/categories.s
 import { CountriesService } from 'src/app/core/services/countries/countries.service';
 import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.component';
 import { GlobalVariables } from '../../../environments/global-variables';
+import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
+import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { MapSelectRadiusComponent } from 'src/app/modal/map-select-radius/map-select-radius.component';
+import { ProductsService } from 'src/app/core/services/products/products.service';
 
 
 @Component({
@@ -20,6 +24,7 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
   @Input() page_current!: any;
   @Input() page_limit!: number;
   @Input() search_text!: string;
+  @Output() emitFilters = new EventEmitter();
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
   public categories: any[] = [];
   public countries: any[] = [];
@@ -28,10 +33,11 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
   public form_conditions = this._formBuilder.group({ new: false, used: false, unknown: false });
   public form_filter_sort_by = this._formBuilder.group({ sort_by: '' });
   public form_filter_price = this._formBuilder.group({ price: '' });
-  public filters_applied: any = { page: this.page_current, limit: this.page_limit, search_text: this.search_text, countries: [], categories: [], condition: [], price: '', sort_by: '' }
+  public filters_applied: any = { status: 'accepted', page: this.page_current, limit: this.page_limit, search_text: this.search_text, countries: [], categories: [], condition: [], price: '', sort_by: '' }
   public sort_list = GlobalVariables.sort_list;
   public condition_list = GlobalVariables.condition_list;
   public price_list = GlobalVariables.price_list;
+  public search_location!: any;
 
   constructor(
     private _formBuilder: UntypedFormBuilder,
@@ -39,23 +45,27 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
     private activateRoute: ActivatedRoute,
     private categoriesService: CategoriesService,
     private countriesService: CountriesService,
+    private localStorageService: LocalStorageService,
+    private productsService: ProductsService,
     private modalService: NgbModal,
   ) {}
 
   async ngOnInit() {
     try {
+      await this.getFilterLocation();
       await this.getActiveCategories();
       await this.getActiveCountries();
       this.getPriceFilterRanges(13500);
       this.getQueryParamsFromURL();
       this.subscribeToForms();
+      this.getFilters();
     } catch (error) {
       this.alertUser('alert', '¡Oh oh!', 'Sorry, we are experiencing some problems, try again later');
     }
   }
 
   ngOnChanges(): void {
-    if (this.page_current) this.getFilters();
+    if (this.page_current || this.search_location) this.getFilters();
   }
 
   // Get the query param filter in the URL and updates the DOM
@@ -81,6 +91,16 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
     });
     // Unsubscribe to avoid a infinite loop of apply filters
     QUERY_SUBSCRIPTION.unsubscribe();
+  }
+
+  // Get into local storage the filter location
+  private async getFilterLocation() {
+    await this.localStorageService.getItem('filter_location')
+      .then((resp: any) => { 
+        if(resp.lat && resp.lng) this.search_location = resp;
+      }).catch((error: any) => {
+        throw error;
+      })
   }
 
   // Get the active categories that ca be used for the filter
@@ -177,7 +197,7 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
 
   // Read all forms and gather the applied filters in one object to construct the URL params
   private getFilters(): void {
-    this.filters_applied = { page: this.page_current, limit: this.page_limit, search_text: this.search_text, countries: [], categories: [], condition: [], price: '', sort_by: '' };
+    this.filters_applied = { status: 'accepted', page: this.page_current, limit: this.page_limit, search_text: this.search_text, countries: [], categories: [], condition: [], price: '', sort_by: '', location: JSON.stringify(this.search_location) };
     for (const KEY in this.form_conditions.value)
       if (this.form_conditions.value[KEY]) this.filters_applied.condition.push(KEY);
     for (const KEY in this.form_filter_sort_by.value)
@@ -189,11 +209,21 @@ export class PortfolioFiltersComponent implements OnInit, OnChanges {
     for (const KEY in this.form_filter_countries.value)
       if (this.form_filter_countries.value[KEY]) this.filters_applied.countries.push(KEY);
     this.navigateToURLWithFilters();
+    this.sendFiltersToParent();
+  }
+
+  public sendFiltersToParent() {
+    this.emitFilters.emit(this.filters_applied)
   }
 
   // Reload the page with the new filters as queryparams on the URL
   private navigateToURLWithFilters(): void {
     this.router.navigate(['/products/all'], { queryParams: this.filters_applied });
+  }
+
+  public openModalChangeSearchLocation():void {
+    const modalRef = this.modalService.open(MapSelectRadiusComponent, this.ng_modal_options);
+    modalRef.componentInstance.close_callback = () => {};
   }
 
   // Clear all filters

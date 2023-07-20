@@ -1,7 +1,8 @@
 <section>
     <main class="content" *ngIf="chat">
+        <!-- Conversation -->
         <div class="col-12 py-3">
-            <div class="position-relative">
+            <ng-container *ngIf="chat.history.length; else empty_setate">
                 <ng-container *ngFor="let message of chat.history; let i = index">
                     <div class="text-center py-2"
                         *ngIf="!chat.history[i - 1] || isDifferentDay(chat.history[i - 1].createdAt, chat.history[i].createdAt)">
@@ -28,14 +29,16 @@
                         </div>
                     </div>
                 </ng-container>
-                <div class="mensajes h-100" [innerHTML]="some_html_code"></div>
-            </div>
+            </ng-container>
+            <div class="mensajes h-100" [innerHTML]="some_html_code"></div>
         </div>
         <div class="flex-row-center pt-4 border-top">
+            <!-- Textbox -->
             <div class="col-10 pe-3" [formGroup]="form">
                 <textarea formControlName="message" class="col-12 h5 p-3" rows="2"
                     (keyup.enter)="this.form.value.message !== '' && sendMessage()"></textarea>
             </div>
+            <!-- Send button -->
             <div class="col-2 flex-row-center">
                 <button class="button-main-2 button-rounded flex-row-center gap-2 w-100 py-3" (click)="sendMessage()"
                     [ngClass]="this.form.value.message === null || this.form.value.message === ''  ? 'button-disabled' : ''"
@@ -47,3 +50,7 @@
         </div>
     </main>
 </section>
+
+<ng-template #empty_setate>
+    <app-empty-state [title]="empty_state_msg"></app-empty-state>
+</ng-template>

@@ -67,7 +67,7 @@
                     <!-- Price -->
                     <div class="col-md-6">
                         <label for="input_price" class="h5 form-label bold">Price</label>
-                        <input formControlName="price" appCurrencyFormat inputmode="numeric" type="text"
+                        <input formControlName="price" currencyMask inputmode="numeric" type="text"
                             class="form-control form-control-sm py-2 bold h5" id="input_price"
                             [ngClass]="{'invalid-input': ( product_form.get('price')?.hasError('required') && product_form.get('price')?.touched )}">
                     </div>
@@ -109,10 +109,23 @@
                             Total characters: {{description_product.value.length || 0}}/500
                         </sub>
                     </div>
+                    <!-- Hand craft -->
+                    <div class="col-12">
+                        <p class="h5 bold">¿Is it your product?</p>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="input_hand_craft" class="h5 form-label bold d-flex flex-column">
+                            ¿Hand crafted?</label>
+                        <mat-radio-group formControlName="hand_craft" class="d-flex flex-row-start-center gap-3"
+                            [ngClass]="{'invalid-input': ( product_form.get('hand_craft')?.hasError('required') && product_form.get('hand_craft')?.touched )}">
+                            <mat-radio-button [value]="true">Yes</mat-radio-button>
+                            <mat-radio-button [value]="false">No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
                     <!-- Non-profit -->
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="input_non_profit" class="h5 form-label bold d-flex flex-column">
-                            ¿Are you a non-profit organization?</label>
+                            ¿From a non-profit org.?</label>
                         <mat-radio-group formControlName="non_profit" class="d-flex flex-row-start-center gap-3"
                             [ngClass]="{'invalid-input': ( product_form.get('non_profit')?.hasError('required') && product_form.get('non_profit')?.touched )}">
                             <mat-radio-button [value]="true">Yes</mat-radio-button>
@@ -120,9 +133,9 @@
                         </mat-radio-group>
                     </div>
                     <!-- Start-up -->
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="input_quantity" class="h5 form-label bold d-flex flex-column">
-                            ¿Are you an start-up?
+                            ¿From an start-up?
                         </label>
                         <mat-radio-group formControlName="start_up" class="d-flex flex-row-start-center gap-3"
                             [ngClass]="{'invalid-input': ( product_form.get('start_up')?.hasError('required') && product_form.get('start_up')?.touched )}">

@@ -79,12 +79,13 @@ li {
     width: 25px;
 }
 
-button {
-    min-width: 90px;
-    min-height: 44px;
+.button-cart {
+    color: var(--color-main-2);
 }
 
 .button-login {
+    min-width: 90px;
+    min-height: 44px;
     padding: 4px 15px 4px 5px;
 }
 

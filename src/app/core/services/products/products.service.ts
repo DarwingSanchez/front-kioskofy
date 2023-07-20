@@ -19,8 +19,20 @@ export class ProductsService {
     private http : HttpClient
   ) { }
   
-  getProducts() {
-    return this.http.get(`${this.URL_API}/products/get/all`)
+  public getProducts(filters: any) {
+    console.log(filters);
+    let query_params = new HttpParams()
+      .set('status', filters.status || 'accepted')
+      .set('page', filters.page)
+      .set('limit', filters.limit)
+      .set('search_text', filters.search_text)
+      .set('countries', filters.countries)
+      .set('categories', filters.categories)
+      .set('condition', filters.condition)
+      .set('price', filters.price)
+      .set('sort_by', filters.sort_by)
+      .set('location', filters.location);
+    return this.http.get(`${this.URL_API}/products`, { params: query_params })
   }
   
   public getProductBySlugOrID(slug_id: string) {
@@ -32,6 +44,6 @@ export class ProductsService {
    * @returns
    */
   createProduct(body:any) {
-    return this.http.post(`${this.URL_API}/products/create`, body)
+    return this.http.post(`${this.URL_API}/product`, body)
   }
 }

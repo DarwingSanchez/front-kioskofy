@@ -1,0 +1,30 @@
+<section class="container-max-width-center d-flex flex-wrap">
+    <!-- Banners -->
+    <div class="w-100">
+        <app-breadcumber></app-breadcumber>
+    </div>
+    <div class="w-25 pe-3">
+        <div class="card-container">
+            <app-portfolio-filters [page_limit]="page_limit" [page_current]="page_current"
+                [search_text]="input_form.value.search_text"
+                (emitFilters)="getFiltersApplied($event)"></app-portfolio-filters>
+        </div>
+    </div>
+    <div class="w-75">
+        <section class="d-flex flex-column gap-3">
+            <!-- Search bar -->
+            <div class="d-flex flex-wrap flex-row-between card-container gap-3" [formGroup]="input_form">
+                <input formControlName="search_text" placeholder="Search the product by its name here" type="text">
+            </div>
+            <!-- Portfolio card -->
+            <div class="d-flex flex-wrap flex-row card-container gap-3">
+                <app-card-complete *ngFor="let product of products; let i = index"
+                    [portfolio]="product"></app-card-complete>
+            </div>
+            <app-swiper [imgs]="banners_imgs"></app-swiper>
+            <!-- Paginator -->
+            <app-paginator [page_current]="page_current" [page_total]="page_total"
+                (emitGoToPage)="onGoToPage($event)"></app-paginator>
+        </section>
+    </div>
+</section>

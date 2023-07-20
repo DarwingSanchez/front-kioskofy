@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faCommentDots, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +7,7 @@ import { lastValueFrom } from 'rxjs';
 import { Order } from 'src/app/core/interfaces/order';
 import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
 import { OrdersService } from 'src/app/core/services/orders/orders.service';
+import { ProductViewsService } from 'src/app/core/services/product_views/product-views.service';
 import { LoadingComponent } from 'src/app/modal/loading/loading.component';
 import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.component';
 
@@ -24,16 +26,26 @@ export class PortfolioDetailComponent implements OnChanges, OnInit {
   public images_seleceted_is_video: boolean = false;
   public icon_message = faCommentDots;
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
+  public qty_form = new FormGroup({
+    qty: new FormControl(null, [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.min(0)]),
+  });
 
   constructor(
     private modalService: NgbModal,
     private localStorageService: LocalStorageService,
     private ordersService: OrdersService,
+    private productViewsService: ProductViewsService,
     private router: Router,
-  ) {}
+  ) {
+  
+  }
 
   ngOnChanges(): void {
-    if (this.portfolio && !this.image_selected) this.image_selected = this.portfolio.images[0];
+    if (this.portfolio && !this.image_selected) {
+      this.image_selected = this.portfolio.images[0];
+      this.qty_form.controls['qty'].addValidators([Validators.max(this.portfolio.stock)]);
+      this.addUserItemView();
+    };
   }
 
   async ngOnInit() {
@@ -47,6 +59,11 @@ export class PortfolioDetailComponent implements OnChanges, OnInit {
       }).catch((error) => {
         throw error;
       })
+  }
+
+  // Adds the view for this product by the logged user
+  private  addUserItemView() {
+    lastValueFrom(this.productViewsService.addUserView('product', this.portfolio._id,this.user_id));
   }
 
   // Validate if the item has already an order for the buyer and return this order
@@ -100,7 +117,8 @@ export class PortfolioDetailComponent implements OnChanges, OnInit {
       buyer: this.user_id,
       seller:  this.portfolio.seller._id,
       item_type: this.router.url.split('/')[1] ===  'product' ? 'product' : 'service',
-      item_id: this.portfolio._id,
+      item: this.portfolio._id,
+      qty: this.qty_form.value.qty!,
       status: 'pending'
     }
     return ORDER;

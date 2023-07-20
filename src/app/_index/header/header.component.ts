@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { faBars, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { lastValueFrom, map, startWith } from 'rxjs';
 import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
@@ -17,6 +17,7 @@ import { UserComponent } from 'src/app/public/user/user.component';
 export class HeaderComponent implements OnInit {
   public icon_user = faUser;
   public icon_bars = faBars;
+  public icon_cart = faCartShopping;
   public user_logged!: any;
   private ng_modal_options: NgbModalOptions = {
     backdrop: 'static',

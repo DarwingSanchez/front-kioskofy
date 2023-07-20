@@ -1,8 +1,10 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { faFire, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Category } from 'src/app/core/interfaces/category.interface';
 import { Country } from 'src/app/core/interfaces/country.interface';
 import { Product } from 'src/app/core/interfaces/product.interface';
+import { FONT_AWESOME_ICONS } from 'src/app/core/constants/icons';
 
 @Component({
   selector: 'app-card-complete',
@@ -16,7 +18,8 @@ export class CardCompleteComponent implements OnInit, OnChanges {
   @Input() show_swiper: boolean = false;
   public price = 0;
   public is_liked_by_user: boolean = false;
-
+  public icon_fire = faFire;
+  public FONT_AWESOME_ICONS = FONT_AWESOME_ICONS;
   ngOnInit(): void {
     this.is_liked_by_user = Math.random() < 0.5;
   }

@@ -74,7 +74,7 @@ import { PortfolioDetailGallerySwiperComponent } from './utils/portfolio-detail/
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductCreateComponent } from './public/portfolio/modules/portfolio-products/product-create/product-create.component';
 import { ProductDetailComponent } from './public/portfolio/modules/portfolio-products/product-detail/product-detail.component';
-import { ProductsAllComponent } from './public/portfolio/modules/portfolio-products/products-all/products-all.component';
+import { ProductsAllComponent } from './public/portfolio/modules/portfolio-products/products-home/products-all.component';
 import { PortfolioDetailDataComponent } from './utils/portfolio-detail/components/portfolio-detail-data/portfolio-detail-data.component';
 import { PortfolioDetailLocationComponent } from './utils/portfolio-detail/components/portfolio-detail-location/portfolio-detail-location.component';
 import { OrdersComponent } from './public/orders/orders.component';
@@ -82,6 +82,18 @@ import { OrdersHistoryComponent } from './public/orders/components/orders-histor
 import { ChatComponent } from './public/orders/components/order-chat/chat.component';
 import { OrderDetailComponent } from './public/orders/components/order-detail/order-detail.component';
 import { ProfilePictureComponent } from './utils/profile-picture/profile-picture.component';
+import { EmptyStateComponent } from './utils/empty-state/empty-state.component';
+import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
+
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: "right",
+  allowNegative: true,
+  decimal: ".",
+  precision: 2,
+  prefix: "CAD$ ",
+  suffix: "",
+  thousands: ","
+};
 
 @NgModule({
   declarations: [
@@ -140,6 +152,7 @@ import { ProfilePictureComponent } from './utils/profile-picture/profile-picture
     ChatComponent,
     OrderDetailComponent,
     ProfilePictureComponent,
+    EmptyStateComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({ apiKey: environment.gmaps_key, language: 'en' }),
@@ -150,6 +163,7 @@ import { ProfilePictureComponent } from './utils/profile-picture/profile-picture
     FontAwesomeModule,
     HttpClientModule,
     SwiperModule,
+    CurrencyMaskModule,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
@@ -169,7 +183,8 @@ import { ProfilePictureComponent } from './utils/profile-picture/profile-picture
     MatDividerModule,
     MatListModule
   ],
-  providers: [CurrencyPipe, NgbActiveModal],
+
+  providers: [CurrencyPipe, NgbActiveModal, { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })

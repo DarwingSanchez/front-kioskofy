@@ -3,7 +3,8 @@ export interface Order {
     buyer: string,
     seller: string,
     item_type: 'product' | 'service',
-    item_id: string,
+    item: string,
+    qty: number,
     status: 'pending' | 'confirmed' | 'completed' | 'canceled'
     createdAt?: Date,
     deleted?: Date,

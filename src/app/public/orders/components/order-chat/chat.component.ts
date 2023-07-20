@@ -16,6 +16,7 @@ export class ChatComponent implements OnChanges {
   public some_html_code: any = '';
   public icon_send_msg = faPaperPlane;
   public form: FormGroup = this.formBuilder.group({ message: [''] });
+  public empty_state_msg = '¡Nothing to see here, but you can start this conversation now!'
   @Input() user_id!: string;
   @Input() order!: Order | any;
   @Input() chat: any;
@@ -62,9 +63,13 @@ export class ChatComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
       if(this.order._id) {
-        let resp = this.cookieService.set('room', this.order._id);
-        this.socketWebService.callback.subscribe((res: any) => {
-          console.log('****', res);
+        console.log('entra');
+        try {
+          
+          
+          let resp = this.cookieService.set('room', this.order._id);
+          this.socketWebService.callback.subscribe((res: any) => {
+            console.log('****->', res);
           /** Marca el mensaje como leido */
           res.leido = true;
           /** Añade el mensaje al array de mensajes para guardar en la base */
@@ -89,6 +94,10 @@ export class ChatComponent implements OnChanges {
           // this.scrollToBottom();
           // this.playSound();
         });
+                } catch (error) {
+         console.log('--->', error);
+          
+        }
       }
   }
 
@@ -100,7 +109,7 @@ export class ChatComponent implements OnChanges {
     }
     this.socketWebService.emitEven(MESSAGE);
     this.chat.history.push(MESSAGE);
-    this.saveMessage(MESSAGE);
+    // this.saveMessage(MESSAGE);
     this.form.reset();
   }
 

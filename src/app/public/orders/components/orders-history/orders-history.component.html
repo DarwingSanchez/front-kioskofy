@@ -27,19 +27,19 @@
                         [ngClass]="{'order-selected': order.order_id === order_selected}">
                         <!-- Item image -->
                         <div class="col-4 img-container m-2">
-                            <img [src]="order.item_id.images[0]" alt="Item image">
+                            <img [src]="order.item.images[0]" alt="Item image">
                         </div>
                         <!-- Item data -->
                         <div class="col-8">
                             <div class="col-12">
                                 <p class="h5 bold ellipsis">
-                                    {{order.item_id.name}}
+                                    {{order.item.name}}
                                 </p>
                                 <p class="h5">
-                                    {{order.item_id.price | currency: 'CAD':'symbol':'1.0-0'}}
+                                    {{order.item.price | currency: 'CAD':'symbol':'1.0-0'}}
                                 </p>
                                 <p class="h5">
-                                    Condition: {{order.item_id.condition}}
+                                    Condition: {{order.item.condition}}
                                 </p>
                                 <p class="d-flex flex-row align-items-center gap-2 h5 text-end col-12">
                                     Order: {{order.order_id}}
@@ -57,15 +57,6 @@
                                 </p>
                                 <app-profile-picture
                                     [profile_picture]="order.seller.profile_picture"></app-profile-picture>
-                                <!-- <span class="profile-picture-container">
-                                    <span *ngIf="order.seller.profile_picture; else icon_user">
-                                        <img [src]="order.seller.profile_picture" alt="seller profile picture"
-                                            class="p-1">
-                                    </span>
-                                    <ng-template #icon_user>
-                                        <fa-icon [icon]="faUser"></fa-icon>
-                                    </ng-template>
-                                </span> -->
                             </div>
                         </div>
                     </mat-list-item>

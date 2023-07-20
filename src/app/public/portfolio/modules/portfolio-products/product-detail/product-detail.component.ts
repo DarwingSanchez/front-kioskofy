@@ -42,7 +42,6 @@ export class ProductDetailComponent implements OnInit {
   private async getProductBySlugOrID(slug_id: string) {
     await lastValueFrom(this.productsService.getProductBySlugOrID(slug_id))
       .then((resp: any) => {
-        console.log('***', resp);
         if(resp.success && resp.data) {
           this.product = resp.data
           if(this.product.images && this.product.images[0]) this.image_selected = this.product.images[0];

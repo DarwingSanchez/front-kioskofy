@@ -32,7 +32,3 @@
 .icon-star {
     color: var(--color-main);
 }
-
-.quantity-input {
-    border: 1px solid var(--color-main-2);
-}

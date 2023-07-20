@@ -22,6 +22,7 @@ export class OrdersComponent implements OnInit {
   public user_id!: any;
   public chat: any;
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
+  public empty_state_msg = '¡Sorry, nothing to see here, but you can create your first order in our marketplace!'
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -61,6 +62,8 @@ export class OrdersComponent implements OnInit {
   private  async getUserID() {
     await this.localStorageService.getItem('user')
       .then((resp: any) => {
+        console.log(resp);
+        
         if(resp._id) this.user_id = resp._id;
         else throw new Error('User not found')
       }).catch((error) => {
@@ -99,6 +102,7 @@ export class OrdersComponent implements OnInit {
           this.chat = resp.data;
         };
       })
+      .catch((error) => { throw error });
   }
 
   private async getOrdersByFilter(filter: any) {

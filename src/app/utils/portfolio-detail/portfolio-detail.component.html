@@ -32,15 +32,15 @@
                         </span>
                     </span>
                 </span>
-                <span class="col-md-3">
-                    <!-- <label for="h5 bold qty"></label>
-                    <input type="number" name="qty" id="qty" class="quantity-input"> -->
-                    <mat-form-field class="quantity-i+nput">
+                <span class="col-md-3 px-md-2" [formGroup]="qty_form">
+                    <mat-form-field class="quantity-input" appearance="outline">
                         <mat-label class="h5">Quantity:</mat-label>
-                        <input matInput type="text">
+                        <input formControlName="qty" matInput type="number">
                     </mat-form-field>
                 </span>
-                <button class="col-md-5 button-main-2 flex-row-center gap-2" (click)="createOrder()">
+                <button class="col-md-5 button-main-2 flex-row-center gap-2"
+                    [ngClass]="qty_form.invalid && qty_form.get('qty')?.touched ? 'button-disabled' : ''"
+                    (click)="qty_form.valid ? createOrder() : qty_form.markAllAsTouched()">
                     <p class="bold m-0 h5">¡I want it!</p>
                     <fa-icon class="icon-upload-img" size="xl" [icon]="icon_message"></fa-icon>
                 </button>

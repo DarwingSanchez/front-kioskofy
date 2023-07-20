@@ -28,3 +28,10 @@ mat-expansion-panel-header {
 .mat-expansion-panel-body {
     padding: 0 14px 16px !important;
 }
+
+agm-map {
+    border-radius: 4px;
+    height: 200px;
+    width: 100%;
+    overflow: hidden;
+}

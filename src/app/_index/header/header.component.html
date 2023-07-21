@@ -1,108 +1,104 @@
-<section class="sticky-top">
-    <div id="wrapper-nav" class="px-4">
-        <nav class="container-max-width-center navbar col-12 navbar-expand-lg navbar-light sticky-top m-0 p-0">
-            <div class="logo-menu col-xl-2 col-lg-2 col-md-3 col-sm-8 col-6">
-                <a routerLink="/home">
-                    <img src="../../../assets/logos/logo300.png" class="logo" alt="logo" />
-                </a>
-            </div>
-            <button class="navbar-toggler col-3 col-sm-2 hidden-sm-up text-light" type="button"
-                (click)="isMenuCollapsed = !isMenuCollapsed">
-                <fa-icon [icon]="icon_bars"></fa-icon>
-            </button>
-            <div [ngbCollapse]="isMenuCollapsed"
-                class="col-xl-5 col-lg-6 col-md-4 collapse navbar-collapse d-flex justify-content-center ">
-                <form class="example-form col-12">
-                    <mat-form-field class="w-75">
-                        <input #escogido type="text" placeholder="Buscar por nombre del producto"
-                            aria-label="Buscar distribuidor" [formControl]="mySearch" [matAutocomplete]="auto"
-                            class="input-search rounded px-3 border-transparent border-left" matInput />
-                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
-                            [displayWith]="itemDisplayFn" class="w-100 p-0 m-0" (optionSelected)="openLink($event)">
-                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                {{ option?.nombre }}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
-                </form>
-            </div>
-            <div [ngbCollapse]="isMenuCollapsed" class="col-xl-5 col-lg-4 col-md-5 collapse navbar-collapse"
-                id="navbarsDefault">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 h-100 d-flex justify-content-end w-100">
-                    <li class="nav-item">
-                        <a class="nav-link cursor-pointer" routerLink="products/all" (click)="isMenuCollapsed = true"
-                            routerLinkActive="active-link">
-                            <h3 class="header-button-text">Products</h3>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link cursor-pointer" routerLink="/services" (click)="isMenuCollapsed = true"
-                            routerLinkActive="active-link">
-                            <h3 class="header-button-text">Services</h3>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link cursor-pointer" routerLink="/stores" (click)="isMenuCollapsed = true"
-                            routerLinkActive="active-link">
-                            <h3 class="header-button-text">Stores</h3>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link cursor-pointer" routerLink="/stores" (click)="isMenuCollapsed = true"
-                            routerLinkActive="active-link">
-                            <h3 class="header-button-text">¡Promo!</h3>
-                        </a>
-                    </li>
-                    <ng-container *ngIf="!user_logged; else user_info">
-                        <li class="nav-item">
-                            <a class="nav-link cursor-pointer" (click)="signUpUser()" (click)="isMenuCollapsed = true"
-                                routerLinkActive="active-link">
-                                <button class="button-main-light button-rounded" mat-raised-button>
-                                    <p class="h5 bold">
-                                        Sign up
-                                    </p>
-                                </button>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link cursor-pointer" (click)="loginUser()" (click)="isMenuCollapsed = true"
-                                routerLinkActive="active-link">
-                                <button class="button-main button-rounded" mat-raised-button>
-                                    <p class="h5 bold">
-                                        Log in
-                                    </p>
-                                </button>
-                            </a>
-                        </li>
-                    </ng-container>
-                </ul>
-            </div>
-        </nav>
+<section class="main-section sticky-top">
+  <div class="wrapper-section">
+    <a class="logo" href="/">Kioskofy</a>
+    <button  *ngIf="isMobile" (click)="isMenuCollapsed = !isMenuCollapsed" class="btn-hamburger cursor-pointer">
+      <fa-icon [icon]="icon_bars"></fa-icon>
+    </button>
+    <div *ngIf="!isMobile" class="search-main-container">
+      <div class="search-container">
+        <input type="text" [(ngModel)]="searchText" (keyup)="onIntervalSearch()" placeholder="Search here">
+        <fa-icon [icon]="icon_search"></fa-icon>
+      </div>
+      <div class="search-modal" *ngIf="searchText">
+        <app-loading *ngIf="loadingSearch"></app-loading>
+        <div class="search-modal-list" *ngIf="searchResultList.length > 0 && !loadingSearch">
+          <div class="option-container cursor-pointer" (click)="openLink(item)" *ngFor="let item of searchResultList">
+            <img [src]="item?.image" alt="">
+            <p>{{item?.name}}</p>
+          </div>
+        </div>
+        <p class="not-found-text" *ngIf="!loadingSearch && searchResultList.length <= 0">No results found</p>
+      </div>
     </div>
+    <nav class="navbar-container" [class.mobile-hide]="isMobile && isMenuCollapsed" [class.mobile-show]="isMobile && !isMenuCollapsed" [class.menu-is-not-mobile]="!isMobile">
+      <ul>
+        <li>
+          <a class="nav-link cursor-pointer" routerLink="products/all" (click)="isMenuCollapsed = true"
+            routerLinkActive="active-link">
+            <h3 class="header-button-text">Products</h3>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link cursor-pointer" routerLink="/services" (click)="isMenuCollapsed = true"
+            routerLinkActive="active-link">
+            <h3 class="header-button-text">Services</h3>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link cursor-pointer" routerLink="/stores" (click)="isMenuCollapsed = true"
+            routerLinkActive="active-link">
+            <h3 class="header-button-text">Stores</h3>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link cursor-pointer" routerLink="/stores" (click)="isMenuCollapsed = true"
+            routerLinkActive="active-link">
+            <h3 class="header-button-text">¡Promo!</h3>
+          </a>
+        </li>
+        <ng-container *ngIf="!user_logged; else user_info">
+          <li>
+            <a class="nav-link cursor-pointer" (click)="signUpUser()" (click)="isMenuCollapsed = true"
+              routerLinkActive="active-link">
+              <button class="button-main-light button-rounded" mat-raised-button>
+                <p class="h5 bold">
+                  Sign up
+                </p>
+              </button>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link cursor-pointer" (click)="loginUser()" (click)="isMenuCollapsed = true"
+              routerLinkActive="active-link">
+              <button class="button-main button-rounded" mat-raised-button>
+                <p class="h5 bold">
+                  Log in
+                </p>
+              </button>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </nav>
+  </div>
 </section>
 <app-sub-header></app-sub-header>
 
 <ng-template #user_info>
-    <li class="nav-item" *ngIf="user_logged">
-        <a class="nav-link cursor-pointer" (click)="isMenuCollapsed = true" routerLinkActive="active-link">
-            <button class="button-main-light button-rounded" mat-raised-button>
-                <p class="h5 bold">
-                    Orders
-                </p>
-            </button>
-        </a>
-    </li>
-    <li class="nav-item" *ngIf="user_logged">
-        <a class="nav-link cursor-pointer" (click)="seeUserData()" (click)="isMenuCollapsed = true"
-            routerLinkActive="active-link">
-            <button class="button-main button-rounded gap-2 button-login" mat-raised-button>
-                <span class="profile-picture-container flex-row-center">
-                    <fa-icon [icon]="icon_user"></fa-icon>
-                </span>
-                <p class="h5 bold">
-                    {{user_logged.name}}
-                </p>
-            </button>
-        </a>
-    </li>
+  <li *ngIf="user_logged">
+    <a class="nav-link cursor-pointer" (click)="isMenuCollapsed = true" routerLinkActive="active-link">
+      <button class="button-main-light button-rounded" mat-raised-button>
+        <p class="h5 bold">
+          Orders
+        </p>
+      </button>
+    </a>
+  </li>
+  <li *ngIf="user_logged">
+    <a class="nav-link cursor-pointer" (click)="seeUserData()" (click)="isMenuCollapsed = true"
+      routerLinkActive="active-link">
+      <button class="button-main button-rounded gap-2 button-login" mat-raised-button>
+        <span class="profile-picture-container flex-row-center">
+          <fa-icon [icon]="icon_user"></fa-icon>
+        </span>
+        <p class="h5 bold">
+          {{user_logged.name}}
+        </p>
+      </button>
+    </a>
+  </li>
+</ng-template>
+
+
+<ng-template #loading>
 </ng-template>

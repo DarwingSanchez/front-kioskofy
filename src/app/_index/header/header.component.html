@@ -4,12 +4,12 @@
     <button  *ngIf="isMobile" (click)="isMenuCollapsed = !isMenuCollapsed" class="btn-hamburger cursor-pointer">
       <fa-icon [icon]="icon_bars"></fa-icon>
     </button>
-    <div *ngIf="!isMobile" class="search-main-container">
+    <div *ngIf="!isMobile" class="search-main-container" (click)="$event.stopPropagation()">
       <div class="search-container">
         <input type="text" [(ngModel)]="searchText" (keyup)="onIntervalSearch()" placeholder="Search here">
         <fa-icon [icon]="icon_search"></fa-icon>
       </div>
-      <div class="search-modal" *ngIf="searchText">
+      <div class="search-modal" *ngIf="searchText && searchModal">
         <app-loading *ngIf="loadingSearch"></app-loading>
         <div class="search-modal-list" *ngIf="searchResultList.length > 0 && !loadingSearch">
           <div class="option-container cursor-pointer" (click)="openLink(item)" *ngFor="let item of searchResultList">

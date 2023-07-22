@@ -48,6 +48,11 @@ export class HeaderComponent implements OnInit {
     this.sizeScreen = window.innerWidth;
     this.onDetectMobile();
   }
+
+  @HostListener("document:click")
+  clickedOut() {
+    this.closeWindows()
+  }
   // User icon from free solid icons
   public icon_user = faUser;
   // Bars icon from free solid icons
@@ -73,6 +78,13 @@ export class HeaderComponent implements OnInit {
     }
 
   /**
+   * Closes search modal
+   */
+  closeWindows() {
+    this.searchModal = false;
+  }
+
+  /**
    * Checks if the current Screen size is actually a mobile
    * @returns
    */
@@ -85,9 +97,13 @@ export class HeaderComponent implements OnInit {
   }
 
   async ngOnInit() {
-    try {
-      await this.getUserID();
-    } catch (error) {}
+    this.usersService.user$.subscribe(async data => {
+      if (data) {
+        await this.getUserID();
+        return
+      }
+      this.user_logged = null;
+    })
   }
 
   // Get the user ID from LS
@@ -137,7 +153,7 @@ export class HeaderComponent implements OnInit {
     this.loadingSearch = true;
     this.searchModal = true;
     clearTimeout(this.typingTimer);
-    if(this.searchText){
+    if (this.searchText) {
       this.typingTimer = setTimeout(() => this.onSearch(), 500)
       return
     }
@@ -183,5 +199,6 @@ export class HeaderComponent implements OnInit {
    */
   public openLink(productInfo: any) {
     // will redirect to product detail
+    this.closeWindows()
   }
 }

@@ -18,3 +18,19 @@ fa-icon {
     width: 100%;
     height: 25px;
 }
+
+.log-out-btn {
+  border: none;
+  background-color: var(--color-main-2);
+  border-radius: 10px;
+  color: white;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.bottom-main-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}

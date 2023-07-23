@@ -18,9 +18,8 @@ export class ProductsService {
     // private tokenService: TokenService,
     private http : HttpClient
   ) { }
-  
+
   public getProducts(filters: any) {
-    console.log(filters);
     let query_params = new HttpParams()
       .set('status', filters.status || 'accepted')
       .set('page', filters.page)
@@ -34,7 +33,7 @@ export class ProductsService {
       .set('location', filters.location);
     return this.http.get(`${this.URL_API}/products`, { params: query_params })
   }
-  
+
   public getProductBySlugOrID(slug_id: string) {
     return this.http.get(`${this.URL_API}/product/slug_id/${slug_id}`)
   }
@@ -45,5 +44,9 @@ export class ProductsService {
    */
   createProduct(body:any) {
     return this.http.post(`${this.URL_API}/product`, body)
+  }
+
+  onSearchProductsBar(searchText: string):Observable<any> {
+    return this.http.get(`${this.URL_API}/products/bar_search/${searchText}`)
   }
 }

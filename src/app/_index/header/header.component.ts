@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
-import { faBars, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { faBars, faCartShopping, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FormControl } from '@angular/forms';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { lastValueFrom, map, startWith } from 'rxjs';
 import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
+import { ProductsService } from 'src/app/core/services/products/products.service';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { LoginComponent } from 'src/app/public/auth/login/login.component';
 import { SignupComponent } from 'src/app/public/auth/signup/signup.component';
@@ -14,10 +15,51 @@ import { UserComponent } from 'src/app/public/user/user.component';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements OnInit {
+
+  /** Saves size screen */
+  public sizeScreen: number = 0;
+  /** Controller when it is mobile screen */
+  public isMobile: boolean = false;
+  /**
+   * Knows when the menu is opened or closed
+   * true = menu is closed,
+   * false = menu is opened
+   */
+  public isMenuCollapsed = true;
+
+  /** Search text */
+  public searchText: string = '';
+  /** Search loading controller */
+  public loadingSearch: boolean = false;
+  /** Search result list  */
+  public searchResultList: any[] = [];
+  /** search list modal  */
+  public searchModal: boolean = false;
+  // Used to avoid searching for results while user typing
+  public typingTimer: any;
+
+
+  // Screen size
+  public innerWidth: any;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.sizeScreen = window.innerWidth;
+    this.onDetectMobile();
+  }
+
+  @HostListener("document:click")
+  clickedOut() {
+    this.closeWindows()
+  }
+  // User icon from free solid icons
   public icon_user = faUser;
+  // Bars icon from free solid icons
   public icon_bars = faBars;
   public icon_cart = faCartShopping;
+  // Search icon from free solid icons
+  public icon_search = faSearch;
   public user_logged!: any;
   private ng_modal_options: NgbModalOptions = {
     backdrop: 'static',
@@ -30,18 +72,45 @@ export class HeaderComponent implements OnInit {
     private modalService: NgbModal,
     private localStorageService: LocalStorageService,
     private usersService: UsersService,
-    ) {}
+    private productServe: ProductsService
+    ) {
+      this.sizeScreen = window.innerWidth;
+      this.onDetectMobile();
+    }
+
+  /**
+   * Closes search modal
+   */
+  closeWindows() {
+    this.searchModal = false;
+  }
+
+  /**
+   * Checks if the current Screen size is actually a mobile
+   * @returns
+   */
+  onDetectMobile() {
+    if (this.sizeScreen <= 900) {
+      this.isMobile = true;
+      return;
+    }
+    this.isMobile = false;
+  }
 
   async ngOnInit() {
-    try {
-      await this.getUserID();
-    } catch (error) {}
+    this.usersService.user$.subscribe(async data => {
+      if (data) {
+        await this.getUserID();
+        return
+      }
+      this.user_logged = null;
+    })
   }
 
   // Get the user ID from LS
   private getUserID(): any {
     this.localStorageService.getItem('user')
-      .then((resp: any) => { 
+      .then((resp: any) => {
         if(resp._id && resp._id !== null) this.getUserByID(resp._id);
       }).catch((error) => {
         throw error;
@@ -76,52 +145,43 @@ export class HeaderComponent implements OnInit {
     const modalRef = this.modalService.open(UserComponent, this.ng_modal_options);
     modalRef.componentInstance.close_callback = () => {};
   }
-  // Guardamos dinamicamente los valores de autocompletado
-  public filteredOptions: any;
-  public mySearch = new UntypedFormControl();
-  public searchTerm = '';
-productos_filtrados: any;
 
-
-  
-  public isMenuCollapsed = true;
-
- /**
-   * Este metodo tiene como objetoautocompletar la busqueda del usuario
+  /**
+   * Sets the interval time to make the request once the user press a kep-up
+   * @returns
    */
-  autoCompletadoBusqueda() {
-    this.filteredOptions = this.mySearch.valueChanges.pipe(
-      startWith(''),
-      map((value) => (typeof value === 'string' ? value : value.nombre)),
-      map((nombre) => (nombre ? this._filter(nombre) : this.productos_filtrados.slice()))
-    );
+  onIntervalSearch() {
+    this.loadingSearch = true;
+    this.searchModal = true;
+    clearTimeout(this.typingTimer);
+    if (this.searchText) {
+      this.typingTimer = setTimeout(() => this.onSearch(), 500)
+      return
+    }
+    this.loadingSearch = false
   }
 
-  displayFn(user: any) {
-    // console.log(user ? user.value : '');
-    return user ? user.nombre : undefined;
+  /**
+   * Search bar suggestions
+   */
+  onSearch() {
+    this.productServe.onSearchProductsBar(this.searchText).subscribe({
+      next: data => {
+        this.loadingSearch = false;
+        if (data?.success) {
+          this.searchResultList = JSON.parse(JSON.stringify(data.data.list));
+        }
+      },
+      error: error => {
+        this.loadingSearch = false;
+        console.error('Error getting bar search list', error);
+      }
+    })
   }
 
-  returnFn(user: any) {
-    return user ? user.value : undefined;
-  }
 
-  itemDisplayFn(item: any) {
-    return item ? item.name : '';
-  }
 
-  private _filter(nombre: string) {
-    const filterValue = this.normalizeString(nombre.toLowerCase());
-    return this.productos_filtrados.filter(
-      (option: any) => this.normalizeString(option.nombre).toLowerCase().indexOf(filterValue) === 0
-    );
-  }
-
-  clearSearch() {
-    this.searchTerm = '';
-  }
-
-    /**
+  /**
    * Toma el string que entra por parámetro y cambia tildes y diéresis
    * por las letras sin acento, y lo pasa a minúsculas
    * @param pWord El string a filtrar
@@ -134,7 +194,12 @@ productos_filtrados: any;
       .replace(/\p{Diacritic}/gu, '')
       .toLowerCase();
   }
-  public openLink(link: any) {
-    window.open(link, '_blank');
+
+  /**
+   * Redirect user to product detail
+   */
+  public openLink(productInfo: any) {
+    // will redirect to product detail
+    this.closeWindows()
   }
 }

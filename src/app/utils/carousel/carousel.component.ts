@@ -11,7 +11,7 @@ import SwiperCore, {
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css']
 })
-export class CarouselComponent implements OnInit {
+export class CarouselComponent {
   // Inputs from parent
   @Input() portfolio_type: string = "";
   @Input() isBannerShown: boolean = false;
@@ -37,10 +37,7 @@ export class CarouselComponent implements OnInit {
     speed: 1000,
   };
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  constructor() {/** */}
 
   /**
    * Scroll a HTML element to a require side

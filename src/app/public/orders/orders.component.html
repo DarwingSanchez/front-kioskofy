@@ -1,0 +1,29 @@
+<main>
+    <nav [color]="'warn'" animationDuration="0ms" mat-align-tabs="end" class="container-max-width-center mb-3"
+        mat-tab-nav-bar>
+        <a mat-tab-link queryParamsHandling="preserve" [routerLink]="['/orders/buy']" routerLinkActive
+            (click)="changeOrdersType('buy')" #rla1="routerLinkActive" [active]="rla1.isActive">
+            For me
+        </a>
+        <a mat-tab-link queryParamsHandling="preserve" [routerLink]="['/orders/sell']" routerLinkActive
+            (click)="changeOrdersType('sell')" #rla2="routerLinkActive" [active]="rla2.isActive">
+            My sales
+        </a>
+    </nav>
+    <ng-container *ngIf="orders; else empty_setate">
+        <section id="main-container" class="d-flex flex-row gap-3">
+            <div class="card-container col-md-4 history">
+                <app-orders-history [orders]="orders" [order_selected]="order_id"></app-orders-history>
+            </div>
+            <div class="card-container col-md-8 chat">
+                <ng-container *ngIf="chat; else empty_setate">
+                    <app-order-detail [user_id]="user_id" [chat]="chat" [order]="order_selected"></app-order-detail>
+                </ng-container>
+            </div>
+        </section>
+    </ng-container>
+</main>
+
+<ng-template #empty_setate>
+    <app-empty-state [title]="empty_state_msg"></app-empty-state>
+</ng-template>

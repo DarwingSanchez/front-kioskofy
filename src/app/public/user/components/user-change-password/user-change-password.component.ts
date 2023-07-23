@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.component';
@@ -10,7 +10,7 @@ import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.co
   styleUrls: ['./user-change-password.component.css']
 })
 export class UserChangePasswordComponent {
-  public passwordForm: FormGroup;
+  public passwordForm: UntypedFormGroup;
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
 
   constructor(
@@ -18,10 +18,10 @@ export class UserChangePasswordComponent {
     private usersService: UsersService,
     private modalService: NgbModal
   ) {
-    this.passwordForm = new FormGroup({
-      password_old_1: new FormControl('', [Validators.required]),
-      password_old_2: new FormControl('', [Validators.required]),
-      password_new: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]),
+    this.passwordForm = new UntypedFormGroup({
+      password_old_1: new UntypedFormControl('', [Validators.required]),
+      password_old_2: new UntypedFormControl('', [Validators.required]),
+      password_new: new UntypedFormControl('', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]),
     });
   }
 

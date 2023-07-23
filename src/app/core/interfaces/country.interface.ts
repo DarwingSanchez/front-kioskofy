@@ -1,9 +1,9 @@
 export interface Country {
     url: string,
-    name: String,
-    code: String,
-    isoCode: String,
-    flag: String,
+    name: string,
+    code: string,
+    isoCode: string,
+    flag: string,
     status: ["active", "inactive"],
     createdAt: Date,
     deleted: Date,

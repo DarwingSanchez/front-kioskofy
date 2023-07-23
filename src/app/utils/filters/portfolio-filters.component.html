@@ -1,4 +1,23 @@
 <section class="d-flex flex-column gap-3">
+    <!-- Location -->
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <p class="h5 bold">Search location:</p>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <section class="flex-column-start-center disabled cursor-pointer" (click)="openModalChangeSearchLocation()">
+            <agm-map class="cursor-pointer" #AgmMapNat fit="true" [mapDraggable]="false" [zoom]="9"
+                [latitude]="search_location.lat" [longitude]="search_location.lng" [disableDefaultUI]="true">
+                <agm-marker [latitude]="search_location.lat" [longitude]="search_location.lng"></agm-marker>
+                <agm-circle *ngIf="search_location.lat && search_location.lng" fillColor="#ffd43bb5"
+                    strokeColor="#183153" [circleDraggable]="false" [clickable]="true" [editable]="false"
+                    [strokeWeight]="1" [latitude]="search_location.lat" [longitude]="search_location.lng"
+                    [radius]="search_location.radius">
+                </agm-circle>
+            </agm-map>
+        </section>
+    </mat-expansion-panel>
     <!-- Countries -->
     <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>

@@ -1,0 +1,11 @@
+main {
+    opacity: 50%;
+}
+
+img {
+    border-radius: 16px;
+}
+
+p {
+    color: var(--color-main-2);
+}

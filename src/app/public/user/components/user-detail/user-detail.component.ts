@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbActiveModal,
@@ -17,7 +17,7 @@ import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.co
   styleUrls: ['./user-detail.component.css'],
 })
 export class UserDetailComponent {
-  public userForm: FormGroup;
+  public userForm: UntypedFormGroup;
   public icon_user = faUser;
   public user_id!: string;
   public ng_modal_options: NgbModalOptions = {
@@ -31,21 +31,16 @@ export class UserDetailComponent {
     public activeModal: NgbActiveModal,
     private localStorageService: LocalStorageService,
     private modalService: NgbModal
-  ) {
-    this.userForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      last_name: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [
-        Validators.required,
-        Validators.pattern(/^[0-9]{10}$/),
-      ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
-      type: new FormControl('', [Validators.required]),
-      status: new FormControl('', [Validators.required]),
-      accepted_terms_conditions: new FormControl(false, [
-        Validators.requiredTrue,
-      ]),
+    ) {
+    this.userForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', [Validators.required]),
+      last_name: new UntypedFormControl('', [Validators.required]),
+      phone: new UntypedFormControl('', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [Validators.required]),
+      type: new UntypedFormControl('', [Validators.required]),
+      status: new UntypedFormControl('', [Validators.required]),
+      accepted_terms_conditions: new UntypedFormControl(false, [Validators.requiredTrue])
     });
   }
 

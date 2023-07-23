@@ -1,12 +1,31 @@
-<section>
-    <a [routerLink]="'/products/detail/' + 'producto-prueba-142'" target="_blank">
-        <mat-card>
-            <span *ngIf="!show_swiper; else imgs_carousel">
+<section *ngIf="portfolio">
+    <a [routerLink]="'/products/detail/' + 'chocorramo'" target="_blank">
+        <mat-card class="d-flex flex-column align-items-center justify-content-between p-0 m-0">
+            <mat-card-header>
+                <!-- Like (Badge) -->
+                <div class="badge-like flex-row-center m-2" (click)="likedCard()">
+                    <img *ngIf="!is_liked_by_user" src="./assets/icons/heart-full.png" width="30" height="30"
+                        alt="heart filled">
+                    <img *ngIf="is_liked_by_user" src="./assets/icons/heart-outline.png" width="30" height="30"
+                        alt="heart outline">
+                </div>
+                <!-- Best seller (ribbon) -->
+                <div class="ribbon-wrapper" *ngIf="portfolio.best_seller">
+                    <p class="ribbon h6 bold">Best Seller</p>
+                </div>
+                <!-- New item (ribbon) -->
+                <div class="ribbon-new-item px-2 py-1" *ngIf="portfolio.condition === 'new'">
+                    <p class="h6 bold">Nuevo</p>
+                </div>
+            </mat-card-header>
+            <!-- Item image -->
+            <span *ngIf="!show_swiper; else imgs_carousel" class="img-container p-0">
                 <img mat-card-image
                     [src]="portfolio && portfolio.images && portfolio.images.length > 0 ? portfolio.images[0] : 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
                     alt="Photo of a Shiba Inu">
             </span>
-            <mat-card-content class="d-flex flex-column align-items-center justify-content-between m-0 w-100 py-2 px-2">
+            <mat-card-content
+                class="d-flex flex-row flex-wrap align-items-center justify-content-between m-0 w-100 p-2 pb-0">
                 <!-- Name -->
                 <div class="w-100">
                     <p class="h5 name ellipsis">
@@ -14,52 +33,54 @@
                     </p>
                 </div>
                 <!-- Price -->
-                <div class="d-flex w-100 flex-row justify-content-start align-items-center h4 price py-1">
-                    <p>{{ price | currency: 'CAD':'symbol':'1.0-0' }}</p>
-                    <sub>/{{portfolio ? portfolio.quantity : '3'}} {{portfolio ? portfolio.measure : 'un'}}</sub>
+                <div class="w-75 m-0">
+                    <p class="h4 bold">{{ price | currency: 'CAD$ ':'symbol':'1.2-2' }}</p>
                 </div>
-                <div class="price-category d-flex w-100 flex-row justify-content-between align-items-end pb-2">
-                    <div class="d-flex w-50 flex-column justify-content-between align-items-center">
-                        <!-- City -->
-                        <div class="w-100">
-                            <p class="text-start ellipsis">
-                                Vancouver
-                            </p>
-                        </div>
-                        <!-- Category -->
-                        <div class="w-100">
-                            <p class="text-start ellipsis">
-                                {{ category ? category.title : 'Tecnología '}}
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Flag -->
-                    <div class="d-flex w-50 flex-row justify-content-end align-items-center gap-2">
-                        <span class="h3">{{country? country.flag : '🇨🇴'}}</span>
-                    </div>
+                <!-- Hot -->
+                <div class="w-25 d-flex justify-content-end" *ngIf="portfolio.trending">
+                    <p class="h3 hot-item">
+                        <fa-icon [icon]="FONT_AWESOME_ICONS.icon_fire" ngbTooltip="Trending"></fa-icon>
+                    </p>
                 </div>
-                <div class="d-flex w-100 flex-row justify-content-between align-items-center">
-                    <!-- Type of seller -->
-                    <div class="d-flex flex-row gap-1">
-                        <img *ngIf="portfolio ? portfolio.non_profit : true" src="./assets/icons/non-profit.png"
-                            width="25" height="25" alt="non profit icon">
-                        <img *ngIf="portfolio ? portfolio.start_up : true" src="./assets/icons/Startup.png" width="25"
-                            height="25" alt="startup icon">
-                        <img *ngIf="portfolio ? portfolio.recommended : true" src="./assets/icons/recommended.png"
-                            width="25" height="25" alt="recommended icon">
-                    </div>
-                    <!-- Buy! -->
-                    <div>
-                        <img src="./assets/icons/buy.png" width="25" height="25" alt="heart icon">
-                    </div>
+                <!-- Location -->
+                <div class="w-100">
+                    <p class="h6 text-start ellipsis">
+                        {{portfolio.pickup_administrative_area_level_1}}
+                    </p>
+                </div>
+                <!-- Category & Sub Category -->
+                <div class="w-100">
+                    <p class="h6 text-start ellipsis">
+                        {{ category ? category.title : 'Tecnología '}} - {{ category ? category.title : 'Tecnología '}}
+                    </p>
                 </div>
             </mat-card-content>
-            <div class="heart-container cursor-pointer" (click)="likedCard()">
-                <img *ngIf="!is_liked_by_user" src="./assets/icons/heart-full.png" width="30" height="30"
-                    alt="heart filled">
-                <img *ngIf="is_liked_by_user" src="./assets/icons/heart-outline.png" width="30" height="30"
-                    alt="heart outline">
-            </div>
+            <mat-card-actions
+                class="d-flex w-100 flex-row justify-content-between align-items-center px-2 pt-1 pb-1 m-0">
+                <!-- Type of seller -->
+                <div class="d-flex flex-row gap-1">
+                    <!-- Non profit -->
+                    <div class="badge h5 flex-row-center" *ngIf="portfolio.non_profit">
+                        <fa-icon [icon]="FONT_AWESOME_ICONS.icon_non_profit" ngbTooltip="Non profit"></fa-icon>
+                    </div>
+                    <!-- Hand craft -->
+                    <div class="badge h5 flex-row-center" *ngIf="portfolio.hand_craft">
+                        <fa-icon [icon]="FONT_AWESOME_ICONS.icon_hand_craft" ngbTooltip="Hand craft"></fa-icon>
+                    </div>
+                    <!-- Start up -->
+                    <div class="badge h5 flex-row-center" *ngIf="portfolio.start_up">
+                        <fa-icon [icon]="FONT_AWESOME_ICONS.icon_start_up" ngbTooltip="Start up"></fa-icon>
+                    </div>
+                    <!-- Reccomended -->
+                    <div class="badge h5 flex-row-center" *ngIf="portfolio.recommended">
+                        <fa-icon [icon]="FONT_AWESOME_ICONS.icon_hat" ngbTooltip="Recommended Kioskofy"></fa-icon>
+                    </div>
+                </div>
+                <!-- Flag -->
+                <div class="flex-row-center h3">
+                    <span>{{country? country.flag : '🇨🇴'}}</span>
+                </div>
+            </mat-card-actions>
         </mat-card>
     </a>
 </section>

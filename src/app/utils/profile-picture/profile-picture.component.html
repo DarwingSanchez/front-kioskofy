@@ -1,0 +1,9 @@
+<section #profile_picture_container class="profile-picture-container"
+    [ngStyle]="{'max-height': size + 'px' + ' !important', 'max-width': size + 'px' + ' !important', 'height': size + 'px' + ' !important', 'width': size + 'px' + ' !important'  }">
+    <span *ngIf="profile_picture; else icon_user">
+        <img [src]="profile_picture" alt="seller profile picture">
+    </span>
+    <ng-template #icon_user>
+        <fa-icon [icon]="faUser"></fa-icon>
+    </ng-template>
+</section>

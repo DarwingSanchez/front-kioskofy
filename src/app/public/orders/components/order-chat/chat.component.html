@@ -1,0 +1,56 @@
+<section>
+    <main class="content" *ngIf="chat">
+        <!-- Conversation -->
+        <div class="col-12 py-3">
+            <ng-container *ngIf="chat.history.length; else empty_setate">
+                <ng-container *ngFor="let message of chat.history; let i = index">
+                    <div class="text-center py-2"
+                        *ngIf="!chat.history[i - 1] || isDifferentDay(chat.history[i - 1].createdAt, chat.history[i].createdAt)">
+                        <p class="h6 text-secondary">{{message.createdAt | date }}</p>
+                    </div>
+                    <div class="py-2 gap-3"
+                        [ngClass]="message.user === user_id ? 'chat-message-right' : 'chat-message-left'">
+                        <div class="flex-column-center gap-0">
+                            <app-profile-picture [profile_picture]="getUserData(message.user).profile_picture"
+                                [size]="40"></app-profile-picture>
+                            <div class="text-muted pt-1 h6 text-nowrap">
+                                {{ message.createdAt | date:'shortTime' }}
+                            </div>
+                        </div>
+                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                            <p class="h-5 mb-1" [ngClass]="message.user === user_id ? 'text-end' : 'text-start'">
+                                <span class="bold">
+                                    {{getUserData(message.user).name}} {{getUserData(message.user).last_name}}
+                                </span>&nbsp;
+                            </p>
+                            <p class="h5 pb-2">
+                                {{message.message}}
+                            </p>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <div class="mensajes h-100" [innerHTML]="some_html_code"></div>
+        </div>
+        <div class="flex-row-center pt-4 border-top">
+            <!-- Textbox -->
+            <div class="col-10 pe-3" [formGroup]="form">
+                <textarea formControlName="message" class="col-12 h5 p-3" rows="2"
+                    (keyup.enter)="this.form.value.message !== '' && sendMessage()"></textarea>
+            </div>
+            <!-- Send button -->
+            <div class="col-2 flex-row-center">
+                <button class="button-main-2 button-rounded flex-row-center gap-2 w-100 py-3" (click)="sendMessage()"
+                    [ngClass]="this.form.value.message === null || this.form.value.message === ''  ? 'button-disabled' : ''"
+                    [disabled]="this.form.value.message === null">
+                    <p class="h5 bold">Send </p>
+                    <fa-icon [icon]="icon_send_msg" size="xl"></fa-icon>
+                </button>
+            </div>
+        </div>
+    </main>
+</section>
+
+<ng-template #empty_setate>
+    <app-empty-state [title]="empty_state_msg"></app-empty-state>
+</ng-template>

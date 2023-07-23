@@ -1,6 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { faBars, faCartShopping, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from '@angular/forms';
-import { faBars, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { lastValueFrom, map, startWith } from 'rxjs';
 import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
@@ -57,6 +57,7 @@ export class HeaderComponent implements OnInit {
   public icon_user = faUser;
   // Bars icon from free solid icons
   public icon_bars = faBars;
+  public icon_cart = faCartShopping;
   // Search icon from free solid icons
   public icon_search = faSearch;
   public user_logged!: any;

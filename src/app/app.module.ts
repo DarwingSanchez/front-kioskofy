@@ -19,6 +19,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
@@ -49,8 +51,6 @@ import { HomeTwoBannersComponent } from './public/home/components/home-two-banne
 import { MiddelBannerComponent } from './public/home/components/middel-banner/middel-banner.component';
 import { WhatToDoComponent } from './public/home/components/what-to-do/what-to-do.component';
 import { HomeComponent } from './public/home/home.component';
-import { ProductCreateComponent } from './public/portfolio/components/portfolio-products/product-create/product-create.component';
-import { ProductDetailComponent } from './public/portfolio/components/portfolio-products/product-detail/product-detail.component';
 import { PortfolioComponent } from './public/portfolio/portfolio.component';
 import { UserBannerComponent } from './public/user/components/user-banner/user-banner.component';
 import { UserChangePasswordComponent } from './public/user/components/user-change-password/user-change-password.component';
@@ -64,7 +64,6 @@ import { CarouselComponent } from './utils/carousel/carousel.component';
 import { PaginatorComponent } from './utils/paginator/paginator.component';
 import { PortfolioFiltersComponent } from './utils/filters/portfolio-filters.component';
 import { SwiperComponent } from './utils/swiper/swiper.component';
-import { ProductsAllComponent } from './public/portfolio/components/portfolio-products/products-all/products-all.component';
 import { PortfolioDetailComponent } from './utils/portfolio-detail/portfolio-detail.component';
 import { PortfolioDetailThumbnailsComponent } from './utils/portfolio-detail/components/portfolio-detail-thumbnails/portfolio-detail-thumbnails.component';
 import { PortfolioDetailGalleryComponent } from './utils/portfolio-detail/components/portfolio-detail-gallery/portfolio-detail-gallery.component';
@@ -73,6 +72,28 @@ import { PortfolioDetailQuestionsAnswerComponent } from './utils/portfolio-detai
 import { PortfolioDetailRatingsComponent } from './utils/portfolio-detail/components/portfolio-detail-ratings/portfolio-detail-ratings.component';
 import { PortfolioDetailGallerySwiperComponent } from './utils/portfolio-detail/components/portfolio-detail-gallery-swiper/portfolio-detail-gallery-swiper.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProductCreateComponent } from './public/portfolio/modules/portfolio-products/product-create/product-create.component';
+import { ProductDetailComponent } from './public/portfolio/modules/portfolio-products/product-detail/product-detail.component';
+import { ProductsAllComponent } from './public/portfolio/modules/portfolio-products/products-home/products-all.component';
+import { PortfolioDetailDataComponent } from './utils/portfolio-detail/components/portfolio-detail-data/portfolio-detail-data.component';
+import { PortfolioDetailLocationComponent } from './utils/portfolio-detail/components/portfolio-detail-location/portfolio-detail-location.component';
+import { OrdersComponent } from './public/orders/orders.component';
+import { OrdersHistoryComponent } from './public/orders/components/orders-history/orders-history.component';
+import { ChatComponent } from './public/orders/components/order-chat/chat.component';
+import { OrderDetailComponent } from './public/orders/components/order-detail/order-detail.component';
+import { ProfilePictureComponent } from './utils/profile-picture/profile-picture.component';
+import { EmptyStateComponent } from './utils/empty-state/empty-state.component';
+import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
+
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: "right",
+  allowNegative: true,
+  decimal: ".",
+  precision: 2,
+  prefix: "CAD$ ",
+  suffix: "",
+  thousands: ","
+};
 
 @NgModule({
   declarations: [
@@ -124,6 +145,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PortfolioDetailQuestionsAnswerComponent,
     PortfolioDetailRatingsComponent,
     PortfolioDetailGallerySwiperComponent,
+    PortfolioDetailDataComponent,
+    PortfolioDetailLocationComponent,
+    OrdersComponent,
+    OrdersHistoryComponent,
+    ChatComponent,
+    OrderDetailComponent,
+    ProfilePictureComponent,
+    EmptyStateComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({ apiKey: environment.gmaps_key, language: 'en' }),
@@ -134,6 +163,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FontAwesomeModule,
     HttpClientModule,
     SwiperModule,
+    CurrencyMaskModule,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
@@ -149,9 +179,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatDatepickerModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDividerModule,
+    MatListModule
   ],
-  providers: [CurrencyPipe, NgbActiveModal],
+
+  providers: [CurrencyPipe, NgbActiveModal, { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })

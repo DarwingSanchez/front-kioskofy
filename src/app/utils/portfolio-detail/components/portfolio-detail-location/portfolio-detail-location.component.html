@@ -1,0 +1,5 @@
+<section *ngIf="locations">
+    <agm-map #AgmMapArea fit="true" [zoom]="11" [latitude]="locations[0].lat" [longitude]="locations[0].lng">
+        <agm-marker [latitude]="loc.lat" [longitude]="loc.lng" *ngFor="let loc of locations; index as i"></agm-marker>
+    </agm-map>
+</section>

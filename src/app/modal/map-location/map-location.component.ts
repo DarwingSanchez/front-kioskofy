@@ -4,7 +4,7 @@ import { MapService } from 'src/app/core/services/map/map.service';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-map-location',
@@ -16,7 +16,7 @@ export class MapLocationComponent implements OnInit {
   public faTrash = faTrash;
   public faTimes = faTimes;
   public is_main_location: boolean = false;
-  public toogle = new FormControl('', []);
+  public toogle = new UntypedFormControl('', []);
   @Input() lat!: number; 
   @Input() lng!: number;
   @Input() index!: number;

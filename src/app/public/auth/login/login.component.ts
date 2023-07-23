@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { lastValueFrom } from 'rxjs';
 import { UsersService } from 'src/app/core/services/users/users.service';
@@ -12,12 +12,12 @@ import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.co
 })
 export class LoginComponent {
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
-  public loginForm: FormGroup;
+  public loginForm: UntypedFormGroup;
 
   constructor(public activeModal: NgbActiveModal, private usersService: UsersService, private modalService: NgbModal) {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required])
+    this.loginForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [Validators.required])
     });
   }
 

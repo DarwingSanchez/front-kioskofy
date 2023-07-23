@@ -41,7 +41,7 @@
                             class="form-select"
                             [ngClass]="{'invalid-input': ( product_form.get('condition')?.hasError('required') && product_form.get('condition')?.touched )}">
                             <option selected default disabled>Choose..</option>
-                            <option *ngFor="let condition of conditions" [value]="condition">{{condition}}</option>
+                            <option *ngFor="let condition of conditions" [value]="condition.value">{{condition.key}}</option>
                         </select>
                     </div>
                     <!-- Stock -->

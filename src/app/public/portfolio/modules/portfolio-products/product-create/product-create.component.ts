@@ -46,7 +46,7 @@ export class ProductCreateComponent implements OnInit {
   // Modal configuration
   public ng_modal_options: NgbModalOptions = { backdrop: 'static', keyboard: false, centered: true };
   // Options for the Form
-  public conditions = ['new', 'used', 'not_specified'];
+  public conditions = [{ key: 'New', value: 'new' }, { key: 'Used', value: 'used' }, { key: 'Not specified', value: 'not_specified' } ];
   public measures = ['Un', 'Kg', 'gr', 'Lb', 'Pound', 'Other'];
   public MAX_PICKUP_LOCS = 20;
   public pickup_locations: any[] = []
@@ -89,7 +89,7 @@ export class ProductCreateComponent implements OnInit {
       pickup_locations: [null, Validators.required],
       pickup_main_location: [null, Validators.required],
       pickup_country: ['', Validators.required],
-      pickup_administrative_area_level_1: ['', Validators.required],
+      pickup_administrative_area_level_1: [false, Validators.required],
     });
   }
 
@@ -161,8 +161,7 @@ export class ProductCreateComponent implements OnInit {
       await this.uploadImages();
       this.parsePriceToNumber();
       if (!this.isValidForm()) return;
-
-      const PRODUCT: Product = this.product_form.value;      
+      const PRODUCT: Product = this.product_form.value;
       await lastValueFrom(this.productsService.createProduct(PRODUCT))
       .then((resp: any) => {
         modal_loading.close();
@@ -176,7 +175,8 @@ export class ProductCreateComponent implements OnInit {
     } catch (error) {
       this.alertUser('warning', '¡Oh oh!', 'There was a problem, please try again later');
       modal_loading.close();
-      throw error;
+      console.error('Error creating product: ', error);
+
     }
   }
 
@@ -229,7 +229,7 @@ export class ProductCreateComponent implements OnInit {
   }
 
   // Get the address based on a lat. lng. using the google api
-  public async getAddressMainLocation(lat: number, lng: number) {    
+  public async getAddressMainLocation(lat: number, lng: number) {
     let latlng: string = lat.toString() + ',' + lng.toString();
     await lastValueFrom(this.mapService.getAddreesByLatLong(latlng))
       .then((resp: any) => {
@@ -296,8 +296,6 @@ export class ProductCreateComponent implements OnInit {
       if (iterator.file instanceof File) files.push(iterator.file)
     await lastValueFrom(this.resorcesService.loadImgPortfolio(files))
       .then((resp: any) => {
-        console.log(resp);
-        
         if (resp && resp.success && resp.data.length) this.product_form.patchValue({ images: resp.data });
         else throw new Error('Error when uploading images');
       })

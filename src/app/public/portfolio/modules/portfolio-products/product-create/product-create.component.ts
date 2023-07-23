@@ -89,7 +89,7 @@ export class ProductCreateComponent implements OnInit {
       pickup_locations: [null, Validators.required],
       pickup_main_location: [null, Validators.required],
       pickup_country: ['', Validators.required],
-      pickup_administrative_area_level_1: [false, Validators.required],
+      pickup_administrative_area_level_1: ['', Validators.required],
     });
   }
 

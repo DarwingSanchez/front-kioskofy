@@ -26,7 +26,7 @@ export class UsersService {
 
   // Get user by Id
   public getUserById(id: string) {
-    return this.http.get(`${this.URL_API}/user_id/${id}`);
+    return this.http.get(`${this.URL_API}/user/${id}`);
   }
 
   // Create user's profile

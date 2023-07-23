@@ -85,7 +85,7 @@ export class ProductCreateComponent implements OnInit {
       recommended: [false, Validators.required],
       best_seller: [false, Validators.required],
       trending: [false, Validators.required],
-      description: ['', [Validators.required, Validators.pattern(/^.{1,300}$/)]],
+      description: ['', [ Validators.required ]],
       pickup_locations: [null, Validators.required],
       pickup_main_location: [null, Validators.required],
       pickup_country: ['', Validators.required],
@@ -104,7 +104,7 @@ export class ProductCreateComponent implements OnInit {
     }
   }
 
-  // Get the ID of the logged in user to save the product under his/her ID
+  // Get the ID of the logged in user to save fthe product under his/her ID
   public getLoggedUserID(): void {
     this.localStorageService.getItem('user')
       .then((resp: any) => {
@@ -160,7 +160,10 @@ export class ProductCreateComponent implements OnInit {
       await this.saveMapLocationsIntoForm();
       await this.uploadImages();
       this.parsePriceToNumber();
-      if (!this.isValidForm()) return;
+      console.log('Product', this.product_form);
+      if (!this.isValidForm()) {
+
+      };
       const PRODUCT: Product = this.product_form.value;
       await lastValueFrom(this.productsService.createProduct(PRODUCT))
       .then((resp: any) => {
@@ -176,7 +179,6 @@ export class ProductCreateComponent implements OnInit {
       this.alertUser('warning', '¡Oh oh!', 'There was a problem, please try again later');
       modal_loading.close();
       console.error('Error creating product: ', error);
-
     }
   }
 

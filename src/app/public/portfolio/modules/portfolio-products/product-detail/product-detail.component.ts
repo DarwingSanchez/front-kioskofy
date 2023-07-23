@@ -50,7 +50,7 @@ export class ProductDetailComponent implements OnInit {
       })
       .catch((error: Error) => {
         console.log(error);
-        
+
         throw error;
       });
   }

@@ -9,6 +9,7 @@ import { UsersService } from 'src/app/core/services/users/users.service';
 import { LoginComponent } from 'src/app/public/auth/login/login.component';
 import { SignupComponent } from 'src/app/public/auth/signup/signup.component';
 import { UserComponent } from 'src/app/public/user/user.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -72,7 +73,8 @@ export class HeaderComponent implements OnInit {
     private modalService: NgbModal,
     private localStorageService: LocalStorageService,
     private usersService: UsersService,
-    private productServe: ProductsService
+    private productServe: ProductsService,
+    private router : Router
     ) {
       this.sizeScreen = window.innerWidth;
       this.onDetectMobile();
@@ -199,7 +201,7 @@ export class HeaderComponent implements OnInit {
    * Redirect user to product detail
    */
   public openLink(productInfo: any) {
-    // will redirect to product detail
-    this.closeWindows()
+    this.closeWindows();
+    location.href = `/products/detail/${productInfo.slug}`
   }
 }

@@ -23,15 +23,9 @@
                     {{ order.item.price | currency: 'CAD':'symbol':'1.0-2' }}
                 </ng-template>
             </p>
-            <p class="h5">
-                Date: {{order.createdAt | date:'MMM d, y'}}
-            </p>
-            <p class="h5">
-                Condition: {{ order.item.condition }}
-            </p>
-            <p class="h5">
-                Status: {{ order.status }}
-            </p>
+            <p class="h5">Date: {{order.createdAt | date:'MMM d, y'}}</p>
+            <p class="h5">Condition: {{ order.item.condition }}</p>
+            <p class="h5">Status: {{ order.status }}</p>
         </div>
         <div class="d-flex flex-column align-items-start justify-content-between col-sm-5">
             <!-- Seller data -->
@@ -42,13 +36,9 @@
                 </span>
                 <span>
                     <p class="h5">
-                        Seller: <span class="bold">
-                            {{ order.seller.name }} {{ order.seller.last_name }}
-                        </span>
+                        Seller: <span class="bold">{{ order.seller.name }} {{ order.seller.last_name }}</span>
                     </p>
-                    <p class="h5">
-                        Order: {{ order.order_id }}
-                    </p>
+                    <p class="h5">Order: {{ order.order_id }}</p>
                 </span>
             </div>
             <!-- Action buttons -->
@@ -57,7 +47,9 @@
                     <span class="flex-row-center col-12" [formGroup]="qty_form">
                         <mat-form-field class="col-5 pe-3" appearance="outline">
                             <mat-label class="h5">Quantity:</mat-label>
-                            <input formControlName="qty" matInput type="number">
+                            <input formControlName="qty" matInput type="number"
+                                (keydown)="limitProductQtyToStock($event)" (blur)="limitProductQtyToStock($event)"
+                                (change)="limitProductQtyToStock($event)" (focus)="limitProductQtyToStock($event)">
                         </mat-form-field>
                         <button class="button-main-2 col-7 h-100"
                             [ngClass]="qty_form.invalid && qty_form.get('qty')?.touched ? 'button-disabled' : ''"
@@ -67,12 +59,8 @@
                     </span>
                 </ng-container>
                 <ng-template #button_purchase>
-                    <button class="button-main-2 col-12">
-                        Confirm completion
-                    </button>
-                    <button class="button-main-2 col-12">
-                        Cancel
-                    </button>
+                    <button class="button-main-2 col-12">Confirm completion</button>
+                    <button class="button-main-2 col-12">Cancel</button>
                 </ng-template>
             </div>
         </div>

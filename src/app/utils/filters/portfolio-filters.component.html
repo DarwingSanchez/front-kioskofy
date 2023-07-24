@@ -1,113 +1,150 @@
-<section class="d-flex flex-column gap-3">
-    <!-- Location -->
-    <mat-expansion-panel [expanded]="true">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <p class="h5 bold">Search location:</p>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <section class="flex-column-start-center disabled cursor-pointer" (click)="openModalChangeSearchLocation()">
-            <agm-map class="cursor-pointer" #AgmMapNat fit="true" [mapDraggable]="false" [zoom]="9"
-                [latitude]="search_location.lat" [longitude]="search_location.lng" [disableDefaultUI]="true">
-                <agm-marker [latitude]="search_location.lat" [longitude]="search_location.lng"></agm-marker>
-                <agm-circle *ngIf="search_location.lat && search_location.lng" fillColor="#ffd43bb5"
-                    strokeColor="#183153" [circleDraggable]="false" [clickable]="true" [editable]="false"
-                    [strokeWeight]="1" [latitude]="search_location.lat" [longitude]="search_location.lng"
-                    [radius]="search_location.radius">
-                </agm-circle>
-            </agm-map>
-        </section>
-    </mat-expansion-panel>
-    <!-- Countries -->
-    <mat-expansion-panel [expanded]="true">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <p class="h5 bold">Made in:</p>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <section class="flex-column-start-center">
-            <mat-radio-group class="flex-column-start-center gap-1" [formGroup]="form_filter_countries">
-                <mat-checkbox #countries_all (change)="form_filter_countries.reset()">
-                    All countries 🌎
+<main>
+    <section class="d-flex flex-column gap-3" [formGroup]="form_filters">
+        <!-- Location -->
+        <mat-expansion-panel class="card-container p-2" [expanded]="true" *ngIf="search_location">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p class="h5 bold">Search location:</p>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="flex-column-start-center disabled cursor-pointer" (click)="openModalChangeSearchLocation()">
+                <agm-map class="cursor-pointer" #AgmMapNat fit="true" [mapDraggable]="false" [zoom]="9"
+                    [latitude]="search_location.lat" [longitude]="search_location.lng" [disableDefaultUI]="true">
+                    <agm-marker [latitude]="search_location.lat" [longitude]="search_location.lng"></agm-marker>
+                    <agm-circle *ngIf="search_location.lat && search_location.lng" fillColor="#ffd43bb5"
+                        strokeColor="#183153" [circleDraggable]="false" [clickable]="true" [editable]="false"
+                        [strokeWeight]="1" [latitude]="search_location.lat" [longitude]="search_location.lng"
+                        [radius]="search_location.radius">
+                    </agm-circle>
+                </agm-map>
+            </section>
+        </mat-expansion-panel>
+        <!-- Countries -->
+        <mat-expansion-panel class="card-container p-2" [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p class="h5 bold">Made in:</p>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="flex-column-start-center">
+                <mat-radio-group class="flex-column-start-center gap-1">
+                    <mat-checkbox #countries_all (change)="form_filters.value.countries = []">
+                        All countries 🌎
+                    </mat-checkbox>
+                    <mat-checkbox [checked]="item.filter" *ngFor="let item of countries"
+                        [formControlName]="item.isoCode" (change)="item.filter = !item.filter; countries_all.checked">
+                        <span class="d-flex flex-row align-items-center gap-2">
+                            <span class="h4">{{item.flag}} </span> {{item.name}}
+                        </span>
+                    </mat-checkbox>
+                </mat-radio-group>
+            </section>
+        </mat-expansion-panel>
+        <!-- Categories -->
+        <mat-expansion-panel class="card-container p-2" [expanded]="false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p class="h5 bold">Categories:</p>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="flex-column-start-center">
+                <mat-radio-group class="flex-column-start-center gap-1">
+                    <mat-checkbox [checked]="item.filter" *ngFor="let item of categories" [formControlName]="item.slug"
+                        (change)="item.filter = !item.filter">
+                        <fa-icon class="icons" [icon]="FONT_AWESOME_ICONS[item.image]"></fa-icon>
+                        {{item.title}}
+                    </mat-checkbox>
+                </mat-radio-group>
+            </section>
+        </mat-expansion-panel>
+        <!-- Price -->
+        <mat-expansion-panel class="card-container p-2" [expanded]="false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p class="h5 bold">Price:</p>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="flex-column-start-center gap-2">
+                <mat-radio-group class="flex-column-start-center gap-1" formControlName="price">
+                    <mat-radio-button [value]="item.slug"
+                        *ngFor="let item of price_list">{{item.name}}</mat-radio-button>
+                </mat-radio-group>
+                <div class="d-flex flex-row w-100 gap-2">
+                    <mat-form-field class="w-50">
+                        <mat-label>Min. price</mat-label>
+                        <input matInput placeholder="0" [value]="2">
+                    </mat-form-field>
+                    <mat-form-field class="w-50">
+                        <mat-label>Max. price</mat-label>
+                        <input matInput placeholder="-" [value]="2">
+                    </mat-form-field>
+                </div>
+            </section>
+        </mat-expansion-panel>
+        <!-- Condition -->
+        <mat-expansion-panel class="card-container p-2" [expanded]="false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p class="h5 bold">Condition:</p>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="flex-column-start-center">
+                <mat-checkbox *ngFor="let condition of conditions" [formControlName]="condition.slug">
+                    {{condition.name}}
                 </mat-checkbox>
-                <mat-checkbox [checked]="item.filter" *ngFor="let item of countries" [formControlName]="item.isoCode"
-                    (change)="item.filter = !item.filter; countries_all.checked">
-                    {{item.name}} {{item.flag}}
-                </mat-checkbox>
-            </mat-radio-group>
-        </section>
-    </mat-expansion-panel>
-    <!-- Categories -->
-    <mat-expansion-panel [expanded]="false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <p class="h5 bold">Categories:</p>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <section class="flex-column-start-center">
-            <mat-radio-group class="flex-column-start-center gap-1" [formGroup]="form_filter_categories">
-                <mat-checkbox [checked]="item.filter" *ngFor="let item of categories" [formControlName]="item.slug"
-                    (change)="item.filter = !item.filter">
-                    {{item.title}} {{item.filter}}
-                </mat-checkbox>
-            </mat-radio-group>
-        </section>
-    </mat-expansion-panel>
-    <!-- Price -->
-    <mat-expansion-panel [expanded]="false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <p class="h5 bold">Price:</p>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <section class="flex-column-start-center gap-2" [formGroup]="form_filter_price">
-            <mat-radio-group class="flex-column-start-center gap-1" formControlName="price">
-                <mat-radio-button [value]="item.slug" *ngFor="let item of price_list">{{item.name}}</mat-radio-button>
-            </mat-radio-group>
-            <div class="d-flex flex-row w-100 gap-2">
-                <mat-form-field class="w-50">
-                    <mat-label>Min. price</mat-label>
-                    <input matInput placeholder="0" [value]="form_filter_price.value.price">
-                </mat-form-field>
-                <mat-form-field class="w-50">
-                    <mat-label>Max. price</mat-label>
-                    <input matInput placeholder="-" [value]="form_filter_price.value.price">
-                </mat-form-field>
-            </div>
-        </section>
-    </mat-expansion-panel>
-    <!-- Condition -->
-    <mat-expansion-panel [expanded]="false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <p class="h5 bold">Condition:</p>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <section class="flex-column-start-center" [formGroup]="form_conditions">
-            <mat-checkbox *ngFor="let condition of condition_list" [formControlName]="condition.slug">
-                {{condition.name}}
-            </mat-checkbox>
-        </section>
-    </mat-expansion-panel>
-    <!-- Sort by -->
-    <mat-expansion-panel [expanded]="false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <p class="h5 bold">Sort by:</p>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <section class="flex-column-start-center" [formGroup]="form_filter_sort_by">
-            <mat-radio-group class="flex-column-start-center gap-1" formControlName="sort_by">
-                <mat-radio-button [value]="item.slug" *ngFor="let item of sort_list">{{item.name}}</mat-radio-button>
-            </mat-radio-group>
-        </section>
-    </mat-expansion-panel>
-    <!-- Clear filters -->
-    <div class="flex-row-center pt-3 pb-2">
-        <button class="button-main button-rounded" mat-raised-button (click)="clearFilters()">
-            <p class="font-weight-bold h5">
-                Clean Filters
-            </p>
-        </button>
-    </div>
-</section>
+            </section>
+        </mat-expansion-panel>
+        <!-- Sort by -->
+        <mat-expansion-panel class="card-container p-2" [expanded]="false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p class="h5 bold">Sort by:</p>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="flex-column-start-center">
+                <mat-radio-group class="flex-column-start-center gap-1" formControlName="sort_by">
+                    <mat-radio-button [value]="item.slug"
+                        *ngFor="let item of sort_list">{{item.name}}</mat-radio-button>
+                </mat-radio-group>
+            </section>
+        </mat-expansion-panel>
+        <!-- Others -->
+        <mat-expansion-panel class="card-container p-2" [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p class="h5 bold">Others:</p>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="flex-column-start-center">
+                <mat-radio-group class="flex-column-start-center gap-1 w-100">
+                    <mat-checkbox class="d-flex flex-row" [formControlName]="'trending'">
+                        <fa-icon class="icon-trending" [icon]="FONT_AWESOME_ICONS['icon_fire']"></fa-icon>
+                        Trending</mat-checkbox>
+                    <mat-checkbox class="d-flex flex-row" [formControlName]="'best_seller'">
+                        <fa-icon class="icon-best-seller" [icon]="FONT_AWESOME_ICONS['icon_star']"></fa-icon>
+                        Best seller</mat-checkbox>
+                    <mat-checkbox class="d-flex flex-row" [formControlName]="'hand_crafted'">
+                        <fa-icon class="icons" [icon]="FONT_AWESOME_ICONS['icon_hand_craft']"></fa-icon>
+                        Hand crafted</mat-checkbox>
+                    <mat-checkbox class="d-flex flex-row" [formControlName]="'recommended'">
+                        <fa-icon class="icons" [icon]="FONT_AWESOME_ICONS['icon_hat']"></fa-icon>
+                        Recommended</mat-checkbox>
+                    <mat-checkbox class="d-flex flex-row" [formControlName]="'start_up'">
+                        <fa-icon class="icons" [icon]="FONT_AWESOME_ICONS['icon_start_up']"></fa-icon>
+                        Start up</mat-checkbox>
+                    <mat-checkbox class="d-flex flex-row" [formControlName]="'non_profit'">
+                        <fa-icon class="icons" [icon]="FONT_AWESOME_ICONS['icon_non_profit']"></fa-icon>
+                        Non profit</mat-checkbox>
+                </mat-radio-group>
+            </section>
+        </mat-expansion-panel>
+        <!-- Clear filters -->
+        <div class="card-container flex-row-center p-3">
+            <button class="button-main button-rounded" mat-raised-button (click)="clearFilters()">
+                <p class="font-weight-bold h5">
+                    Clean Filters
+                </p>
+            </button>
+        </div>
+    </section>
+</main>

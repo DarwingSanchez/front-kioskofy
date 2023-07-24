@@ -1,12 +1,12 @@
 <section *ngIf="portfolio">
-    <a [routerLink]="'/products/detail/' + 'chocorramo'" target="_blank">
+    <a (click)="openItem()">
         <mat-card class="d-flex flex-column align-items-center justify-content-between p-0 m-0">
             <mat-card-header>
                 <!-- Like (Badge) -->
-                <div class="badge-like flex-row-center m-2" (click)="likedCard()">
-                    <img *ngIf="!is_liked_by_user" src="./assets/icons/heart-full.png" width="30" height="30"
+                <div class="badge-like flex-row-center m-2" (click)="$event.stopPropagation(); likedCard()">
+                    <img *ngIf="is_liked_by_user" src="./assets/icons/heart-full.png" width="30" height="30"
                         alt="heart filled">
-                    <img *ngIf="is_liked_by_user" src="./assets/icons/heart-outline.png" width="30" height="30"
+                    <img *ngIf="!is_liked_by_user" src="./assets/icons/heart-outline.png" width="30" height="30"
                         alt="heart outline">
                 </div>
                 <!-- Best seller (ribbon) -->
@@ -19,7 +19,8 @@
                 </div>
             </mat-card-header>
             <!-- Item image -->
-            <span *ngIf="!show_swiper; else imgs_carousel" class="img-container p-0">
+            <span *ngIf="!show_swiper; else imgs_carousel" class="img-container p-0"
+                [ngbTooltip]="portfolio.description">
                 <img mat-card-image
                     [src]="portfolio && portfolio.images && portfolio.images.length > 0 ? portfolio.images[0] : 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
                     alt="Photo of a Shiba Inu">
@@ -34,7 +35,21 @@
                 </div>
                 <!-- Price -->
                 <div class="w-75 m-0">
-                    <p class="h4 bold">{{ price | currency: 'CAD$ ':'symbol':'1.2-2' }}</p>
+                    <ng-container *ngIf="!portfolio.price_discount || portfolio.price_discount === 0; else discount">
+                        <p class="h4 bold">{{ price | currency: 'CAD$ ':'symbol':'1.2-2' }}</p>
+                    </ng-container>
+                    <ng-template #discount>
+                        <span class="d-flex flex-column">
+                            <sub>
+                                <p class="text-danger text-decoration-line-through py-1">
+                                    {{ price | currency: 'CAD$ ':'symbol':'1.2-2' }}
+                                </p>
+                            </sub>
+                            <p class="text-success h4 bold">
+                                {{ portfolio.price_discount | currency: 'CAD$ ':'symbol':'1.2-2'}}
+                            </p>
+                        </span>
+                    </ng-template>
                 </div>
                 <!-- Hot -->
                 <div class="w-25 d-flex justify-content-end" *ngIf="portfolio.trending">
@@ -45,13 +60,14 @@
                 <!-- Location -->
                 <div class="w-100">
                     <p class="h6 text-start ellipsis">
-                        {{portfolio.pickup_administrative_area_level_1}}
+                        {{ portfolio.pickup_administrative_area_level_1 }}
                     </p>
                 </div>
                 <!-- Category & Sub Category -->
                 <div class="w-100">
-                    <p class="h6 text-start ellipsis">
-                        {{ category ? category.title : 'Tecnología '}} - {{ category ? category.title : 'Tecnología '}}
+                    <p class="h6 text-start ellipsis"
+                        [ngbTooltip]="portfolio.category.title + ' - ' + portfolio.sub_category.title">
+                        {{ portfolio.category.title }} - {{ portfolio.sub_category.title }}
                     </p>
                 </div>
             </mat-card-content>
@@ -61,7 +77,8 @@
                 <div class="d-flex flex-row gap-1">
                     <!-- Non profit -->
                     <div class="badge h5 flex-row-center" *ngIf="portfolio.non_profit">
-                        <fa-icon [icon]="FONT_AWESOME_ICONS.icon_non_profit" ngbTooltip="Non profit"></fa-icon>
+                        <fa-icon [icon]="FONT_AWESOME_ICONS.icon_non_profit"
+                            ngbTooltip="Non profit organization"></fa-icon>
                     </div>
                     <!-- Hand craft -->
                     <div class="badge h5 flex-row-center" *ngIf="portfolio.hand_craft">
@@ -77,8 +94,10 @@
                     </div>
                 </div>
                 <!-- Flag -->
-                <div class="flex-row-center h3">
-                    <span>{{country? country.flag : '🇨🇴'}}</span>
+                <div class="flex-row-center h3" [ngbTooltip]="portfolio.country.title">
+                    <span>
+                        {{ portfolio.country.flag }}
+                    </span>
                 </div>
             </mat-card-actions>
         </mat-card>

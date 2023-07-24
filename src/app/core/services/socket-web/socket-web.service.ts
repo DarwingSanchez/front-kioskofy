@@ -8,39 +8,28 @@ import { environment } from 'src/environments/environment';
 })
 export class SocketWebService  extends Socket {
   outEven: EventEmitter<any> = new EventEmitter();
-  /**
-   * Variable que escucha el evento
-   */
   callback: EventEmitter<any> = new EventEmitter();
-  /**
-   * Funcion constructor donde crea la cookie con el id de la sala que es el pedido id
-   */
-  constructor(private cookieService: CookieService) {
+
+  constructor(private _cookieService: CookieService) {
+    // Creates the cookie with the room id of the order
     super({
       url: environment.HOST,
       options: {
         query: {
-          nameRoom: cookieService.get('room'),
+          nameRoom: _cookieService.get('room'),
         },
       },
     });
-console.log(this);
-
     this.listen();
   }
-  /**
-   * Funcion para estar escuchando los eventos emitidos por el server mediante socket
-   */
+
+  // Listen to the changes emitted via the socket
   listen = () => {
-    console.log('entra....---');
-    
-    this.ioSocket.on('evento', (res: any) => {this.callback.emit(res); console.log('`^^^^^', res);
-    });
+      this.ioSocket.on('event', (res: any) => { this.callback.emit(res) });
   };
-  /**
-   * Funcion par emitir un evento con la informacion del chat o mensaje de la interaccion
-   */
+
+  // Emit the event with the information of the message
   emitEven = (payload = {}) => {
-    this.ioSocket.emit('evento', payload);
+    this.ioSocket.emit('event', payload);
   };
 }

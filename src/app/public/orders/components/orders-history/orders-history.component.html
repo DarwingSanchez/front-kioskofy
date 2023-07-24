@@ -22,7 +22,7 @@
         <mat-divider class="w-100"></mat-divider>
         <div *ngIf="orders && orders.length">
             <span class="d-flex flex-column col-12" *ngFor="let order of orders">
-                <a (click)="goToOrder(order.order_id)">
+                <a (click)="goToOrder(order)">
                     <mat-list-item class="d-flex gap-2 h-100 py-2"
                         [ngClass]="{'order-selected': order.order_id === order_selected}">
                         <!-- Item image -->

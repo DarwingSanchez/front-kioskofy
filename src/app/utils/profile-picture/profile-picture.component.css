@@ -6,8 +6,6 @@
     border: 1px solid var(--color-main-2);
     object-fit: cover;
     border-radius: 50%;
-    height: 30px;
-    width: 30px;
     background-color: var(--color-light);
 }
 

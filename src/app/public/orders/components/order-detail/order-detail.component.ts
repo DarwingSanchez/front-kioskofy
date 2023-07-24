@@ -2,6 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { limitNumberWithinRange } from 'src/app/core/helpers/functions/limitNumberWithinRange';
 import { Order } from 'src/app/core/interfaces/order';
 import { PortfolioDetailGallerySwiperComponent } from 'src/app/utils/portfolio-detail/components/portfolio-detail-gallery-swiper/portfolio-detail-gallery-swiper.component';
 
@@ -29,8 +30,17 @@ export class OrderDetailComponent implements OnChanges {
 
   ngOnChanges(): void {
     if (this.order) {
-      this.qty_form.controls['qty'].addValidators([Validators.max(this.order.qty)]);
+      this.qty_form.controls['qty'].addValidators([Validators.max(this.order.qty + 1)]);
       this.qty_form.patchValue({ qty: this.order.item.stock });
+    }
+  }
+
+  // Item quantity can not be negative or greater than the available stock
+  public limitProductQtyToStock(event: any ): void {
+    const VALUE: any = Number((event.target as HTMLTextAreaElement).value);
+    if(VALUE) {
+      const RESULT = limitNumberWithinRange(VALUE, 0, this.order.item.stock);
+      this.qty_form.patchValue({ qty: RESULT });
     }
   }
 

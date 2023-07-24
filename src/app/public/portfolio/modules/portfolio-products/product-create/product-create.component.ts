@@ -6,7 +6,7 @@ import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-boot
 import { lastValueFrom } from 'rxjs';
 import { Category } from 'src/app/core/interfaces/category.interface';
 import { Country } from 'src/app/core/interfaces/country.interface';
-import { Product } from 'src/app/core/interfaces/product.interface';
+import { Product } from 'src/app/core/interfaces/portfolio/product.interface';
 import { SubCategory } from 'src/app/core/interfaces/subcategory.interface';
 import { CategoriesService } from 'src/app/core/services/categories/categories.service';
 import { CountriesService } from 'src/app/core/services/countries/countries.service';

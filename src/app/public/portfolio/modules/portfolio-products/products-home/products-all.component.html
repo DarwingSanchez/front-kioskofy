@@ -3,8 +3,9 @@
     <div class="w-100">
         <app-breadcumber></app-breadcumber>
     </div>
+    <!-- Filters -->
     <div class="w-25 pe-3">
-        <div class="card-container">
+        <div>
             <app-portfolio-filters [page_limit]="page_limit" [page_current]="page_current"
                 [search_text]="input_form.value.search_text"
                 (emitFilters)="getFiltersApplied($event)"></app-portfolio-filters>
@@ -18,8 +19,10 @@
             </div>
             <!-- Portfolio card -->
             <div class="d-flex flex-wrap flex-row card-container gap-3">
-                <app-card-complete *ngFor="let product of products; let i = index"
-                    [portfolio]="product"></app-card-complete>
+                <ng-container *ngIf="products.length; else empty_state">
+                    <app-card-complete *ngFor="let product of products; let i = index" [portfolio]="product"
+                        [user_id]="user_id" [user]="user"></app-card-complete>
+                </ng-container>
             </div>
             <app-swiper [imgs]="banners_imgs"></app-swiper>
             <!-- Paginator -->
@@ -28,3 +31,7 @@
         </section>
     </div>
 </section>
+
+<ng-template #empty_state>
+    <app-empty-state class="w-100 flex-row-center" [title]="empty_state_msg"></app-empty-state>
+</ng-template>

@@ -16,7 +16,20 @@
     </span>
     <span class="d-flex flex-row test">
         <span href="#" class="rightArrow bold px-5">
-            <p class="h4 bold ">{{ portfolio.price | currency: 'CAD':'symbol':'1.0-2' }}</p>
+            <ng-container *ngIf="!portfolio.price_discount || portfolio.price_discount === 0; else discount">
+                <p class="h4 bold ">{{ portfolio.price | currency: 'CAD':'symbol':'1.2-2' }}</p>
+            </ng-container>
         </span>
     </span>
 </section>
+
+<ng-template #discount>
+    <span class="d-flex flex-column">
+        <p class="text-light text-end text-decoration-line-through h6">
+            {{ portfolio.price | currency: 'CAD':'symbol':'1.2-2' }}
+        </p>
+        <p class="h4 bold">
+            {{ portfolio.price_discount | currency: 'CAD$ ':'symbol':'1.2-2'}}
+        </p>
+    </span>
+</ng-template>

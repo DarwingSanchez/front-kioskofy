@@ -1,4 +1,4 @@
-.image-container {
+.image-container> {
     object-fit: contain;
     position: relative;
     max-height: 120px;
@@ -16,7 +16,7 @@
     max-width: 100%;
 }
 
-::ng-deep .modal-lg, ::ng-deep .modal-dialog {
+#order-detail-container>::ng-deep .modal-lg, #order-detail-container>::ng-deep .modal-dialog {
     width: 100vw !important;
     height: 100vh !important;
     max-width: 100vw !important;
@@ -24,14 +24,14 @@
     margin: 0;
 }
 
-::ng-deep .modal-content {
+#order-detail-container>::ng-deep .modal-content {
     display: flex;
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: transparent !important;
+    background-color: transparent;
 }
 
-::ng-deep app-portfolio-detail-gallery-swiper {
+#order-detail-container>::ng-deep app-portfolio-detail-gallery-swiper {
     height: 100%;
 }

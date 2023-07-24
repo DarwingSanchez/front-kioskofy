@@ -1,14 +1,13 @@
-import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { faFire, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { faFire } from '@fortawesome/free-solid-svg-icons';
+import { lastValueFrom } from 'rxjs';
+import { FONT_AWESOME_ICONS } from 'src/app/core/constants/icons';
 import { Category } from 'src/app/core/interfaces/category.interface';
 import { Country } from 'src/app/core/interfaces/country.interface';
 import { Product } from 'src/app/core/interfaces/portfolio/product.interface';
-import { FONT_AWESOME_ICONS } from 'src/app/core/constants/icons';
-import { FavoritesService } from 'src/app/core/services/favorites/favorites.service';
 import { User } from 'src/app/core/interfaces/user.interface';
-import { Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
+import { FavoritesService } from 'src/app/core/services/favorites/favorites.service';
 
 @Component({
   selector: 'app-card-complete',

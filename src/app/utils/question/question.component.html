@@ -1,0 +1,56 @@
+<main class="d-flex flex-row gap-2">
+    <!-- Main Question -->
+    <div class="d-flex flex-column gap-1">
+        <span class="user-picture">
+            <!-- Profile_picture -->
+            <ng-container *ngIf="question.user[0].profile_picture; else no_picture">
+                <img [src]="question.user[0].profile_picture" alt="" height="70" width="70">
+            </ng-container>
+        </span>
+        <!-- Date -->
+        <p class="h6 text-center">{{ question.createdAt | date:'LL/MMM/YY' }}</p>
+    </div>
+    <section class="question-container d-flex flex-column w-100 gap-3">
+        <!-- Question -->
+        <span class="question p-2 px-3">
+            <span class="flex-row-between">
+                <!-- Name -->
+                <p class="h5 text-secondary">{{question.user[0].name}} {{question.user[0].last_name}}</p>
+                <!-- Button -->
+                <p class="button-text-link m-0 text-end text-secondary" (click)="addReplyComment()">Reply</p>
+            </span>
+            <!-- Question -->
+            <p class="h5 text-justify pt-1 ps-1">{{question.comment}}</p>
+        </span>
+        <!-- ******** Replies******** -->
+        <div class="d-flex flex-row gap-2" *ngFor="let reply of question.reply_question">
+            <div class="d-flex flex-column gap-1">
+                <span class="user-picture overflow-hidden">
+                    <!-- Profile picture -->
+                    <ng-container *ngIf="reply.user[0].profile_picture; else no_picture">
+                        <img [src]="reply.user[0].profile_picture" alt="" height="70" width="70">
+                    </ng-container>
+                </span>
+                <!-- Date -->
+                <p class="h6 text-center">{{ reply.createdAt | date:'LL/MMM/YY' }}</p>
+            </div>
+            <div class="d-flex flex-column w-100">
+                <span class="reply p-2 px-3">
+                    <span class="flex-row-between">
+                        <!-- Name -->
+                        <p class="h5 text-secondary">{{reply.user[0].name}} {{reply.user[0].last_name}}</p>
+                        <!-- Button -->
+                        <p class="button-text-link m-0 text-end text-secondary" (click)="addReplyComment()">Reply</p>
+                    </span>
+                    <!-- Question -->
+                    <p class="h5 text-justify pt-1 ps-1">{{reply.comment}}</p>
+                </span>
+            </div>
+        </div>
+
+        <div class="line"></div>
+    </section>
+</main>
+<ng-template #no_picture>
+    <fa-icon [icon]="FONT_AWESOME_ICONS.icon_user" size="xl"></fa-icon>
+</ng-template>

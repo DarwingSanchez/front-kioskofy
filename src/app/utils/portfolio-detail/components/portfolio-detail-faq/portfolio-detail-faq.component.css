@@ -1,0 +1,6 @@
+.container-questions {
+    height: calc(25rem - 56px) !important;
+    max-height: 25rem;
+    height: min-content;
+    overflow-y: scroll;
+}

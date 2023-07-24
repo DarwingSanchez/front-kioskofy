@@ -1,5 +1,4 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { faBars, faCartShopping, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { lastValueFrom } from 'rxjs';
@@ -9,7 +8,6 @@ import { UsersService } from 'src/app/core/services/users/users.service';
 import { LoginComponent } from 'src/app/public/auth/login/login.component';
 import { SignupComponent } from 'src/app/public/auth/signup/signup.component';
 import { UserComponent } from 'src/app/public/user/user.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',

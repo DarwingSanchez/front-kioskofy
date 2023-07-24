@@ -27,7 +27,12 @@ export class UsersService {
   // Get user by Id
   public getUserById(id: string) {
     return this.http.get(`${this.URL_API}/user/${id}`);
-  }
+  }  
+
+  // Get user by id hides confidential data
+  public getDataUserLean(id: string) {
+    return this.http.get(`${this.URL_API}/user/confidential/${id}`);
+  }  
 
   // Get user by id hides confidential data
   public getDataUserLean(id: string) {

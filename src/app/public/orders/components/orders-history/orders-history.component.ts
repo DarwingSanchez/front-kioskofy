@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { Order } from 'src/app/core/interfaces/order';
 
 @Component({
   selector: 'app-orders-history',
@@ -10,13 +11,12 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 export class OrdersHistoryComponent {
   @Input() orders!: any;
   @Input() order_selected!: number;
+  @Output() emit_open_order = new EventEmitter();
   public faUser = faUser;
 
   constructor(private router: Router) {}
 
-  goToOrder(order_id: number) {
-    this.router.navigate([], { queryParams: { order_id: order_id } }).then(() => {
-      window.location.reload();
-    });
+  goToOrder(order: Order) {
+    this.router.navigate([], { queryParams: { order_id: order.order_id } }).then(() => {});
   }
 }

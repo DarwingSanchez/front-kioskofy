@@ -1,0 +1,13 @@
+main {
+    background-color: white;
+    max-width: 500px;
+    border-radius: 8px;
+    margin: auto;
+    position: relative;
+}
+
+.btn-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}

@@ -27,17 +27,27 @@ export class UsersService {
   // Get user by Id
   public getUserById(id: string) {
     return this.http.get(`${this.URL_API}/user/${id}`);
-  }
+  }  
+
+  // Get user by id hides confidential data
+  public getDataUserLean(id: string) {
+    return this.http.get(`${this.URL_API}/user/confidential/${id}`);
+  }  
+
+  // Get user by id hides confidential data
+  public getDataUserLean(id: string) {
+    return this.http.get(`${this.URL_API}/user/confidential/${id}`);
+  }  
 
   // Create user's profile
   public signUp(credentials: any) {
-    return this.http.post(`${this.URL_API}/user_create`, credentials);
-  }
+    return this.http.post(`${this.URL_API}/user`, credentials);
+  }  
 
   // Logged in user's profile
   public login(credentials: any) {
-    return this.http.post(`${this.URL_API}/user_login`, credentials);
-  }
+    return this.http.post(`${this.URL_API}/user/login`, credentials);
+  }  
 
   // Saves User's token into local storage
   public setUserAndTokenInLocalStorage(user: any, token: string | null): any {

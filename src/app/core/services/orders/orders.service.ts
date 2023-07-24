@@ -24,7 +24,8 @@ export class OrdersService {
       .set('item_type', filters.item_type)
       .set('status', filters.status)
       .set('sort', filters.sort)
-      .set('sort_order', filters.sort_order);
+      .set('sort_order', filters.sort_order)
+      .set('order_id', filters.order_id);
     return this.http.get(`${this.URL_API}/orders`, { params: query_params });
   }
 }

@@ -1,0 +1,29 @@
+<main class="d-flex flex-column gap-2 p-4 gap-3" [formGroup]="question_form">
+    <!-- Title -->
+    <div class="col-12">
+        <p class="bold h4">
+            Add a comment
+        </p>
+    </div>
+    <!-- Question -->
+    <div class="col-12">
+        <label for="input_description" class="h5 form-label pb-2">Your comment</label>
+        <textarea #description_product name="" id="" rows="3" formControlName="comment"
+            class="form-control form-control-sm py-2" id="input_comment" placeholder="This is the comment..." ngModel
+            maxlength="500"
+            [ngClass]="{'invalid-input': ( question_form.get('comment')?.hasError('required') && question_form.get('comment')?.touched )}">
+                                </textarea>
+        <sub class="d-flex justify-content-end mt-2"
+            [ngClass]="{ 'text-danger': description_product.value.length > 480 }">
+            Total characters: {{description_product.value.length || 0}}/500
+        </sub>
+    </div>
+    <!-- Call to action -->
+    <div class="flex-row-end-center mt-3">
+        <button type="submit" class="button-main-2 bold gap-3" (click)="sendQuestion()">
+            <p class="h5 bold">Send </p>
+            <fa-icon [icon]="FONT_AWESOME_ICONS.icon_send_msg" size="xl"></fa-icon>
+        </button>
+    </div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+</main>

@@ -1,11 +1,11 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Order } from 'src/app/core/interfaces/order';
-import { SocketWebService } from 'src/app/core/services/socket-web/socket-web.service';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom } from 'rxjs';
+import { FONT_AWESOME_ICONS } from 'src/app/core/constants/icons';
+import { Order } from 'src/app/core/interfaces/order';
 import { ChatService } from 'src/app/core/services/chat/chat.service';
+import { SocketWebService } from 'src/app/core/services/socket-web/socket-web.service';
 
 @Component({
   selector: 'app-chat',
@@ -14,7 +14,7 @@ import { ChatService } from 'src/app/core/services/chat/chat.service';
 })
 export class ChatComponent implements OnChanges {
   public some_html_code: any = '';
-  public icon_send_msg = faPaperPlane;
+  public readonly FONT_AWESOME_ICONS = FONT_AWESOME_ICONS;
   public form: FormGroup = this.formBuilder.group({ message: [''] });
   public empty_state_msg = '¡Nothing to see here, but you can start this conversation now!'
   @Input() user_id!: string;
@@ -28,77 +28,23 @@ export class ChatComponent implements OnChanges {
     private cookieService: CookieService,
     private socketWebService: SocketWebService,
     private chatService: ChatService,
-  ) {
-    // this.user = this.authService.user;
-    /** Función para escuchar los mensajes y colocarlos en la caja de mensajes de chat actual */
-    // socketWebService.callback.subscribe((res: any) => {
-    //   console.log('****', res);
-      
-    //   /** Marca el mensaje como leido */
-    //   res.leido = true;
-    //   /** Añade el mensaje al array de mensajes para guardar en la base */
-    //   // this.conversacion.push(res);
-    //   /** Si viene una imagen lo formatea para mostrarlo en el DOM */
-    //   /** Añade el mensaje al DOM desde el socket */
-    //   if (res.mensaje.startsWith('https://feat-resources.s3')) {
-    //     this.some_html_code =
-    //       this.some_html_code +
-    //       `<br><p class="text-center timestamp">${res.tiempo}</p>
-    //       <div class="text-left"> <span >  ${res.usuarioNombre}</span><span class="letra-auxiliar"> (${res.tipo}) </span></div>
-    //             <div class="d-flex flex-row card card-mensaje">
-    //             <div class="text-left card-body mensaje mensaje-dist"><p class="m-0"><img src="${res.mensaje}" style="width: 100%;" alt="imagen mensaje" class="img-mensaje"></p></div></div>`;
-    //   } else {
-    //     this.some_html_code =
-    //       this.some_html_code +
-    //       `<br><p class="text-center timestamp">${res.tiempo}</p>
-    //       <div class="text-left"> <span >  ${res.usuarioNombre}</span><span class="letra-auxiliar"> (${res.tipo}) </span></div>
-    //             <div class="d-flex flex-row card card-mensaje">
-    //             <div class="text-left card-body mensaje mensaje-dist"><p class="m-0">${res.mensaje}</p></div></div>`;
-    //   }
-    //   // this.scrollToBottom();
-    //   // this.playSound();
-    // });
-  }
+  ) {}
 
 
-  ngOnChanges(changes: SimpleChanges): void {
-      if(this.order._id) {
-        console.log('entra');
-        try {
-          
-          
-          let resp = this.cookieService.set('room', this.order._id);
-          this.socketWebService.callback.subscribe((res: any) => {
-            console.log('****->', res);
-          /** Marca el mensaje como leido */
-          res.leido = true;
-          /** Añade el mensaje al array de mensajes para guardar en la base */
-          // this.conversacion.push(res);
-          /** Si viene una imagen lo formatea para mostrarlo en el DOM */
-          /** Añade el mensaje al DOM desde el socket */
-          if (res.mensaje.startsWith('https://feat-resources.s3')) {
-            this.some_html_code =
-              this.some_html_code +
-              `<br><p class="text-center timestamp">${res.tiempo}</p>
-              <div class="text-left"> <span >  ${res.usuarioNombre}</span><span class="letra-auxiliar"> (${res.tipo}) </span></div>
-                    <div class="d-flex flex-row card card-mensaje">
-                    <div class="text-left card-body mensaje mensaje-dist"><p class="m-0"><img src="${res.mensaje}" style="width: 100%;" alt="imagen mensaje" class="img-mensaje"></p></div></div>`;
-          } else {
-            this.some_html_code =
-              this.some_html_code +
-              `<br><p class="text-center timestamp">${res.tiempo}</p>
-              <div class="text-left"> <span >  ${res.usuarioNombre}</span><span class="letra-auxiliar"> (${res.tipo}) </span></div>
-                    <div class="d-flex flex-row card card-mensaje">
-                    <div class="text-left card-body mensaje mensaje-dist"><p class="m-0">${res.mensaje}</p></div></div>`;
-          }
-          // this.scrollToBottom();
-          // this.playSound();
+  ngOnChanges(): void {
+    if(this.chat) setTimeout(() => { this.scrollToBottom() }, 1500); 
+    if(this.order._id) {
+      try {
+        this.cookieService.set('room', this.order._id);
+        this.socketWebService.callback.subscribe((message: any) => {
+          this.chat.history.push(message);
+          this.scrollToBottom();
+          this.playSound();
         });
-                } catch (error) {
-         console.log('--->', error);
-          
-        }
+      } catch (error) {
+        console.log('--->', error);
       }
+    }
   }
 
   public async sendMessage() {
@@ -109,8 +55,9 @@ export class ChatComponent implements OnChanges {
     }
     this.socketWebService.emitEven(MESSAGE);
     this.chat.history.push(MESSAGE);
-    // this.saveMessage(MESSAGE);
+    this.saveMessage(MESSAGE);
     this.form.reset();
+    this.scrollToBottom();
   }
 
   // Save message into the database
@@ -129,5 +76,19 @@ export class ChatComponent implements OnChanges {
   // Validates if a message date is different than the previous one
   public isDifferentDay(date_start: any, date_end: any): boolean {
     return new Date(date_start).getDay() !== new Date(date_end).getDay();
+  }
+
+  // Scroll to the end of the div
+  scrollToBottom() {
+    const objDiv: HTMLElement | null = document.getElementById('chat-box');
+    setTimeout(() => {
+      objDiv!.scrollTop = objDiv!.scrollHeight;
+    }, 300);
+  }
+
+  // Message chat alert
+  playSound() {
+    const audio = new Audio('./assets/sounds/bell-notification.wav');
+    audio.play();
   }
 }

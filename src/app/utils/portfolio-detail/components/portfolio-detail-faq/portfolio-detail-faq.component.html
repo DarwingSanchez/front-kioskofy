@@ -1,0 +1,16 @@
+<main class="h-100">
+    <div class="container-questions d-flex flex-column gap-4">
+        <ng-container *ngIf="questions.length; else empty_state">
+            <span *ngFor="let question of questions">
+                <app-question [question]="question" (emit_reply_comment)="addComment($event)"></app-question>
+            </span>
+        </ng-container>
+    </div>
+    <div class="flex-row-end-center mt-3">
+        <button (click)="addComment()" class="button-main-2 bold">Ask a question</button>
+    </div>
+</main>
+
+<ng-template #empty_state>
+    <app-empty-state [title]="empty_state_msg"></app-empty-state>
+</ng-template>

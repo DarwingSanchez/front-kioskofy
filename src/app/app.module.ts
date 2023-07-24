@@ -84,6 +84,9 @@ import { OrderDetailComponent } from './public/orders/components/order-detail/or
 import { ProfilePictureComponent } from './utils/profile-picture/profile-picture.component';
 import { EmptyStateComponent } from './utils/empty-state/empty-state.component';
 import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
+import { PortfolioDetailFAQComponent } from './utils/portfolio-detail/components/portfolio-detail-faq/portfolio-detail-faq.component';
+import { QuestionComponent } from './utils/question/question.component';
+import { AskQuestionComponent } from './modal/ask-question/ask-question.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -153,6 +156,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     OrderDetailComponent,
     ProfilePictureComponent,
     EmptyStateComponent,
+    PortfolioDetailFAQComponent,
+    QuestionComponent,
+    AskQuestionComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({ apiKey: environment.gmaps_key, language: 'en' }),
@@ -167,7 +173,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
-    MatInputModule,
     MatSelectModule,
     MatSlideToggleModule,
     MatSliderModule,
@@ -179,9 +184,10 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatDatepickerModule,
     MatAutocompleteModule,
     MatFormFieldModule,
+    MatInputModule,
     MatNativeDateModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
   ],
 
   providers: [CurrencyPipe, NgbActiveModal, { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],

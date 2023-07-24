@@ -10,13 +10,14 @@
             My sales
         </a>
     </nav>
-    <ng-container *ngIf="orders; else empty_setate">
+    <ng-container *ngIf="orders; else empty_state">
         <section id="main-container" class="d-flex flex-row gap-3">
             <div class="card-container col-md-4 history">
-                <app-orders-history [orders]="orders" [order_selected]="order_id"></app-orders-history>
+                <app-orders-history [orders]="orders" [order_selected]="order_id"
+                    (emit_open_order)="order_selected = $event"></app-orders-history>
             </div>
             <div class="card-container col-md-8 chat">
-                <ng-container *ngIf="chat; else empty_setate">
+                <ng-container *ngIf="chat; else empty_state">
                     <app-order-detail [user_id]="user_id" [chat]="chat" [order]="order_selected"></app-order-detail>
                 </ng-container>
             </div>
@@ -24,6 +25,6 @@
     </ng-container>
 </main>
 
-<ng-template #empty_setate>
+<ng-template #empty_state>
     <app-empty-state [title]="empty_state_msg"></app-empty-state>
 </ng-template>

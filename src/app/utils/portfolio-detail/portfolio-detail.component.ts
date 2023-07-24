@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { faCommentDots, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { lastValueFrom } from 'rxjs';
+import { FONT_AWESOME_ICONS } from 'src/app/core/constants/icons';
+import { limitNumberWithinRange } from 'src/app/core/helpers/functions/limitNumberWithinRange';
 import { Order } from 'src/app/core/interfaces/order';
 import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
 import { OrdersService } from 'src/app/core/services/orders/orders.service';
@@ -18,9 +20,8 @@ import { SimpleAlertComponent } from 'src/app/modal/simple-alert/simple-alert.co
 })
 export class PortfolioDetailComponent implements OnChanges, OnInit {
   @Input() portfolio!: any;
-  public icon_user = faUser;
-  public icon_star = faStar;
-  private user_id!: string;
+  public readonly FONT_AWESOME_ICONS = FONT_AWESOME_ICONS;
+  public user_id!: string;
   private is_order_exists: any;
   public image_selected!: string;
   public images_seleceted_is_video: boolean = false;
@@ -36,9 +37,7 @@ export class PortfolioDetailComponent implements OnChanges, OnInit {
     private ordersService: OrdersService,
     private productViewsService: ProductViewsService,
     private router: Router,
-  ) {
-  
-  }
+  ) {}
 
   ngOnChanges(): void {
     if (this.portfolio && !this.image_selected) {
@@ -118,10 +117,22 @@ export class PortfolioDetailComponent implements OnChanges, OnInit {
       seller:  this.portfolio.seller._id,
       item_type: this.router.url.split('/')[1] ===  'product' ? 'product' : 'service',
       item: this.portfolio._id,
+      price: this.portfolio.price,
+      price_discount: this.portfolio.price_discount,
       qty: this.qty_form.value.qty!,
       status: 'pending'
     }
     return ORDER;
+  }
+
+
+  // Item quantity can not be negative or greater than the available stock
+  public limitProductQtyToStock(event: any ): void {
+    const VALUE: any = Number((event.target as HTMLTextAreaElement).value);
+    if(VALUE) {
+      const RESULT = limitNumberWithinRange(VALUE, 0, this.portfolio.stock);
+      this.qty_form.patchValue({ qty: RESULT });
+    }
   }
 
   // Open modal to alert the user

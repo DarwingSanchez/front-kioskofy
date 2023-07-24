@@ -1,15 +1,13 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { faBars, faCartShopping, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FormControl } from '@angular/forms';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { faBars, faCartShopping, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { lastValueFrom, map, startWith } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
 import { ProductsService } from 'src/app/core/services/products/products.service';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { LoginComponent } from 'src/app/public/auth/login/login.component';
 import { SignupComponent } from 'src/app/public/auth/signup/signup.component';
 import { UserComponent } from 'src/app/public/user/user.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -74,7 +72,6 @@ export class HeaderComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private usersService: UsersService,
     private productServe: ProductsService,
-    private router : Router
     ) {
       this.sizeScreen = window.innerWidth;
       this.onDetectMobile();

@@ -39,6 +39,7 @@ html {
     --color-main-light-transparent: #fff9cc7c;
     --color-main-light-2: #e6f4ff;
     --color-main-ultra-light: #fff8f6;
+    --color-main-ultra-light-2: #f3f9fd;
     --color-main-dark: #0a121e;
     --color-main-background: #f8f8f8;
     --color-disabled: #f8f9fa;
@@ -47,7 +48,6 @@ html {
     --color-font: #282B28;
     --color-price: #140d4a;
     --color-alert: #ff3860;
-    --color-warning: #ffd43b;
     --color-success: #23d160;
     --size-window: 1200px;
 }
@@ -76,6 +76,13 @@ html {
     flex-direction: row;
     justify-content: flex-start;
     align-items: end;
+}
+
+.flex-row-end-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .flex-column-center {
@@ -261,7 +268,7 @@ html {
 }
 
 .button-text:hover {
-    color: var(--color-main-dark);
+    color: var(--color-main-dark) !important;
 }
 
 .border-dark {
@@ -362,7 +369,7 @@ html {
 }
 
 .button-text-link:hover {
-    color: var(--color-main);
+    color: var(--color-main) !important;
 }
 
 .border-transparent {

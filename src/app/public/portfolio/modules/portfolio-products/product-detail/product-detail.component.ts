@@ -49,8 +49,6 @@ export class ProductDetailComponent implements OnInit {
         else throw new Error;
       })
       .catch((error: Error) => {
-        console.log(error);
-
         throw error;
       });
   }

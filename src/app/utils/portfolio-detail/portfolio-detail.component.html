@@ -18,39 +18,49 @@
                 <span class="d-flex flex-row col-md-4 gap-2">
                     <span class="user-picture">
                         <ng-container *ngIf="!portfolio.seller.image; else seller_picture">
-                            <fa-icon [icon]="icon_user" size="xl"></fa-icon>
+                            <fa-icon [icon]="FONT_AWESOME_ICONS.icon_user" size="xl"></fa-icon>
                         </ng-container>
                         <ng-template #seller_picture>
                             <img [src]="portfolio.seller.image" alt="" height="70" width="70">
                         </ng-template>
                     </span>
                     <span class="d-flex flex-column justify-content-center align-items-start">
-                        <p class="bold m-0">{{portfolio.seller.name}} {{portfolio.seller.last_name}}</p>
-                        <span class="d-flex flex-row gap-2">
-                            <fa-icon class="icon-star" size="lg" [icon]="icon_star"></fa-icon>
-                            <p class="m-0">5.0</p>
+                        <p class="bold h5 m-0">{{portfolio.seller.name}} {{portfolio.seller.last_name}}</p>
+                        <span class="d-flex flex-row align-items-center gap-1 text-success bold h5"
+                            ngbTooltip="Sales completed">
+                            <fa-icon class="text-success" size="lg" [icon]="FONT_AWESOME_ICONS.icon_receipt"></fa-icon>
+                            <p class="m-0 bold h5 text-center">5</p>
                         </span>
                     </span>
                 </span>
                 <span class="col-md-3 px-md-2" [formGroup]="qty_form">
                     <mat-form-field class="quantity-input" appearance="outline">
                         <mat-label class="h5">Quantity:</mat-label>
-                        <input formControlName="qty" matInput type="number">
+                        <input formControlName="qty" matInput type="number" (keydown)="limitProductQtyToStock($event)"
+                            (blur)="limitProductQtyToStock($event)" (change)="limitProductQtyToStock($event)"
+                            (focus)="limitProductQtyToStock($event)">
                     </mat-form-field>
                 </span>
                 <button class="col-md-5 button-main-2 flex-row-center gap-2"
                     [ngClass]="qty_form.invalid && qty_form.get('qty')?.touched ? 'button-disabled' : ''"
                     (click)="qty_form.valid ? createOrder() : qty_form.markAllAsTouched()">
                     <p class="bold m-0 h5">¡I want it!</p>
-                    <fa-icon class="icon-upload-img" size="xl" [icon]="icon_message"></fa-icon>
+                    <fa-icon class="icon-upload-img" size="xl" [icon]="FONT_AWESOME_ICONS.icon_message"></fa-icon>
                 </button>
             </div>
         </div>
     </div>
-    <div class="col-12 card-container">
-        <p class="bold">Tentative pick-up locations</p>
-        <div *ngIf="portfolio.pickup_locations">
-            <app-portfolio-detail-location [locations]="portfolio.pickup_locations"></app-portfolio-detail-location>
+    <div class="col-12 d-flex flex-row h-100">
+        <div class="col-6 card-container">
+            <p class="bold h5 pb-2">Tentative pick-up locations</p>
+            <div *ngIf="portfolio.pickup_locations">
+                <app-portfolio-detail-location [locations]="portfolio.pickup_locations"></app-portfolio-detail-location>
+            </div>
+        </div>
+        <div class="col-6 card-container h-100">
+            <p class="bold h5 pb-2">Frequently asked questions</p>
+            <app-portfolio-detail-faq [user_id]="user_id" [item_id]="portfolio._id"
+                class="h-100"></app-portfolio-detail-faq>
         </div>
     </div>
 </section>

@@ -56,14 +56,14 @@
         </small>
     </div>
     <button type="submit" class="button-main mt-2" [ngClass]="{'button-disabled': userForm.invalid}">
-        Sing Up
+        Save Changes
     </button>
+    <button type="button" (click)="onEmiteValue('logout')" class="button-main-2">Log out</button>
     <hr class="my-1">
     <div class="bottom-main-container">
         <a class="button-text" (click)="onEmiteValue('password')">
             Change Password
         </a>
-        <button type="button" (click)="onEmiteValue('logout')" class="log-out-btn">Log out</button>
     </div>
 </form>
 
